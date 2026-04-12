@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>15D WINGS | OPERATIONAL PROTOCOL</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { fbblue: '#1877F2', nearblack: '#030507', luxurygray: '#F9FAFB' },
+                    fontFamily: { 
+                        sync: ['Syncopate', 'sans-serif'], 
+                        monument: ['Monument Extended', 'sans-serif'], 
+                        lexend: ['Lexend', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body, html { margin: 0; padding: 0; background: #F9FAFB; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; overflow-x: hidden; }
+        
+        /* TECH GRID WITH RADAR LINE */
+        .tech-grid {
+            background-image: linear-gradient(rgba(24, 119, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 119, 242, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            position: relative;
+        }
+
+        .radar-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(24, 119, 242, 0.3);
+            box-shadow: 0 0 15px rgba(24, 119, 242, 0.5);
+            z-index: 1000;
+            pointer-events: none;
+            animation: radar-sweep 6s linear infinite;
+        }
+
+        @keyframes radar-sweep {
+            0% { top: -5%; }
+            100% { top: 105%; }
+        }
+
+        .title-monument { font-family: 'Monument Extended', sans-serif; font-weight: 900; line-height: 1.1; text-transform: uppercase; color: #030507; letter-spacing: -0.02em; }
+        .ui-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase !important; letter-spacing: 0.2em; font-weight: 700; }
+        .body-lexend { font-family: 'Lexend', sans-serif; color: #374151; font-weight: 400; line-height: 1.7; }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-active { opacity: 1; transform: translateY(0); }
+        
+        .section-tag { font-family: 'Syncopate', sans-serif; font-size: 9px; color: #1877F2; margin-bottom: 2rem; display: block; border-left: 2px solid #1877F2; padding-left: 10px; }
+        
+        .protocol-card { background: white; border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; }
+        
+        @media (max-width: 768px) {
+            .title-monument { font-size: 2.25rem !important; line-height: 1.2; }
+            .tech-grid { background-size: 20px 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-luxurygray">
+
+    <div class="radar-line"></div>
+
+    <nav class="fixed top-0 w-full z-[100] py-5 px-6 md:px-10 flex justify-between items-center bg-white/80 backdrop-blur-2xl border-b border-gray-100">
+        <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-5 md:h-6">
+        <div class="nav-links ui-sync text-[8px] space-x-6 hidden lg:flex">
+            <a href="#admission" class="hover:text-fbblue transition">Admission</a>
+            <a href="#confirmation" class="hover:text-fbblue transition">Confirmation</a>
+            <a href="#continuity" class="hover:text-fbblue transition">Continuity</a>
+            <a href="/concierge" class="hover:text-fbblue transition">Concierge</a>
+            <a href="/about" class="hover:text-fbblue transition">Legacy</a>
+        </div>
+        <a href="https://wings.15d.name.ng/flight-request" class="ui-sync text-[7px] md:text-[8px] bg-fbblue text-white px-4 md:px-6 py-2.5 md:py-3 rounded-none hover:bg-nearblack transition duration-500">Flight Request</a>
+    </nav>
+
+    <main class="tech-grid pt-32 md:pt-64 pb-24 md:pb-48 px-6 md:px-8">
+        <div class="max-w-7xl mx-auto">
+            
+            <header class="mb-24 md:mb-64 reveal">
+                <p class="ui-sync text-fbblue mb-6 text-[9px] md:text-[10px]">15D WINGS</p>
+                <h1 class="title-monument text-3xl md:text-8xl">CLIENT EXPERIENCE <br>& OPERATIONS</h1>
+            </header>
+
+            <section id="admission" class="mb-32 md:mb-64 reveal">
+                <span class="section-tag">I. MISSION ADMISSION & FEASIBILITY</span>
+                
+                <div class="space-y-24 md:space-y-48">
+                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
+                        <div class="lg:col-span-5">
+                            <h2 class="title-monument text-xl md:text-5xl">How Does The <br class="hidden md:block">Process Begin?</h2>
+                        </div>
+                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-6 md:space-y-8">
+                            <p>Every journey begins inside our planning system. Once we receive your request, our decision engines evaluate routing, aircraft suitability, timing sensitivity, regulatory requirements, and overall feasibility.</p>
+                            <p>This allows us to confirm — <strong>before anything is committed</strong> — that your mission can be executed smoothly. If something introduces avoidable risk, we’ll let you know early and suggest adjustments.</p>
+                            <p class="ui-sync text-fbblue font-bold text-[9px] md:text-[11px] pt-2">Our goal: If we accept it, we can deliver it.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
+                        <div class="lg:col-span-5">
+                            <h2 class="title-monument text-xl md:text-5xl">Why Might A <br class="hidden md:block">Request Be Declined?</h2>
+                        </div>
+                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-6 md:space-y-8">
+                            <p>Occasionally, regulatory restrictions, aircraft positioning realities, or compressed timelines fall outside our execution standards.</p>
+                            <p>When that happens, we will either recommend an alternative or respectfully decline. We only move forward when we’re confident in the outcome.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="confirmation" class="mb-32 md:mb-64 reveal">
+                <span class="section-tag">II. 48-HOUR CONFIRMATION</span>
+                
+                <div class="space-y-24 md:space-y-48">
+                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
+                        <div class="lg:col-span-5">
+                            <h2 class="title-monument text-xl md:text-5xl">The 48-Hour <br class="hidden md:block">Commitment</h2>
+                        </div>
+                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-8 md:space-y-12">
+                            <p>Around 48 hours prior to departure, your mission shifts from planning mode to commitment mode. This is the "Lock" phase.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Aircraft are Secured</div>
+                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Crew Finalized</div>
+                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Fueling & Handling</div>
+                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Permits Activated</div>
+                            </div>
+                            <p>Cleared funds allow our system to lock these elements in place and protect your departure window.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="continuity" class="mb-32 md:mb-64 reveal">
+                <span class="section-tag">III. CREDITS, CANCELLATIONS & CONTINUITY</span>
+                
+                <div class="space-y-24 md:space-y-48">
+                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
+                        <div class="lg:col-span-5">
+                            <h2 class="title-monument text-xl md:text-5xl">The Continuity <br class="hidden md:block">Structure</h2>
+                        </div>
+                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-8 md:space-y-12">
+                            <p>If you choose to cancel or adjust your mission, funds are typically preserved as a <strong>Flight Credit</strong>. This keeps your access active within our operator network.</p>
+                            
+                            <div class="space-y-8 md:space-y-12 border-l-2 border-fbblue/20 pl-6 md:pl-12">
+                                <div>
+                                    <p class="ui-sync text-fbblue text-[8px] md:text-[9px] mb-3">Voluntary Changes</p>
+                                    <p class="text-base md:text-lg">Funds remain as flight credit. Cash reimbursement is not standard in these cases.</p>
+                                </div>
+                                <div>
+                                    <p class="ui-sync text-fbblue text-[8px] md:text-[9px] mb-3">Execution Failure</p>
+                                    <p class="text-base md:text-lg">If we are unable to execute and no viable alternative exists: operator fees are returned. <strong>Platform planning and oversight fees remain earned</strong> once operational coordination has begun.</p>
+                                </div>
+                                <div>
+                                    <p class="ui-sync text-fbblue text-[8px] md:text-[9px] mb-3">Unused Credits</p>
+                                    <p class="text-base md:text-lg">After a defined window, partial reimbursement may be requested. Administrative adjustments apply.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mt-32 md:mt-64 pt-16 md:pt-32 border-t-2 border-nearblack reveal">
+                <h2 class="title-monument text-2xl md:text-7xl mb-12 md:mb-16">Steady. <br>Composed. <br>Predictable.</h2>
+                <div class="grid lg:grid-cols-2 gap-12 md:gap-24">
+                    <div class="body-lexend text-xl">
+                        <p>We combine structured aviation decision systems with experienced human oversight.</p>
+                        <p class="mt-8 text-[9px] ui-sync text-fbblue">Contact</p>
+                        <p class="text-nearblack font-bold break-all text-base md:text-xl">concierge@15dwings.com.ng</p>
+                    </div>
+                    <div class="flex flex-col justify-end items-start lg:items-end space-y-6 md:space-y-8">
+                        <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-8 md:h-10">
+                        <div class="text-left lg:text-right">
+                            <p class="ui-sync text-[8px] md:text-[9px] text-nearblack mb-2 leading-loose">15D Wings is a trading name of <br class="md:hidden">Sky Party LTD RC 8997727</p>
+                            <p class="ui-sync text-gray-400 text-[7px] md:text-[8px]">Architects of Certainty — © 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </main>
+
+    <script>
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('reveal-active'); });
+            }, { threshold: 0.05 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+        window.onload = initReveal;
+    </script>
+</body>
+</html>
