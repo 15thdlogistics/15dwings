@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15D WINGS | Mission Dispatch v7.9.3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --glass: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-border-bottom: rgba(0, 0, 0, 0.08);
+            --text-main: #0f172a;
+            --text-soft: #64748b;
+            --accent: #1877F2;
+            --accent-glow: rgba(24, 119, 242, 0.15);
+            --input-bg: rgba(0, 0, 0, 0.03);
+            --disclaimer-bg: rgba(24, 119, 242, 0.05);
+            --disclaimer-text: #475569;
+            --modal-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #020617;
+            --glass: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8));
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-border-bottom: rgba(255, 255, 255, 0.05);
+            --text-main: #ffffff; 
+            --text-soft: #94a3b8; 
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.2);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --disclaimer-bg: rgba(15, 23, 42, 0.95);
+            --disclaimer-text: #f8fafc;
+            --modal-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 10%, #dbeafe, transparent 40%), radial-gradient(circle at 80% 80%, #e0f2fe, transparent 50%), var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Lexend', sans-serif;
+            transition: background 0.5s ease, color 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .monument { font-family: 'Monument Extended', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; }
+
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(24px) saturate(140%);
+            border: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border-bottom);
+            border-radius: 26px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .input-pill {
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border-bottom);
+            border-radius: 16px;
+            padding: 14px 20px;
+            color: var(--text-main);
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .input-pill:focus { border-color: var(--accent); background: rgba(255,255,255,0.02); }
+
+        .price-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, var(--text-main), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
+        .btn-luxury {
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
+            color: white;
+            border-radius: 20px;
+            padding: 20px;
+            font-family: 'Monument Extended', sans-serif;
+            font-size: 0.75rem;
+            box-shadow: 0 10px 25px var(--accent-glow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
+        }
+        .btn-luxury:disabled { opacity: 0.3; filter: grayscale(1); cursor: not-allowed; transform: scale(0.98); }
+
+        #map { height: 350px; border-radius: 20px; z-index: 10; overflow: hidden; background: #f1f5f9; border: 1px solid var(--glass-border-bottom); }
+
+        .log-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-soft);
+            margin-bottom: 12px;
+            opacity: 0.2;
+            transition: all 0.5s ease;
+        }
+        .log-line.active { opacity: 1; color: var(--accent); }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: #cbd5e1; }
+        .log-line.active .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+        .suggestion-box {
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            background: var(--bg-main);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border-bottom);
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .leg-row {
+            background: var(--input-bg);
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .leg-price-badge {
+            font-size: 0.55rem;
+            font-weight: bold;
+            color: var(--accent);
+            background: var(--accent-glow);
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        .disclaimer-box {
+            background: var(--disclaimer-bg);
+            border: 1px solid var(--accent-glow);
+            color: var(--disclaimer-text);
+            padding: 2rem;
+            border-radius: 26px;
+            line-height: 1.6;
+        }
+
+        #processing-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-main);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(40px);
+        }
+
+        .export-error {
+            color: #ef4444;
+            font-size: 0.55rem;
+            font-family: 'Monument Extended', sans-serif;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .aircraft-detail {
+            font-size: 0.65rem;
+            background: var(--accent-glow);
+            border-left: 2px solid var(--accent);
+            padding: 10px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 10px;
+        }
+        
+        #modal-success {
+            background: var(--modal-bg);
+            transition: background 0.3s ease;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div id="processing-overlay">
+        <div class="text-center space-y-8 max-w-md w-full px-10">
+            <div class="price-text text-4xl mb-4 uppercase">Verifying Payload</div>
+            <div class="h-1 w-full bg-slate-200/20 rounded-full overflow-hidden">
+                <div id="p-bar" class="h-full bg-blue-600 w-0 transition-all duration-700"></div>
+            </div>
+            <p id="p-step" class="monument text-[0.6rem] text-slate-400">Handshaking with Intake Tower</p>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto space-y-10">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <h1 class="monument text-3xl mb-1">15D WINGS</h1>
+                <p class="text-[0.6rem] tracking-[0.5em] text-blue-600 font-bold">PRIVATE DISPATCH & INTAKE v7.9.3</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="flex gap-4">
+                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 opacity-50">Export Invoice</button>
+                    <button onclick="toggleTheme()" class="glass-panel px-6 py-3 text-[0.6rem] monument hover:scale-105 transition-transform">Switch Theme</button>
+                </div>
+                <span id="export-error-msg" class="export-error">UNAUTHORIZED: AUTHORIZE MISSION TO ENABLE EXPORT</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 space-y-8">
+                <div class="glass-panel p-6 md:p-10 space-y-10">
+                    <div>
+                        <span class="monument text-[0.6rem] text-slate-400 block mb-6">/ Identification</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input type="text" id="name" placeholder="Passenger Name / Broker Name" class="input-pill" required>
+                            <input type="email" id="email" placeholder="Verification Email" class="input-pill" required>
+                        </div>
+                    </div>
+
+                    <div class="pt-10 border-t border-slate-100/10">
+                        <div class="flex justify-between items-end mb-6">
+                            <span class="monument text-[0.6rem] text-slate-400 block">/ Multi-Leg Mission Matrix</span>
+                        </div>
+                        <div id="legs-container" class="space-y-4"></div>
+                        <button onclick="addLeg()" class="text-[0.6rem] monument text-blue-600 mt-4 px-4 py-2 border border-blue-100/20 rounded-full hover:bg-blue-500/10 transition-all">
+                            [ + Add Destination ]
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-slate-100/10">
+                        <div>
+                            <span class="monument text-[0.6rem] text-slate-400 block mb-4">/ Aircraft Class Selection</span>
+                            <select id="ac-class" class="input-pill" onchange="syncPaxLogic()">
+                                <option value="LIGHT">Light Jet | 4-6 Pax</option>
+                                <option value="MID">Midsize Jet | 7-9 Pax</option>
+                                <option value="HEAVY" selected>Heavy Jet | 10-14 Pax</option>
+                                <option value="ULTRA">Ultra/Regional | 15-50 Pax</option>
+                            </select>
+                            <div id="ac-specs" class="aircraft-detail text-slate-500 italic">
+                                Loading fleet profile...
+                            </div>
+                        </div>
+                        <div>
+                            <span class="monument text-[0.6rem] text-slate-400 block mb-4">/ Manifest Count</span>
+                            <input type="number" id="pax" value="1" min="1" class="input-pill" oninput="runAnalysis()">
+                            <p id="pax-warning" class="text-[0.5rem] text-red-500 monument mt-2 hidden">CAPACITY EXCEEDED: PRICING LOCKED</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8">
+                    <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury">Authorize Mission Intake</button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 space-y-8">
+                <div class="glass-panel p-10 text-center relative overflow-hidden">
+                    <span class="monument text-[0.55rem] text-slate-400 mb-6 block">Estimated Mission Cost (USD)</span>
+                    <div id="price-val" class="price-text">$0</div>
+                    <div id="confidence-tag" class="text-[0.5rem] monument text-slate-400 mt-2 uppercase">Market Optimized Estimate</div>
+                </div>
+
+                <div class="glass-panel p-6">
+                    <div id="map"></div>
+                </div>
+
+                <div class="glass-panel p-10">
+                    <span class="monument text-[0.6rem] text-slate-400 mb-8 block">Operational Intel Log</span>
+                    <div id="intel-log" class="space-y-2">
+                        <div class="log-line" id="l-dist"><div class="dot"></div> Route calculated</div>
+                        <div class="log-line" id="l-min"><div class="dot"></div> Minimum block time applied</div>
+                        <div class="log-line" id="l-env"><div class="dot"></div> Aircraft range validated</div>
+                        <div class="log-line" id="l-intl"><div class="dot"></div> Overflight permits detected</div>
+                        <div class="log-line" id="l-urg"><div class="dot"></div> Priority 72h window</div>
+                    </div>
+                </div>
+
+                <div class="disclaimer-box">
+                    <span class="monument text-[0.6rem] text-blue-600 mb-4 block font-bold">Aviation Operational Advisory</span>
+                    <p class="text-[0.65rem] opacity-70 italic mb-4">
+                        <span class="text-blue-600 font-bold uppercase block mb-1">Sub-72H Protocol:</span>
+                        Flight requests made within 72 hours of departure fall into the manual validation zone. An intake worker will likely contact you manually to verify feasibility.
+                    </p>
+                    <p class="text-[0.65rem] opacity-70 italic">
+                        <span class="text-blue-600 font-bold uppercase block mb-1">Market Variation Disclaimer:</span>
+                        Please note that the above prices are rough estimates. Actual pricing may likely be lesser or slightly higher than the estimate upon gaining access to the 15D Wings Mission Portal.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center pt-10 pb-20 border-t border-slate-200/10 mt-20">
+            <div class="max-w-2xl mx-auto space-y-4">
+                <p class="text-[0.7rem] monument text-slate-400">15D Wings | Sky Party LTD (RC 8997727)</p>
+                <p class="text-[0.6rem] text-slate-400 leading-relaxed uppercase tracking-widest px-4">
+                    21 Lugard Avenue, Ikoyi Lagos, Nigeria.
+                </p>
+                <a href="mailto:concierge@skyparty.name.ng" class="text-[0.55rem] text-blue-600 underline opacity-70 hover:opacity-100">concierge@skyparty.name.ng</a>
+            </div>
+        </footer>
+    </main>
+
+    <div id="modal-success" class="fixed inset-0 backdrop-blur-2xl z-[2000] hidden items-center justify-center p-6 text-center">
+        <div class="max-w-xl space-y-10">
+            <div class="price-text text-4xl uppercase">Handshake Complete</div>
+            <p id="ref-id" class="monument text-sm text-blue-600 font-bold">MISSION AUTHORIZED</p>
+            <div class="glass-panel p-10 text-sm text-slate-600 dark:text-slate-200 leading-relaxed text-left">
+                <b class="text-blue-600 monument text-[0.6rem] block mb-2 underline">URGENT ACTION REQUIRED:</b>
+                Payload has been synchronized. Check your mail immediately at <span id="conf-email" class="text-blue-600 font-bold underline"></span> for the flight manifest.
+            </div>
+            <div class="flex gap-4 justify-center">
+                <button onclick="generatePDF()" class="monument text-[0.6rem] px-8 py-4 bg-blue-600 text-white rounded-full hover:scale-105 transition-transform">Download Invoice</button>
+                <button onclick="location.reload()" class="monument text-[0.6rem] text-slate-400 hover:text-blue-600">New Mission</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const INTAKE_WORKER_URL = 'https://intake.15d.name.ng';
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwhhmVYLdMHeqBvb5mETjWhBJdPi3rMdoHsWBTxdEOWRy_uchTV43f63fU6Mi3_ncrf/exec';
+
+        const AIRCRAFT = {
+            LIGHT: { speed: 700, rate: 3800, minHrs: 2.0, label: "Light Jet", range: 2500, maxPax: 6, models: "Phenom 300, Citation CJ4, Hawker 400XP" },
+            MID:   { speed: 780, rate: 5800, minHrs: 2.0, label: "Midsize Jet", range: 3800, maxPax: 9, models: "Hawker 800/900XP, Learjet 60XR, Praetor 500" },
+            HEAVY: { speed: 850, rate: 9200, minHrs: 3.0, label: "Heavy Jet", range: 6500, maxPax: 14, models: "Challenger 604/605, Legacy 600/650, Falcon 900" },
+            ULTRA: { speed: 920, rate: 13800, minHrs: 3.0, label: "Ultra/Regional", range: 12500, maxPax: 50, models: "ERJ-135/145, Global 6000/7500, G550/G650" }
+        };
+
+        let DB = {}, map, routeLines = [], currentTargetPrice = 0, displayedPrice = 0;
+        let activeLegsData = [], serverMissionID = null;
+
+        async function loadDB() {
+            try {
+                const r = await fetch('https://raw.githubusercontent.com/mwgg/Airports/master/airports.json');
+                DB = await r.json();
+            } catch(e) { console.error("Database offline"); }
+        }
+
+        function initMap() {
+            map = L.map('map', { zoomControl: false, attributionControl: false }).setView([9.08, 7.39], 5);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
+        }
+
+        function toggleTheme() {
+            const h = document.documentElement;
+            h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+        }
+
+        function syncPaxLogic() {
+            const cls = document.getElementById('ac-class').value;
+            const spec = AIRCRAFT[cls];
+            document.getElementById('ac-specs').innerHTML = `
+                <span class="block font-bold text-blue-600 uppercase mb-1">Fleet Profile: ${spec.models}</span>
+                Range: ~${spec.range}km | Speed: ${spec.speed}km/h | Capacity: Up to ${spec.maxPax} Seats
+            `;
+            runAnalysis();
+        }
+
+        function addLeg() {
+            const c = document.getElementById('legs-container');
+            const legId = Date.now();
+            const d = document.createElement('div');
+            d.className = "leg-row";
+            d.id = `leg-${legId}`;
+            d.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Departure Airport" class="input-pill uppercase airport-in" oninput="suggest(this)" required>
+                        <div class="suggestion-box"></div>
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="Arrival Airport" class="input-pill uppercase airport-in" oninput="suggest(this)" required>
+                        <div class="suggestion-box"></div>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <input type="datetime-local" class="input-pill date-in" onchange="runAnalysis()" style="flex: 2" required>
+                    <div class="flex gap-2 items-center">
+                        <span class="leg-price-badge" id="badge-${legId}">$0.00</span>
+                        <button onclick="removeLeg('${legId}')" class="text-[0.5rem] monument text-red-400 ml-2">Del</button>
+                    </div>
+                </div>
+            `;
+            c.appendChild(d);
+            if(Object.keys(DB).length === 0) loadDB();
+        }
+
+        function removeLeg(id) {
+            if(document.querySelectorAll('.leg-row').length > 1) {
+                document.getElementById(`leg-${id}`).remove();
+                runAnalysis();
+            }
+        }
+
+        function suggest(el) {
+            const v = el.value.toUpperCase();
+            const box = el.nextElementSibling;
+            box.innerHTML = '';
+            if(v.length < 2) { box.style.display = 'none'; return; }
+            const m = Object.entries(DB).filter(([k, d]) => k.startsWith(v) || (d.city && d.city.toUpperCase().includes(v))).slice(0, 5);
+            if(m.length) {
+                box.style.display = 'block';
+                m.forEach(([k, d]) => {
+                    const i = document.createElement('div');
+                    i.className = "p-3 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-blue-600 cursor-pointer text-xs border-b border-slate-50/10";
+                    i.innerHTML = `<b class="text-blue-600">${k}</b> — ${d.name} (${d.city})`;
+                    i.onclick = () => { 
+                        el.value = `${k} | ${d.name}`; 
+                        el.dataset.code = k; 
+                        el.dataset.fullName = d.name;
+                        el.dataset.country = d.country;
+                        box.style.display = 'none'; 
+                        runAnalysis(); 
+                    };
+                    box.appendChild(i);
+                });
+            } else box.style.display = 'none';
+        }
+
+        function runAnalysis() {
+            const cls = document.getElementById('ac-class').value;
+            const spec = AIRCRAFT[cls];
+            const paxCount = parseInt(document.getElementById('pax').value) || 0;
+            const warning = document.getElementById('pax-warning');
+            const dispatchBtn = document.getElementById('dispatch-btn');
+            
+            let total = 0, allPoints = [], intl = false, urg = false, minHrs = false;
+            
+            if (paxCount > spec.maxPax) {
+                warning.classList.remove('hidden');
+                dispatchBtn.disabled = true;
+                currentTargetPrice = 0;
+                animatePrice();
+                document.querySelectorAll('.leg-price-badge').forEach(b => b.innerText = '$0.00');
+                return;
+            } else {
+                warning.classList.add('hidden');
+                dispatchBtn.disabled = false;
+            }
+
+            routeLines.forEach(l => map.removeLayer(l));
+            routeLines = [];
+            activeLegsData = [];
+
+            document.querySelectorAll('.leg-row').forEach(l => {
+                const inputs = l.querySelectorAll('.airport-in');
+                const oCode = inputs[0].dataset.code, dCode = inputs[1].dataset.code;
+                const dtRaw = l.querySelector('.date-in').value;
+                const badge = l.querySelector('.leg-price-badge');
+
+                if(oCode && dCode && DB[oCode] && DB[dCode]) {
+                    const rad = Math.PI/180;
+                    const dLat = (DB[dCode].lat - DB[oCode].lat) * rad;
+                    const dLon = (DB[dCode].lon - DB[oCode].lon) * rad;
+                    const a = Math.sin(dLat/2)**2 + Math.cos(DB[oCode].lat*rad)*Math.cos(DB[dCode].lat*rad)*Math.sin(dLon/2)**2;
+                    const dist = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                    
+                    const actualHours = dist/spec.speed;
+                    const hours = Math.max(actualHours, spec.minHrs);
+                    if(actualHours < spec.minHrs) minHrs = true;
+
+                    // Pricing logic from pricing_logic.md
+                    let baseCost = hours * spec.rate;
+                    let adjustedBase = baseCost * (1 + (paxCount * 0.01));
+                    
+                    const isIntl = inputs[0].dataset.country !== inputs[1].dataset.country;
+                    const logisticsFee = isIntl ? 3500 : 1500;
+                    if(isIntl) intl = true;
+
+                    let legTotal = adjustedBase + logisticsFee;
+                    total += legTotal;
+                    badge.innerText = `$${Math.round(legTotal).toLocaleString()}`;
+                    
+                    activeLegsData.push({ 
+                        from: oCode, 
+                        to: dCode, 
+                        cost: legTotal, 
+                        date: dtRaw ? new Date(dtRaw).toLocaleDateString() : 'TBD',
+                        time: dtRaw ? new Date(dtRaw).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'TBD',
+                        fromFull: inputs[0].dataset.fullName, 
+                        toFull: inputs[1].dataset.fullName 
+                    });
+                    
+                    allPoints.push([DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]);
+                    routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#1877F2", weight: 2, dashArray: '5, 10' }).addTo(map));
+
+                    if(dtRaw && (new Date(dtRaw) - new Date()) / 3600000 < 72) urg = true;
+                }
+            });
+
+            currentTargetPrice = total;
+            animatePrice();
+            if(allPoints.length) map.fitBounds(L.latLngBounds(allPoints), { padding: [50, 50] });
+
+            document.querySelectorAll('.log-line').forEach(l => l.classList.remove('active'));
+            if(total > 0) document.getElementById('l-dist').classList.add('active');
+            if(minHrs) document.getElementById('l-min').classList.add('active');
+            if(intl) document.getElementById('l-intl').classList.add('active');
+            if(urg) document.getElementById('l-urg').classList.add('active');
+        }
+
+        function animatePrice() {
+            if (Math.abs(currentTargetPrice - displayedPrice) < 1) displayedPrice = currentTargetPrice;
+            else { displayedPrice += (currentTargetPrice - displayedPrice) * 0.1; requestAnimationFrame(animatePrice); }
+            document.getElementById('price-val').innerText = displayedPrice > 0 ? `$${Math.round(displayedPrice).toLocaleString()}` : '$0';
+        }
+
+        async function startDispatch() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            if(!name || !email || currentTargetPrice === 0) return;
+            
+            const ov = document.getElementById('processing-overlay'), bar = document.getElementById('p-bar'), step = document.getElementById('p-step');
+            ov.style.display = 'flex';
+            
+            const refID = `15D-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
+            const payload = { 
+                name, email, 
+                ref_id: refID,
+                total_estimate: Math.round(currentTargetPrice),
+                aircraft: AIRCRAFT[document.getElementById('ac-class').value].label,
+                legs: activeLegsData,
+                timestamp: new Date().toISOString()
+            };
+
+            const steps = ["Validating Permits", "Building Manifest", "GAS Synchronization"];
+            for(let i=0; i<steps.length; i++) {
+                step.innerText = steps[i];
+                bar.style.width = `${(i+1)*33}%`;
+                await new Promise(r => setTimeout(r, 600));
+            }
+
+            try {
+                await fetch(INTAKE_WORKER_URL, { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) });
+                fetch(GAS_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+            } catch (e) {}
+
+            serverMissionID = refID;
+            document.getElementById('export-btn').classList.remove('opacity-50');
+            document.getElementById('conf-email').innerText = email;
+            document.getElementById('ref-id').innerText = `ID: ${serverMissionID}`;
+            document.getElementById('modal-success').style.display = 'flex';
+            ov.style.display = 'none';
+        }
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const clientName = document.getElementById('name').value;
+            const clientEmail = document.getElementById('email').value;
+            const issuanceDate = new Date().toLocaleString();
+
+            doc.saveGraphicsState();
+            doc.setGState(new doc.GState({ opacity: 0.1 }));
+            doc.setFontSize(60);
+            doc.setTextColor(200);
+            doc.text("15D WINGS", pageWidth / 2, pageHeight / 2, { align: "center", angle: 45 });
+            doc.restoreGraphicsState();
+
+            doc.setFillColor(24, 119, 242);
+            doc.rect(0, 0, pageWidth, 20, 'F');
+            doc.setTextColor(255);
+            doc.setFontSize(10);
+            doc.text(`MISSION INVOICE: ${serverMissionID}`, 15, 13);
+            doc.text(`ISSUED: ${issuanceDate}`, pageWidth - 15, 13, { align: 'right' });
+
+            doc.setTextColor(0);
+            doc.setFontSize(24);
+            doc.text("15D WINGS", 15, 40);
+            doc.setFontSize(9);
+            doc.text("Architects of Certainty in Private Aviation", 15, 47);
+            
+            doc.setFontSize(10);
+            doc.text(`CLIENT: ${clientName.toUpperCase()}`, 15, 60);
+            doc.setFontSize(8);
+            doc.setTextColor(100);
+            doc.text(`EMAIL: ${clientEmail}`, 15, 65);
+            doc.text("21 Lugard Avenue, Ikoyi Lagos, Nigeria", 15, 70);
+
+            doc.autoTable({
+                startY: 80,
+                head: [['Sector', 'Date', 'Time', 'Estimate (USD)']],
+                body: activeLegsData.map(l => [`${l.from} > ${l.to}`, l.date, l.time, `$${Math.round(l.cost).toLocaleString()}`]),
+                headStyles: { fillColor: [24, 119, 242] },
+                theme: 'striped'
+            });
+
+            const finalY = doc.lastAutoTable.finalY;
+            doc.setFontSize(14);
+            doc.setTextColor(24, 119, 242);
+            doc.text(`TOTAL MISSION ESTIMATE: $${Math.round(currentTargetPrice).toLocaleString()}`, 15, finalY + 15);
+
+            doc.setFontSize(9);
+            doc.setTextColor(0);
+            doc.setFont(undefined, 'bold');
+            doc.text('"Certainty is not hope, it is engineered readiness"', pageWidth / 2, finalY + 35, { align: 'center' });
+            
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(100);
+            const encouragement = [
+                "This document provides a preliminary market-optimized estimate.",
+                "To secure a final guaranteed quote and specific airframe tail number, please complete your authentication",
+                "within the 15D Wings Mission Portal. A synchronization link has been dispatched to your email."
+            ];
+            doc.text(encouragement, 15, finalY + 45);
+
+            doc.setFontSize(7);
+            doc.setTextColor(150);
+            doc.text("SUPPORT: concierge@skyparty.name.ng", 15, pageHeight - 15);
+            doc.text("15D Wings | Sky Party LTD (RC 8997727)", pageWidth - 15, pageHeight - 15, { align: 'right' });
+
+            doc.save(`15D-WINGS-${serverMissionID}.pdf`);
+        }
+
+        function handleExportClick() { if(serverMissionID) generatePDF(); else document.getElementById('export-error-msg').style.display = 'block'; }
+
+        window.onload = () => { loadDB(); addLeg(); initMap(); syncPaxLogic(); };
+    </script>
+</body>
+</html>
+
