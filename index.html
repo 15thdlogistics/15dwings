@@ -63,7 +63,9 @@
         #chat-bubble { width: 65px; height: 65px; border-radius: 50%; background: #1877F2; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 15px 35px rgba(24,119,242,0.5); }
         #chat-window { position: absolute; bottom: 80px; right: 0; width: 330px; height: 500px; background: #fff; border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; }
         .sync-dot { width: 5px; height: 5px; background: #10b981; border-radius: 50%; display: inline-block; margin-right: 6px; animation: syncPulse 1.4s infinite ease-in-out; }
-        
+
+        .credit-card { background: linear-gradient(135deg, #030507 0%, #1a1e23 100%); border: 1px solid rgba(24, 119, 242, 0.3); position: relative; overflow: hidden; }
+        .credit-card::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(24,119,242,0.1) 0%, transparent 70%); pointer-events: none; }
         .img-card { border-radius: 1.5rem; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 1s; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
         .slide-parallax { position: relative; overflow: hidden; background-attachment: fixed; background-size: cover; background-position: center; filter: grayscale(100%); transition: filter 1s ease; }
         .slide-parallax:hover { filter: grayscale(0%); }
