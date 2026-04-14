@@ -191,6 +191,32 @@
             background: var(--modal-bg);
             transition: background 0.3s ease;
         }
+
+        /* New Onboarding & Helper Styles */
+        #tour-overlay {
+            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); 
+            z-index: 5000; display: none; flex-direction: column; align-items: center; justify-content: center;
+            padding: 2rem; text-align: center;
+        }
+        .tour-card {
+            max-width: 500px; background: var(--glass); border: 1px solid var(--accent);
+            padding: 2rem; border-radius: 24px; box-shadow: 0 0 50px var(--accent-glow);
+        }
+        .step-indicator { font-size: 0.6rem; color: var(--accent); margin-bottom: 1rem; display: block; }
+        
+        .volatility-warning {
+            background: #fef2f2; border: 1px solid #fee2e2; color: #991b1b;
+            padding: 10px; border-radius: 12px; font-size: 0.65rem; margin-top: 8px; display: none;
+        }
+        [data-theme="dark"] .volatility-warning { background: #450a0a; border-color: #7f1d1d; color: #fca5a5; }
+
+        .helper-tag {
+            font-size: 0.55rem; color: var(--accent); font-weight: bold;
+            text-transform: uppercase; margin-left: 8px;
+        }
+        
+        /* Highlight effect for tour */
+        .tour-highlight { position: relative; z-index: 5001 !important; box-shadow: 0 0 0 9999px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body class="p-4 md:p-10">
@@ -326,6 +352,17 @@
                 <button onclick="generatePDF()" class="monument text-[0.6rem] px-8 py-4 bg-blue-600 text-white rounded-full hover:scale-105 transition-transform">Download Invoice</button>
                 <button onclick="location.reload()" class="monument text-[0.6rem] text-slate-400 hover:text-blue-600">New Mission</button>
             </div>
+        </div>
+    </div>
+
+    <div id="tour-overlay">
+        <div class="tour-card">
+            <span class="step-indicator monument" id="tour-step-num">Step 1 of 4</span>
+            <h2 class="monument text-xl mb-4" id="tour-title">Decision Engine Active</h2>
+            <p class="text-sm opacity-80 mb-8 leading-relaxed" id="tour-desc">
+                Welcome to the 15D Wings Intake. While others take days, our engine calculates operational feasibility in under 60 seconds.
+            </p>
+            <button onclick="nextTourStep()" class="btn-luxury py-3 px-8 w-auto inline-block">Next Protocol</button>
         </div>
     </div>
 
@@ -631,8 +668,86 @@
 
         function handleExportClick() { if(serverMissionID) generatePDF(); else document.getElementById('export-error-msg').style.display = 'block'; }
 
+        // --- NEW TOUR & LOGIC EXTENSIONS ---
+        let tourStep = 0;
+        const tourData = [
+            {
+                title: "Instant Feasibility",
+                desc: "Traditional brokers take hours to call you back. Our engine calculates pricing and route logistics across Nigeria in real-time.",
+                target: "price-val"
+            },
+            {
+                title: "The 72-Hour Rule",
+                desc: "Flights requested within 72 hours are 'Volatile'. For non-frequent flyers, these require manual validation by our tower to ensure a jet is actually on the tarmac.",
+                target: "legs-container"
+            },
+            {
+                title: "Intelligent Classing",
+                desc: "The price changes based on the aircraft class. We also automatically detect if your route needs international overflight permits and add them to the estimate.",
+                target: "ac-class"
+            },
+            {
+                title: "Mission Authorization",
+                desc: "Once you are satisfied with the estimate, 'Authorize' to sync with our flight coordinators. You'll receive a formal manifest via email immediately.",
+                target: "dispatch-btn"
+            }
+        ];
+
+        function checkFirstVisit() {
+            if (!localStorage.getItem('15d_tour_completed')) {
+                document.getElementById('tour-overlay').style.display = 'flex';
+            }
+        }
+
+        function nextTourStep() {
+            tourStep++;
+            if (tourStep >= tourData.length) {
+                document.getElementById('tour-overlay').style.display = 'none';
+                localStorage.setItem('15d_tour_completed', 'true');
+                return;
+            }
+            document.getElementById('tour-step-num').innerText = `Step ${tourStep + 1} of 4`;
+            document.getElementById('tour-title').innerText = tourData[tourStep].title;
+            document.getElementById('tour-desc').innerText = tourData[tourStep].desc;
+        }
+
+        // Enhance runAnalysis to include Volatility check
+        const originalRunAnalysis = runAnalysis;
+        runAnalysis = function() {
+            originalRunAnalysis(); // Call existing logic
+            
+            // Check for volatility (72h window)
+            let isVolatile = false;
+            document.querySelectorAll('.date-in').forEach(input => {
+                if(input.value) {
+                    const diff = (new Date(input.value) - new Date()) / 3600000;
+                    if(diff > 0 && diff < 72) isVolatile = true;
+                }
+            });
+
+            const logUrg = document.getElementById('l-urg');
+            if(isVolatile) {
+                logUrg.innerHTML = `<div class="dot"></div> VOLATILITY ALERT: 72H MANUAL REVIEW REQUIRED`;
+                logUrg.style.color = '#ef4444';
+            } else {
+                logUrg.innerHTML = `<div class="dot"></div> Priority 72h window`;
+                logUrg.style.color = '';
+            }
+        };
+
+        // Initialize Onboarding
+        window.addEventListener('DOMContentLoaded', () => {
+            checkFirstVisit();
+            
+            // Add "Novice Help" labels to the aircraft selector
+            const acSelect = document.getElementById('ac-class');
+            acSelect.options[0].text = "Light Jet | 4-6 Seats (Short Trips)";
+            acSelect.options[1].text = "Midsize Jet | 7-9 Seats (Extended Range)";
+            acSelect.options[2].text = "Heavy Jet | 10-14 Seats (VIP/Group)";
+            acSelect.options[3].text = "Ultra Jet | 15-50 Seats (Corporate Teams)";
+        });
+
         window.onload = () => { loadDB(); addLeg(); initMap(); syncPaxLogic(); };
     </script>
 </body>
 </html>
-
