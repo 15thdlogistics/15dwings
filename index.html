@@ -7,14 +7,10 @@
 
     <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png">
     <meta property="og:title" content="15D WINGS | Architects of Certainty">
-    <meta property="og:description" content=" Book A Private Jet, Get An Estimate and Flight Operational Feasibility in Seconds.">
+    <meta property="og:description" content="Book A Private Jet, Get An Estimate and Flight Operational Feasibility in Seconds.">
     <meta property="og:image" content="https://uploads.onecompiler.io/43z22g7dk/444u5qgt2/Gemini_Generated_Image_afl123afl123afl1.png">
     <meta property="og:type" content="website">
 
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
@@ -44,21 +40,25 @@
         @keyframes vigilance { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-12px);} 60% {transform: translateY(-6px);} }
         .vigilance-bounce { animation: vigilance 3s infinite; }
         .stop-animation { animation: none !important; }
-        #corridor { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 1s ease-out; }
+        
+        #corridor { position: fixed; inset: 0; background: #000; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 1s ease-out; }
         .statement { position: absolute; opacity: 0; font-family: 'Syncopate', sans-serif; letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.9rem; transition: opacity 1.2s ease-in-out; text-align: center; width: 85%; }
         #skip-btn { position: absolute; top: 80%; color: rgba(255,255,255,0.4); font-family: 'Syncopate'; font-size: 10px; cursor: pointer; letter-spacing: 0.3em; z-index: 10000; border: 1px solid rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 4px; }
+        
         .title-monument { font-family: 'Monument Extended', sans-serif; line-height: 0.95; text-transform: uppercase; letter-spacing: -0.04em; font-size: clamp(2.2rem, 10vw, 6rem); color: white; }
         .ui-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.65rem; font-weight: 700; }
         .btn-shimmer { position: relative; overflow: hidden; background: #1877F2; color: white; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); font-size: 0.6rem !important; padding: 0.75rem 1.25rem !important; font-weight: 800; border-radius: 9999px; white-space: nowrap; cursor: pointer; }
         @media (min-width: 768px) { .btn-shimmer { font-size: 0.75rem !important; padding: 1rem 2rem !important; } }
-        .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776461404/15D_Wings_20260416_055841_0000_jik8b9.mp4') no-repeat center center/cover; filter: brightness(0.40); }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 100%); z-index: 1; }
+        
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 100%); z-index: 1; pointer-events: none; }
         .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal-active { opacity: 1; transform: translateY(0); }
+        
         #intake-drawer { position: fixed; bottom: 0; left: 0; width: 100%; height: 96vh; background: #fff; z-index: 10010; transform: translateY(105%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 30px 30px 0 0; }
         #intake-drawer.open { transform: translateY(0); }
         .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10009; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
         .drawer-overlay.active { opacity: 1; pointer-events: auto; }
+        
         #chatbot-container { position: fixed; bottom: 4rem; right: 2rem; z-index: 10001; transition: all 0.3s ease; }
         #chat-bubble { width: 65px; height: 65px; border-radius: 50%; background: #1877F2; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 15px 35px rgba(24,119,242,0.5); }
         #chat-window { position: absolute; bottom: 80px; right: 0; width: 330px; height: 500px; background: #fff; border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; }
@@ -72,19 +72,20 @@
 
         .animate-scroll { display: flex; width: max-content; }
         
-        /* Dashboard UI Elements */
         .dash-border { border: 1px solid #f1f1f1; border-radius: 1.5rem; background: #fff; transition: all 0.3s ease; }
         .dash-border:hover { border-color: #1877F2; box-shadow: 0 10px 30px rgba(24, 119, 242, 0.05); }
 
-        /* Chat Styles */
         .msg-user { align-self: flex-end; background: #1877F2; color: white; padding: 8px 12px; border-radius: 15px 15px 0 15px; max-width: 80%; }
         .msg-bot { align-self: flex-start; background: white; color: #030507; padding: 8px 12px; border-radius: 15px 15px 15px 0; max-width: 80%; border: 1px solid #eee; }
 
-        /* Feedback Animation */
         .feedback-bg { background-image: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537505/1772532021422_uk7ia5.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
         @keyframes floatText { 0% { transform: translateY(10px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(10px); } }
         .review-pop { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .review-pop:hover { transform: scale(1.05); background: white !important; color: #030507 !important; }
+        
+        /* Mobile Menu Transitions */
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mobile-menu-active { transform: translateX(0) !important; }
     </style>
 </head>
 <body class="bg-offwhite text-nearblack font-lexend">
@@ -97,18 +98,60 @@
         <div id="skip-btn" onclick="forceSkip()">SKIP NOW [X]</div>
     </div>
 
+    <!-- Desktop & Mobile Navigation -->
+    <nav class="fixed top-0 w-full z-[500] py-4 px-6 flex justify-between items-center bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <a href="#" class="z-50 relative">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Corporate Logo" class="h-7 md:h-9">
+        </a>
+        
+        <!-- Desktop Links -->
+        <div class="hidden md:flex space-x-10 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
+            <a href="#operational" class="hover:text-fbblue transition-colors">Readiness</a>
+            <a href="#fleet" class="hover:text-fbblue transition-colors">Fleet</a>
+            <a href="#services" class="hover:text-fbblue transition-colors">Services</a>
+            <a href="#experience" class="hover:text-fbblue transition-colors">Experience</a>
+        </div>
+
+        <div class="flex items-center gap-4 z-50 relative">
+            <button onclick="toggleIntake()" class="btn-shimmer ui-sync hidden md:inline-block">INITIATE FLIGHT</button>
+            
+            <!-- Mobile Hamburger Icon -->
+            <button id="hamburger-btn" onclick="toggleMobileNav()" class="md:hidden text-nearblack p-2 focus:outline-none" aria-label="Toggle Navigation">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Navigation Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-10">
+        <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-20 pointer-events-none"></div>
+        <a href="#operational" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Readiness</a>
+        <a href="#fleet" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fleet</a>
+        <a href="#services" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Services</a>
+        <a href="#experience" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Experience</a>
+        
+        <button onclick="toggleIntake(); toggleMobileNav()" class="btn-shimmer ui-sync text-sm mt-8 px-10 py-4 w-3/4 max-w-sm">
+            INITIATE FLIGHT
+        </button>
+    </div>
+
+    <!-- Flight Intake Drawer -->
     <div class="drawer-overlay" id="overlay" onclick="toggleIntake()"></div>
     <div id="intake-drawer">
-        <div class="h-full w-full flex flex-col overflow-hidden">
-            <div class="px-6 py-4 flex justify-between items-center bg-white border-b border-gray-100">
+        <div class="h-full w-full flex flex-col overflow-hidden relative">
+            <div class="px-6 py-4 flex justify-between items-center bg-white border-b border-gray-100 z-50 shadow-sm relative">
                 <span class="ui-sync text-fbblue text-[9px]">REAL-TIME FEASIBILITY ENGINE</span>
-                <button onclick="toggleIntake()" class="ui-sync text-nearblack font-black text-[10px] bg-gray-100 px-3 py-1 rounded-full">CLOSE [X]</button>
+                <button onclick="toggleIntake()" class="ui-sync text-nearblack font-black text-[10px] bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition">CLOSE [X]</button>
             </div>
-            <iframe id="intake-frame" src="flight request.html" class="w-full h-full border-none"></iframe>
+            <!-- Syncing with the active flight_request.html -->
+            <iframe id="intake-frame" src="flight_request.html" class="w-full h-full border-none absolute inset-0 pt-14"></iframe>
         </div>
     </div>
 
-    <div id="chatbot-container" class="vigilance-bounce">
+    <!-- AI Concierge -->
+    <div id="chatbot-container" class="vigilance-bounce hidden md:block">
         <div id="chat-window" class="tech-grid">
             <div class="bg-nearblack p-5 text-white flex flex-col space-y-2">
                 <div class="flex justify-between items-center">
@@ -139,28 +182,28 @@
         </div>
     </div>
 
-    <main id="app-content" class="opacity-0 transition-opacity duration-1000">
+    <main id="app-content" class="opacity-0 transition-opacity duration-1000 pt-16">
         <div class="scanline"></div>
-        
-        <nav class="fixed top-0 w-full z-[100] py-3 px-5 flex justify-between items-center bg-white/80 backdrop-blur-xl border-b border-gray-100">
-            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-7 md:h-9">
-            <button onclick="toggleIntake()" class="btn-shimmer ui-sync">INITIATE FLIGHT</button>
-        </nav>
 
-        <header class="relative h-screen flex items-center px-6 md:px-24 overflow-hidden tech-grid">
-            <div class="z-10 w-full">
+        <header class="relative h-[95vh] flex items-center px-6 md:px-24 overflow-hidden tech-grid bg-black">
+            <!-- Infinitely playing hero video -->
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.35]">
+                <source src="https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776461404/15D_Wings_20260416_055841_0000_jik8b9.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay"></div>
+            
+            <div class="z-20 w-full mt-10">
                 <p class="ui-sync text-fbblue mb-6 reveal">SYSTEM PROTOCOL: SOVEREIGN</p>
-                <h1 class="title-monument reveal mb-8 text-white">PRIVATE <br> JET <br> FLIGHTS</h1>
+                <h1 class="title-monument reveal mb-8 text-white leading-tight">PRIVATE <br> JET <br> FLIGHTS</h1>
                 <p class="font-sync text-white text-[10px] md:text-[12px] reveal uppercase tracking-[0.2em] max-w-xl leading-relaxed">
                     REQUEST A PRIVATE FLIGHT ACROSS NIGERIA AND RECEIVE A <strong class="text-fbblue">RAPID OPERATIONAL RESPONSE FROM OUR DECISION ENGINE IN SECONDS</strong>.
                 </p>
                 <button onclick="toggleIntake()" class="btn-shimmer ui-sync reveal mt-10">INITIATE FLIGHT</button>
             </div>
-            <div class="hero-bg"></div>
-            <div class="hero-overlay"></div>
         </header>
 
-        <section class="py-24 bg-white px-6 border-b border-gray-100">
+        <section class="py-24 bg-white px-6 border-b border-gray-100" id="operational">
             <div class="max-w-6xl mx-auto reveal">
                 <h2 class="ui-sync text-fbblue text-[10px] mb-12">KNOW WHERE YOU STAND BEFORE YOU PLAN THE FLIGHT</h2>
                 <div class="grid md:grid-cols-2 gap-12 font-lexend items-center">
@@ -175,7 +218,7 @@
                         </ul>
                     </div>
                     <div class="relative">
-                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537519/1772530159805_xphiix.jpg" class="w-full h-[400px] object-cover img-card">
+                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537519/1772530159805_xphiix.jpg" alt="Clear Flight Feasibility Dashboard UI" class="w-full h-[400px] object-cover img-card">
                         <div class="absolute bottom-0 right-0 p-8 bg-nearblack text-white max-w-xs rounded-tl-3xl">
                             <p class="text-2xl font-light leading-tight mb-2">"Clear response. Clear status."</p>
                             <span class="ui-sync text-[8px] text-fbblue">FEASIBILITY UNDER 180s</span>
@@ -185,10 +228,9 @@
             </div>
         </section>
 
-        
         <section class="py-24 bg-nearblack px-6 relative overflow-hidden">
             <div class="max-w-6xl mx-auto reveal flex flex-col md:flex-row items-center gap-16">
-                <div class="flex-1">
+                <div class="flex-1 z-10 relative">
                     <h2 class="ui-sync text-fbblue text-[10px] mb-6">LIQUIDITY IN THE SKY</h2>
                     <h3 class="title-monument text-3xl md:text-4xl text-white mb-8">SOVEREIGN <br> FLIGHT CREDITS</h3>
                     <p class="text-gray-400 mb-8 leading-relaxed">
@@ -205,10 +247,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex-1 w-full">
+                <div class="flex-1 w-full z-10">
                     <div class="credit-card p-10 rounded-[2rem] shadow-2xl">
                         <div class="flex justify-between items-start mb-16">
-                            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-6 brightness-0 invert">
+                            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Insignia" class="h-6 brightness-0 invert">
                             <span class="ui-sync text-[8px] text-white/40 tracking-[0.5em]">CREDIT ID: 15D-00X</span>
                         </div>
                         <div class="mb-10">
@@ -264,7 +306,7 @@
             </div>
         </section>
 
-        <section class="h-[60vh] slide-parallax flex items-center justify-center text-center px-6" style="background-image: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537520/1772530224629_kl7gdt.jpg');">
+        <section class="h-[60vh] slide-parallax flex items-center justify-center text-center px-6" style="background-image: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537520/1772530224629_kl7gdt.jpg');" aria-label="A private jet cruising over clouds">
             <div class="z-10">
                 <h2 class="title-monument text-white text-4xl mb-4">TACTICAL PRECISION</h2>
                 <p class="ui-sync text-fbblue text-xs">Unmatched operational depth</p>
@@ -272,7 +314,7 @@
             <div class="absolute inset-0 bg-black/60"></div>
         </section>
 
-        <section class="py-24 bg-white px-6 border-b">
+        <section class="py-24 bg-white px-6 border-b" id="fleet">
             <div class="max-w-6xl mx-auto reveal">
                 <div class="grid md:grid-cols-2 gap-16">
                     <div>
@@ -320,7 +362,7 @@
             </div>
         </section>
 
-        <section class="py-24 bg-white px-6">
+        <section class="py-24 bg-white px-6" id="services">
             <div class="max-w-6xl mx-auto reveal">
                 <h2 class="ui-sync text-fbblue text-[10px] mb-4">SERVICES</h2>
                 <h3 class="title-monument text-3xl mb-16" style="color:black">Private Aviation Services</h3>
@@ -331,21 +373,33 @@
                             <h4 class="title-monument text-xl mb-4 group-hover:text-fbblue transition-colors" style="color:black">Executive Travel</h4>
                             <p class="text-gray-600 leading-relaxed">Private flights for executives, corporate teams, and business leaders.</p>
                         </div>
-                        <div class="group">
-                            <h4 class="title-monument text-xl mb-6 group-hover:text-fbblue transition-colors" style="color:black">Experiential Flights</h4>
-                            <p class="text-gray-600 mb-8 leading-relaxed">Unique private aviation experiences including:</p>
-                            <div class="grid gap-4">
-                                <a href="https://www.skyparty.name.ng/experience" target="_blank" class="block p-4 border rounded-xl hover:border-fbblue transition-all">
-                                    <span class="ui-sync text-fbblue text-[9px] block mb-1">THE SIGNATURE EVENT</span>
-                                    <span class="font-bold">Sky Party™</span>
-                                </a>
-                                <div class="p-4 border rounded-xl">
-                                    <span class="ui-sync text-fbblue text-[9px] block mb-1">THERAPY FLIGHTS</span>
-                                    <span class="font-bold">BlueHour™</span>
-                                </div>
-                                <div class="p-4 border rounded-xl">
-                                    <span class="ui-sync text-fbblue text-[9px] block mb-1">PREMIUM ROMANCE</span>
-                                    <span class="font-bold">Sky Date™</span>
+                        
+                        <!-- EXPERIENTIAL FLIGHTS (NEW CINEMATIC BACKGROUND) -->
+                        <div class="group relative rounded-3xl overflow-hidden p-8 border border-gray-100 shadow-xl mt-8">
+                            <!-- Background Video specifically requested -->
+                            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-80 mix-blend-multiply group-hover:opacity-100 transition-opacity duration-700">
+                                <source src="https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776286745/Private_Jet_Cinema_Experience_qzlexa.mp4" type="video/mp4">
+                            </video>
+                            <!-- Creative Non-Distracting Dark Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/80 to-black/40 z-10"></div>
+                            
+                            <!-- Content overlay -->
+                            <div class="relative z-20">
+                                <h4 class="title-monument text-xl mb-4 text-white transition-colors drop-shadow-md">Experiential Flights</h4>
+                                <p class="text-gray-300 mb-8 leading-relaxed text-sm">Unique private aviation experiences including:</p>
+                                <div class="grid gap-4">
+                                    <a href="https://www.skyparty.name.ng/experience" target="_blank" class="block p-4 border border-white/20 bg-black/40 backdrop-blur-sm rounded-xl hover:border-fbblue hover:bg-fbblue/10 transition-all text-white">
+                                        <span class="ui-sync text-fbblue text-[9px] block mb-1">THE SIGNATURE EVENT</span>
+                                        <span class="font-bold">Sky Party™</span>
+                                    </a>
+                                    <div class="p-4 border border-white/20 bg-black/40 backdrop-blur-sm rounded-xl text-white">
+                                        <span class="ui-sync text-fbblue text-[9px] block mb-1">THERAPY FLIGHTS</span>
+                                        <span class="font-bold">BlueHour™</span>
+                                    </div>
+                                    <div class="p-4 border border-white/20 bg-black/40 backdrop-blur-sm rounded-xl text-white">
+                                        <span class="ui-sync text-fbblue text-[9px] block mb-1">PREMIUM ROMANCE</span>
+                                        <span class="font-bold">Sky Date™</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -372,7 +426,7 @@
             </div>
         </section>
 
-        <section class="py-32 bg-nearblack px-6 tech-grid text-center">
+        <section class="py-32 bg-nearblack px-6 tech-grid text-center" id="experience">
             <div class="max-w-5xl mx-auto reveal">
                 <span class="ui-sync text-fbblue text-[10px] block mb-8">INTERACTIVE ACCESS</span>
                 <h2 class="title-monument text-2xl md:text-5xl mb-8 text-white uppercase">DON'T JUST LOOK. <br><span class="text-fbblue">ENTER THE CABIN.</span></h2>
@@ -380,14 +434,14 @@
                     This is not a static photo gallery. Tap the aircraft door below to enter a full 360° interactive cabin environment. Walk the cabin. Check the galley. Verify the certainty.
                 </p>
                 <div class="relative group cursor-pointer inline-block overflow-hidden rounded-3xl border-4 border-white/10" onclick="this.querySelector('iframe').classList.remove('hidden'); this.querySelector('.overlay-trigger').classList.add('hidden');">
-                    <div class="overlay-trigger">
+                    <div class="overlay-trigger relative">
                         <div class="absolute -inset-4 border border-fbblue/40 enter-glow pointer-events-none z-20"></div>
-                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537192/1772530337581_qq5wv3.jpg" class="w-full h-[60vh] object-cover transition duration-500 group-hover:scale-105">
+                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537192/1772530337581_qq5wv3.jpg" alt="Interactive 360 Cabin View Gateway" class="w-full h-[60vh] object-cover transition duration-500 group-hover:scale-105">
                         <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center z-10">
                             <div class="bg-fbblue text-white ui-sync px-12 py-6 text-xs shadow-2xl tracking-[0.4em]">TAP TO ENTER 360° TOUR</div>
                         </div>
                     </div>
-                    <iframe src="https://tours.360virtualtours.co.uk/legacy-aircraft-tour/" class="hidden w-full h-[75vh] md:w-[80vw] border-none" allowfullscreen></iframe>
+                    <iframe src="https://tours.360virtualtours.co.uk/legacy-aircraft-tour/" title="Legacy Aircraft 360 Tour" class="hidden w-full h-[75vh] md:w-[80vw] border-none bg-black" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
@@ -425,7 +479,7 @@
                         </div>
                     </div>
                     
-                    <div class="feedback-bg p-8 md:p-12 rounded-3xl relative overflow-hidden flex flex-col justify-center min-h-[500px]">
+                    <div class="feedback-bg p-8 md:p-12 rounded-3xl relative overflow-hidden flex flex-col justify-center min-h-[500px]" aria-label="Aviation operations center background">
                         <div class="absolute inset-0 bg-black/50 z-0"></div>
                         <div class="relative z-10">
                             <h2 class="title-monument text-2xl mb-12 text-white border-b border-white/20 pb-4">CLIENT FEEDBACK</h2>
@@ -467,18 +521,20 @@
         </section>
 
         <footer class="py-16 px-6 text-center bg-white border-t">
-            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-10 mx-auto mb-6">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Footer Logo" class="h-10 mx-auto mb-6">
             <p class="text-[9px] ui-sync text-fbblue font-bold tracking-widest mb-8">ARCHITECTS OF CERTAINTY</p>
-            <div class="max-w-2xl mx-auto space-y-6">
-                <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest border-y border-gray-50 py-6">
-   <div class="flex flex-wrap justify-center gap-6 mb-10 ui-sync text-[8px] text-gray-400 uppercase">
-                <a href="faqs.html" class="hover:text-fbblue">FAQ</a>
-                <a href="flight request.html" class="hover:text-fbblue">Flight Request</a>
-                <a href="https://wings.15d.name.ng/about-us" class="hover:text-fbblue">About Us</a>
-                <a href="https://wings.15d.name.ng/contact" class="hover:text-fbblue">Contact</a>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-10 ui-sync text-[8px] text-gray-400 uppercase">
+                <a href="faqs.html" class="hover:text-fbblue transition">FAQ</a>
+                <a href="#" onclick="toggleIntake(); return false;" class="hover:text-fbblue transition">Flight Request</a>
+                <a href="https://wings.15d.name.ng/about-us" class="hover:text-fbblue transition">About Us</a>
+                <a href="https://wings.15d.name.ng/contact" class="hover:text-fbblue transition">Contact</a>
+                <a href="legal.html" class="hover:text-fbblue transition">Legal</a>
+                <a href="tos.html" class="hover:text-fbblue transition">Terms of Service</a>
             </div>
-<div class="max-w-2xl mx-auto space-y-6">
-                <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest border-y border-gray-50 py-6">
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest border-y border-gray-50 py-6 leading-loose">
                     15D Wings is a charter coordination platform. All flights are operated by appropriately licensed part 135 air carriers.
                 </p>
                 <p class="text-[8px] text-gray-400 uppercase tracking-[0.2em]">A Brand Product of sky party ltd (rc 8997727)</p>
@@ -506,7 +562,6 @@
             runCorridor();
             requestAnimationFrame(updateSlider);
             
-            // Add event listener for Enter key on chat input
             document.getElementById('chat-input').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     sendMessage();
@@ -514,12 +569,70 @@
             });
         };
 
-        function toggleIntake() { document.getElementById('intake-drawer').classList.toggle('open'); document.getElementById('overlay').classList.toggle('active'); }
-        function toggleChat() { const win = document.getElementById('chat-window'); win.style.display = win.style.display === 'flex' ? 'none' : 'flex'; stopBouncing(); }
-        function stopBouncing() { document.getElementById('chatbot-container').classList.add('stop-animation'); }
-        function forceSkip() { const corridor = document.getElementById('corridor'); const mainContent = document.getElementById('app-content'); corridor.style.opacity = '0'; sessionStorage.setItem('15d_protocol_vFull', 'true'); setTimeout(() => { corridor.style.display = 'none'; mainContent.style.opacity = '1'; initReveal(); }, 800); }
-        async function runCorridor() { if (sessionStorage.getItem('15d_protocol_vFull')) { forceSkip(); return; } const msgs = ['msg1', 'msg2', 'msg3', 'msg4']; for(let i = 0; i < msgs.length; i++) { const el = document.getElementById(msgs[i]); if(el) { el.style.opacity = '1'; await new Promise(r => setTimeout(r, 1800)); el.style.opacity = '0'; await new Promise(r => setTimeout(r, 400)); } } forceSkip(); }
-        function initReveal() { const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('reveal-active'); }); }, { threshold: 0.1 }); document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }
+        // UI Interaction Functions
+        function toggleIntake() { 
+            document.getElementById('intake-drawer').classList.toggle('open'); 
+            document.getElementById('overlay').classList.toggle('active'); 
+        }
+        
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            } else {
+                menu.classList.add('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+            }
+        }
+
+        function toggleChat() { 
+            const win = document.getElementById('chat-window'); 
+            win.style.display = win.style.display === 'flex' ? 'none' : 'flex'; 
+            stopBouncing(); 
+        }
+        
+        function stopBouncing() { 
+            document.getElementById('chatbot-container').classList.add('stop-animation'); 
+        }
+        
+        function forceSkip() { 
+            const corridor = document.getElementById('corridor'); 
+            const mainContent = document.getElementById('app-content'); 
+            corridor.style.opacity = '0'; 
+            sessionStorage.setItem('15d_protocol_vFull', 'true'); 
+            setTimeout(() => { 
+                corridor.style.display = 'none'; 
+                mainContent.style.opacity = '1'; 
+                initReveal(); 
+            }, 800); 
+        }
+        
+        async function runCorridor() { 
+            if (sessionStorage.getItem('15d_protocol_vFull')) { forceSkip(); return; } 
+            const msgs = ['msg1', 'msg2', 'msg3', 'msg4']; 
+            for(let i = 0; i < msgs.length; i++) { 
+                const el = document.getElementById(msgs[i]); 
+                if(el) { 
+                    el.style.opacity = '1'; 
+                    await new Promise(r => setTimeout(r, 1800)); 
+                    el.style.opacity = '0'; 
+                    await new Promise(r => setTimeout(r, 400)); 
+                } 
+            } 
+            forceSkip(); 
+        }
+        
+        function initReveal() { 
+            const observer = new IntersectionObserver((entries) => { 
+                entries.forEach(entry => { 
+                    if(entry.isIntersecting) entry.target.classList.add('reveal-active'); 
+                }); 
+            }, { threshold: 0.1 }); 
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); 
+        }
 
         // Chatbot Integration
         async function sendMessage() {
