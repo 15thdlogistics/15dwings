@@ -107,9 +107,11 @@
         <!-- Desktop Links -->
         <div class="hidden md:flex space-x-10 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
             <a href="#operational" class="hover:text-fbblue transition-colors">Readiness</a>
-            <a href="#fleet" class="hover:text-fbblue transition-colors">Fleet</a>
+            <a href="flight request.html" class="hover:text-fbblue transition-colors">Fly Now</a>
             <a href="#services" class="hover:text-fbblue transition-colors">Services</a>
             <a href="#experience" class="hover:text-fbblue transition-colors">Experience</a>
+            <a href="faqs.html" class="hover:text-fbblue transition-colors">FAQs</a>
+            <a href="about us.html" class="hover:text-fbblue transition-colors">Legacy</a>
         </div>
 
         <div class="flex items-center gap-4 z-50 relative">
@@ -128,9 +130,11 @@
     <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-10">
         <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-20 pointer-events-none"></div>
         <a href="#operational" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Readiness</a>
-        <a href="#fleet" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fleet</a>
+        <a href="flight request.html" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fly Now</a>
         <a href="#services" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Services</a>
         <a href="#experience" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Experience</a>
+        <a href="faqs.html" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">FAQs</a>
+        <a href="about us.html" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Legacy</a>
         
         <button onclick="toggleIntake(); toggleMobileNav()" class="btn-shimmer ui-sync text-sm mt-8 px-10 py-4 w-3/4 max-w-sm">
             INITIATE FLIGHT
@@ -146,7 +150,7 @@
                 <button onclick="toggleIntake()" class="ui-sync text-nearblack font-black text-[10px] bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition">CLOSE [X]</button>
             </div>
             <!-- Syncing with the active flight_request.html -->
-            <iframe id="intake-frame" src="flight_request.html" class="w-full h-full border-none absolute inset-0 pt-14"></iframe>
+            <iframe id="intake-frame" src="flight request.html" class="w-full h-full border-none absolute inset-0 pt-14"></iframe>
         </div>
     </div>
 
@@ -526,10 +530,10 @@
             
             <div class="flex flex-wrap justify-center gap-6 mb-10 ui-sync text-[8px] text-gray-400 uppercase">
                 <a href="faqs.html" class="hover:text-fbblue transition">FAQ</a>
-                <a href="#" onclick="toggleIntake(); return false;" class="hover:text-fbblue transition">Flight Request</a>
-                <a href="https://wings.15d.name.ng/about-us" class="hover:text-fbblue transition">About Us</a>
-                <a href="https://wings.15d.name.ng/contact" class="hover:text-fbblue transition">Contact</a>
+                <a href="flight request.html" onclick="toggleIntake(); return false;" class="hover:text-fbblue transition">Flight Request</a>
                 <a href="legal.html" class="hover:text-fbblue transition">Legal</a>
+                <a href="contact.html" class="hover:text-fbblue transition">Contact</a>
+                <a href="about us.html" class="hover:text-fbblue transition">Legacy</a>
                 <a href="tos.html" class="hover:text-fbblue transition">Terms of Service</a>
             </div>
 
