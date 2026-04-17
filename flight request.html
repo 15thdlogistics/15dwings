@@ -94,25 +94,9 @@
             box-shadow: 0 10px 25px var(--accent-glow);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 100%;
-            text-align: center;
-            display: block;
         }
         .btn-luxury:disabled { opacity: 0.3; filter: grayscale(1); cursor: not-allowed; transform: scale(0.98); }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            border-radius: 20px;
-            padding: 18px;
-            font-family: 'Monument Extended', sans-serif;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-            width: 100%;
-            text-align: center;
-            display: block;
-        }
-        .btn-outline:hover { background: var(--accent-glow); }
+        .btn-luxury:hover:not(:disabled) { box-shadow: 0 15px 35px var(--accent-glow); transform: translateY(-2px); }
 
         #map { height: 350px; border-radius: 20px; z-index: 10; overflow: hidden; background: #f1f5f9; border: 1px solid var(--glass-border-bottom); }
 
@@ -209,17 +193,47 @@
             transition: background 0.3s ease;
         }
 
-        /* New Onboarding & Helper Styles */
+        /* Re-engineered Realistic Glassmorphism Tour Styles */
         #tour-overlay {
-            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); 
+            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); 
             z-index: 5000; display: none; flex-direction: column; align-items: center; justify-content: center;
             padding: 2rem; text-align: center;
+            backdrop-filter: blur(5px);
         }
+        
         .tour-card {
-            max-width: 500px; background: var(--glass); border: 1px solid var(--accent);
-            padding: 2rem; border-radius: 24px; box-shadow: 0 0 50px var(--accent-glow);
+            max-width: 500px; 
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-top: 1px solid rgba(255, 255, 255, 0.45);
+            border-left: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 3rem 2.5rem; 
+            border-radius: 32px; 
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
         }
-        .step-indicator { font-size: 0.6rem; color: var(--accent); margin-bottom: 1rem; display: block; }
+
+        /* Glass highlight effect */
+        .tour-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg);
+            animation: glass-shine 4s infinite;
+        }
+
+        @keyframes glass-shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .step-indicator { font-size: 0.65rem; color: #38bdf8; margin-bottom: 1.5rem; display: block; letter-spacing: 0.2em;}
         
         .volatility-warning {
             background: #fef2f2; border: 1px solid #fee2e2; color: #991b1b;
@@ -232,11 +246,9 @@
             text-transform: uppercase; margin-left: 8px;
         }
         
-        /* Modal for support */
-        #support-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 6000;
-            display: none; align-items: center; justify-content: center; padding: 20px;
-        }
+        /* Highlight effect for tour */
+        .tour-highlight { position: relative; z-index: 5001 !important; box-shadow: 0 0 0 9999px rgba(0,0,0,0.8); }
+
     </style>
 </head>
 <body class="p-4 md:p-10">
@@ -259,7 +271,7 @@
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex gap-4">
-                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 opacity-50">Export Invoice</button>
+                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 opacity-50">Export Estimate PDF</button>
                     <button onclick="toggleTheme()" class="glass-panel px-6 py-3 text-[0.6rem] monument hover:scale-105 transition-transform">Switch Theme</button>
                 </div>
                 <span id="export-error-msg" class="export-error">UNAUTHORIZED: AUTHORIZE MISSION TO ENABLE EXPORT</span>
@@ -307,13 +319,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Support Ticker -->
-                <div class="flex justify-between items-center px-4">
-                    <button onclick="showSupportMessage()" class="text-[0.6rem] monument text-blue-500 animate-pulse">
-                        ● 24/7 Priority Support Active
-                    </button>
-                </div>
             </div>
 
             <div class="lg:col-span-5 space-y-8">
@@ -349,16 +354,27 @@
                         Please note that the above prices are rough estimates. Actual pricing may likely be lesser or slightly higher than the estimate upon gaining access to the 15D Wings Mission Portal.
                     </p>
                 </div>
+            </div>
+        </div>
 
-                <!-- Moved Authorization Section here to ensure scrolling past all intel -->
-                <div class="space-y-4 pt-10">
-                    <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury">Authorize Mission Intake</button>
-                    <a href="https://wa.me/2349167621703" target="_blank" class="btn-outline">Speak To Concierge</a>
+        <!-- RE-ENGINEERED CTA & SUPPORT BLOCK -->
+        <div class="max-w-2xl mx-auto mt-20 mb-10 space-y-5">
+            <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury py-5 text-[0.8rem]">Authorize Mission Intake</button>
+            <a href="https://wa.me/+2349167621703" target="_blank" class="glass-panel w-full block text-center py-5 font-bold monument text-[0.7rem] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-300 dark:hover:border-slate-700">
+                Speak to Concierge
+            </a>
+            
+            <div class="flex flex-col items-center pt-4">
+                <button onclick="toggleSupport()" class="text-[0.55rem] text-slate-500 uppercase monument tracking-widest hover:text-blue-600 transition-colors flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> 24/7 Support
+                </button>
+                <div id="support-msg" class="text-[0.65rem] text-slate-500 dark:text-slate-400 italic mt-0 opacity-0 h-0 overflow-hidden transition-all duration-500 ease-in-out text-center max-w-sm">
+                    Due to the high volume of requests, there may be a slight delay in response. Our concierge team is working diligently to assist you.
                 </div>
             </div>
         </div>
 
-        <footer class="text-center pt-10 pb-20 border-t border-slate-200/10 mt-20">
+        <footer class="text-center pt-10 pb-16 border-t border-slate-200/10">
             <div class="max-w-2xl mx-auto space-y-4">
                 <p class="text-[0.7rem] monument text-slate-400">15D Wings | Sky Party LTD (RC 8997727)</p>
                 <p class="text-[0.6rem] text-slate-400 leading-relaxed uppercase tracking-widest px-4">
@@ -377,30 +393,21 @@
                 <b class="text-blue-600 monument text-[0.6rem] block mb-2 underline">URGENT ACTION REQUIRED:</b>
                 Payload has been synchronized. Check your mail immediately at <span id="conf-email" class="text-blue-600 font-bold underline"></span> for the flight manifest.
             </div>
-            <div class="flex gap-4 justify-center">
-                <button onclick="generatePDF()" class="monument text-[0.6rem] px-8 py-4 bg-blue-600 text-white rounded-full hover:scale-105 transition-transform">Download Instant Estimate</button>
-                <button onclick="location.reload()" class="monument text-[0.6rem] text-slate-400 hover:text-blue-600">New Mission</button>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="generatePDF()" class="monument text-[0.6rem] px-8 py-4 bg-blue-600 text-white rounded-full hover:scale-105 transition-transform shadow-lg shadow-blue-500/30">Download Instant Estimate PDF</button>
+                <button onclick="location.reload()" class="monument text-[0.6rem] px-8 py-4 text-slate-500 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">New Mission</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Support Message Modal -->
-    <div id="support-modal" onclick="this.style.display='none'">
-        <div class="glass-panel p-10 max-w-sm text-center" onclick="event.stopPropagation()">
-            <span class="monument text-blue-600 text-[0.6rem] block mb-4">Support Notice</span>
-            <p class="text-sm opacity-80 leading-relaxed">Due to the high volume of mission requests, there may be a slight delay in response. Our concierge team is working through the queue in order of departure priority.</p>
-            <button onclick="document.getElementById('support-modal').style.display='none'" class="mt-6 text-[0.55rem] monument text-slate-400">[ Close ]</button>
         </div>
     </div>
 
     <div id="tour-overlay">
         <div class="tour-card">
-            <span class="step-indicator monument" id="tour-step-num">Step 1 of 4</span>
-            <h2 class="monument text-xl mb-4" id="tour-title">Decision Engine Active</h2>
-            <p class="text-sm opacity-80 mb-8 leading-relaxed" id="tour-desc">
+            <span class="step-indicator monument" id="tour-step-num">Step 1 of 5</span>
+            <h2 class="monument text-xl mb-4 text-white" id="tour-title">Decision Engine Active</h2>
+            <p class="text-sm text-white opacity-80 mb-8 leading-relaxed font-light" id="tour-desc">
                 Welcome to the 15D Wings Intake. While others take days, our engine calculates operational feasibility in under 60 seconds.
             </p>
-            <button onclick="nextTourStep()" class="btn-luxury py-3 px-8 w-auto inline-block">Next Protocol</button>
+            <button onclick="nextTourStep()" class="btn-luxury py-3 px-10 w-auto inline-block border border-white/20">Next Protocol</button>
         </div>
     </div>
 
@@ -408,12 +415,12 @@
         const INTAKE_WORKER_URL = 'https://intake.15d.name.ng';
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbwhhmVYLdMHeqBvb5mETjWhBJdPi3rMdoHsWBTxdEOWRy_uchTV43f63fU6Mi3_ncrf/exec';
 
-        // Optimized Rates to hit the ~$20k mark for LOS-ABV-LOS on Heavy/Ultra
+        // Adjusted logic: Reduced minHrs to 1.0 and calibrated rates to meet the $20k roundtrip criteria for Ultras
         const AIRCRAFT = {
-            LIGHT: { speed: 700, rate: 3200, minHrs: 2.0, label: "Light Jet", range: 2500, maxPax: 6, models: "Phenom 300, Citation CJ4, Hawker 400XP" },
-            MID:   { speed: 780, rate: 4500, minHrs: 2.0, label: "Midsize Jet", range: 3800, maxPax: 9, models: "Hawker 800/900XP, Learjet 60XR, Praetor 500" },
-            HEAVY: { speed: 850, rate: 6800, minHrs: 1.5, label: "Heavy Jet", range: 6500, maxPax: 14, models: "Challenger 604/650, Legacy 600" },
-            ULTRA: { speed: 920, rate: 8500, minHrs: 1.5, label: "Ultra/Regional", range: 12500, maxPax: 50, models: "Global 6000, Gulfstream G550/G650" }
+            LIGHT: { speed: 700, rate: 2800, minHrs: 1.0, label: "Light Jet", range: 2500, maxPax: 6, models: "Phenom 300, Citation CJ4, Hawker 400XP" },
+            MID:   { speed: 780, rate: 4000, minHrs: 1.0, label: "Midsize Jet", range: 3800, maxPax: 9, models: "Hawker 800/900XP, Learjet 60XR, Praetor 500" },
+            HEAVY: { speed: 850, rate: 6000, minHrs: 1.0, label: "Heavy Jet", range: 6500, maxPax: 14, models: "Challenger 604/605, Legacy 600/650, Falcon 900" },
+            ULTRA: { speed: 920, rate: 9000, minHrs: 1.0, label: "Ultra/Regional", range: 12500, maxPax: 50, models: "ERJ-135/145, Global 6000/7500, G550/G650" }
         };
 
         let DB = {}, map, routeLines = [], currentTargetPrice = 0, displayedPrice = 0;
@@ -435,9 +442,16 @@
             const h = document.documentElement;
             h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
         }
-
-        function showSupportMessage() {
-            document.getElementById('support-modal').style.display = 'flex';
+        
+        function toggleSupport() {
+            const msg = document.getElementById('support-msg');
+            if (msg.classList.contains('opacity-0')) {
+                msg.classList.remove('opacity-0', 'h-0');
+                msg.classList.add('opacity-100', 'h-auto', 'mt-4');
+            } else {
+                msg.classList.add('opacity-0', 'h-0');
+                msg.classList.remove('opacity-100', 'h-auto', 'mt-4');
+            }
         }
 
         function syncPaxLogic() {
@@ -518,7 +532,8 @@
             const warning = document.getElementById('pax-warning');
             const dispatchBtn = document.getElementById('dispatch-btn');
             
-            let total = 0, allPoints = [], intl = false, urg = false, minHrsTriggered = false;
+            let total = 0, allPoints = [], intl = false, urg = false, minHrs = false;
+            let isVolatile = false;
             
             if (paxCount > spec.maxPax) {
                 warning.classList.remove('hidden');
@@ -550,15 +565,15 @@
                     const dist = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                     
                     const actualHours = dist/spec.speed;
-                    // For short hops like LOS-ABV, we apply a subsidized minimum to hit $10k per leg for Heavy
                     const hours = Math.max(actualHours, spec.minHrs);
-                    if(actualHours < spec.minHrs) minHrsTriggered = true;
+                    if(actualHours < spec.minHrs) minHrs = true;
 
+                    // Pricing logic
                     let baseCost = hours * spec.rate;
-                    let adjustedBase = baseCost * (1 + (paxCount * 0.005)); // Minimal pax impact
+                    let adjustedBase = baseCost * (1 + (paxCount * 0.01));
                     
                     const isIntl = inputs[0].dataset.country !== inputs[1].dataset.country;
-                    const logisticsFee = isIntl ? 3500 : 800; // Lowered logistics for domestic subsidization
+                    const logisticsFee = isIntl ? 3500 : 1500;
                     if(isIntl) intl = true;
 
                     let legTotal = adjustedBase + logisticsFee;
@@ -578,7 +593,10 @@
                     allPoints.push([DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]);
                     routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#1877F2", weight: 2, dashArray: '5, 10' }).addTo(map));
 
-                    if(dtRaw && (new Date(dtRaw) - new Date()) / 3600000 < 72) urg = true;
+                    if(dtRaw) {
+                        const diff = (new Date(dtRaw) - new Date()) / 3600000;
+                        if(diff > 0 && diff < 72) { urg = true; isVolatile = true; }
+                    }
                 }
             });
 
@@ -588,9 +606,22 @@
 
             document.querySelectorAll('.log-line').forEach(l => l.classList.remove('active'));
             if(total > 0) document.getElementById('l-dist').classList.add('active');
-            if(minHrsTriggered) document.getElementById('l-min').classList.add('active');
+            if(minHrs) document.getElementById('l-min').classList.add('active');
             if(intl) document.getElementById('l-intl').classList.add('active');
-            if(urg) document.getElementById('l-urg').classList.add('active');
+            
+            const logUrg = document.getElementById('l-urg');
+            if(isVolatile) {
+                logUrg.classList.add('active');
+                logUrg.innerHTML = `<div class="dot"></div> VOLATILITY ALERT: 72H MANUAL REVIEW REQUIRED`;
+                logUrg.style.color = '#ef4444';
+            } else if (urg) {
+                logUrg.classList.add('active');
+                logUrg.innerHTML = `<div class="dot"></div> Priority 72h window`;
+                logUrg.style.color = '';
+            } else {
+                logUrg.innerHTML = `<div class="dot"></div> Priority 72h window`;
+                logUrg.style.color = '';
+            }
         }
 
         function animatePrice() {
@@ -695,61 +726,87 @@
             doc.setFontSize(8);
             doc.setTextColor(100);
             const encouragement = [
-                "Note: Prices are a market-optimized estimate and may vary slightly based on final aircraft tail allocation.",
-                "To secure a final guaranteed quote, please complete your authentication within the mission portal.",
-                "A synchronization link has been dispatched to your email."
+                "This document provides a preliminary market-optimized estimate. Final costs may be lesser",
+                "or higher based on operators' real-time pricing and airframe availability.",
+                "To secure a final guaranteed quote, a synchronization link has been dispatched to your email."
             ];
             doc.text(encouragement, 15, finalY + 45);
 
-            doc.save(`15D-ESTIMATE-${serverMissionID}.pdf`);
+            doc.setFontSize(7);
+            doc.setTextColor(150);
+            doc.text("SUPPORT: concierge@skyparty.name.ng", 15, pageHeight - 15);
+            doc.text("15D Wings | Sky Party LTD (RC 8997727)", pageWidth - 15, pageHeight - 15, { align: 'right' });
+
+            doc.save(`15D-WINGS-ESTIMATE-${serverMissionID}.pdf`);
         }
 
         function handleExportClick() { if(serverMissionID) generatePDF(); else document.getElementById('export-error-msg').style.display = 'block'; }
 
-        // --- UPDATED TOUR & LOGIC ---
+        // --- ENHANCED TOUR & EXPECTATION LOGIC ---
         let tourStep = 0;
         const tourData = [
             {
                 title: "Instant Feasibility",
-                desc: "Welcome to 15D Wings. While others take days, our engine calculates operational feasibility across Nigeria in real-time.",
+                desc: "Traditional brokers take hours to call you back. Our engine calculates pricing and route logistics across Nigeria in real-time.",
                 target: "price-val"
             },
             {
-                title: "Estimation Matrix",
-                desc: "Note that these prices are estimates. Actual rates can be slightly more or less depending on the specific operator's current pricing on the mission date.",
+                title: "Estimate & Expectations",
+                desc: "Please note that these prices are operational estimates. The final cost can be less or more based on operators' real-time pricing. You can download an Instant Estimate PDF afterward and check your email.",
                 target: "price-val"
+            },
+            {
+                title: "The 72-Hour Rule",
+                desc: "Flights requested within 72 hours are 'Volatile'. For non-frequent flyers, these require manual validation by our tower to ensure a jet is actually on the tarmac.",
+                target: "legs-container"
             },
             {
                 title: "Intelligent Classing",
-                desc: "Select your aircraft. After calculation, you'll be able to download your estimate PDF and check your email for a detailed mission briefing.",
+                desc: "The price changes based on the aircraft class. We also automatically detect if your route needs international overflight permits and add them to the estimate.",
                 target: "ac-class"
             },
             {
                 title: "Mission Authorization",
-                desc: "Scroll down to 'Authorize' your mission. This syncs your request with our flight coordinators to verify real-time tarmac availability.",
+                desc: "Once you are satisfied with the intel, scroll down to 'Authorize Mission' to sync with our flight coordinators. You'll receive a formal manifest via email immediately.",
                 target: "dispatch-btn"
             }
         ];
 
         function checkFirstVisit() {
-            if (!localStorage.getItem('15d_tour_completed')) {
+            if (!localStorage.getItem('15d_tour_v2_completed')) {
                 document.getElementById('tour-overlay').style.display = 'flex';
+                updateTourUI();
             }
+        }
+
+        function updateTourUI() {
+            document.getElementById('tour-step-num').innerText = `Step ${tourStep + 1} of ${tourData.length}`;
+            document.getElementById('tour-title').innerText = tourData[tourStep].title;
+            document.getElementById('tour-desc').innerText = tourData[tourStep].desc;
         }
 
         function nextTourStep() {
             tourStep++;
             if (tourStep >= tourData.length) {
                 document.getElementById('tour-overlay').style.display = 'none';
-                localStorage.setItem('15d_tour_completed', 'true');
+                localStorage.setItem('15d_tour_v2_completed', 'true');
                 return;
             }
-            document.getElementById('tour-step-num').innerText = `Step ${tourStep + 1} of 4`;
-            document.getElementById('tour-title').innerText = tourData[tourStep].title;
-            document.getElementById('tour-desc').innerText = tourData[tourStep].desc;
+            updateTourUI();
         }
 
-        window.onload = () => { loadDB(); addLeg(); initMap(); syncPaxLogic(); checkFirstVisit(); };
+        // Initialize Onboarding & Labels
+        window.addEventListener('DOMContentLoaded', () => {
+            checkFirstVisit();
+            
+            const acSelect = document.getElementById('ac-class');
+            acSelect.options[0].text = "Light Jet | 4-6 Seats (Short Trips)";
+            acSelect.options[1].text = "Midsize Jet | 7-9 Seats (Extended Range)";
+            acSelect.options[2].text = "Heavy Jet | 10-14 Seats (VIP/Group)";
+            acSelect.options[3].text = "Ultra Jet | 15-50 Seats (Corporate Teams)";
+        });
+
+        window.onload = () => { loadDB(); addLeg(); initMap(); syncPaxLogic(); };
     </script>
 </body>
 </html>
