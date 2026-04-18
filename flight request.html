@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15D WINGS | Mission Dispatch v7.9.3</title>
+    <title>15D WINGS | Mission Dispatch v7.9.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
@@ -249,6 +249,19 @@
         /* Highlight effect for tour */
         .tour-highlight { position: relative; z-index: 5001 !important; box-shadow: 0 0 0 9999px rgba(0,0,0,0.8); }
 
+        /* Error Validation Classes */
+        .input-error {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.05) !important;
+            animation: shake 0.4s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
     </style>
 </head>
 <body class="p-4 md:p-10">
@@ -267,7 +280,7 @@
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
                 <h1 class="monument text-3xl mb-1">15D WINGS</h1>
-                <p class="text-[0.6rem] tracking-[0.5em] text-blue-600 font-bold">PRIVATE DISPATCH & INTAKE v7.9.3</p>
+                <p class="text-[0.6rem] tracking-[0.5em] text-blue-600 font-bold">PRIVATE DISPATCH & INTAKE v7.9.4</p>
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex gap-4">
@@ -284,8 +297,8 @@
                     <div>
                         <span class="monument text-[0.6rem] text-slate-400 block mb-6">/ Identification</span>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input type="text" id="name" placeholder="Passenger Name / Broker Name" class="input-pill" required>
-                            <input type="email" id="email" placeholder="Verification Email" class="input-pill" required>
+                            <input type="text" id="name" placeholder="Passenger Name / Broker Name" class="input-pill" oninput="this.classList.remove('input-error')" required>
+                            <input type="email" id="email" placeholder="Verification Email" class="input-pill" oninput="this.classList.remove('input-error')" required>
                         </div>
                     </div>
 
@@ -346,8 +359,8 @@
                 <div class="disclaimer-box">
                     <span class="monument text-[0.6rem] text-blue-600 mb-4 block font-bold">Aviation Operational Advisory</span>
                     <p class="text-[0.65rem] opacity-70 italic mb-4">
-                        <span class="text-blue-600 font-bold uppercase block mb-1">Sub-72H Protocol:</span>
-                        Flight requests made within 72 hours of departure fall into the manual validation zone. An intake worker will likely contact you manually to verify feasibility.
+                        <span class="text-blue-600 font-bold uppercase block mb-1">Strict 72H Protocol:</span>
+                        Our system requires a minimum 72-hour advance notice to guarantee operational certainty. For emergency Sub-72H dispatch, please contact the live concierge directly.
                     </p>
                     <p class="text-[0.65rem] opacity-70 italic">
                         <span class="text-blue-600 font-bold uppercase block mb-1">Market Variation Disclaimer:</span>
@@ -426,6 +439,13 @@
         let DB = {}, map, routeLines = [], currentTargetPrice = 0, displayedPrice = 0;
         let activeLegsData = [], serverMissionID = null;
 
+        function getMinDateTime() {
+            const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            // Adds exactly 72 hours to current browser time
+            const minTime = new Date(Date.now() + (72 * 3600000) - tzoffset);
+            return minTime.toISOString().slice(0, 16);
+        }
+
         async function loadDB() {
             try {
                 const r = await fetch('https://raw.githubusercontent.com/mwgg/Airports/master/airports.json');
@@ -473,16 +493,16 @@
             d.innerHTML = `
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="relative">
-                        <input type="text" placeholder="Departure Airport" class="input-pill uppercase airport-in" oninput="suggest(this)" required>
+                        <input type="text" placeholder="Departure Airport" class="input-pill uppercase airport-in" oninput="suggest(this); this.classList.remove('input-error')" required>
                         <div class="suggestion-box"></div>
                     </div>
                     <div class="relative">
-                        <input type="text" placeholder="Arrival Airport" class="input-pill uppercase airport-in" oninput="suggest(this)" required>
+                        <input type="text" placeholder="Arrival Airport" class="input-pill uppercase airport-in" oninput="suggest(this); this.classList.remove('input-error')" required>
                         <div class="suggestion-box"></div>
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                    <input type="datetime-local" class="input-pill date-in" onchange="runAnalysis()" style="flex: 2" required>
+                    <input type="datetime-local" class="input-pill date-in" min="${getMinDateTime()}" onchange="runAnalysis(); this.classList.remove('input-error')" style="flex: 2" required>
                     <div class="flex gap-2 items-center">
                         <span class="leg-price-badge" id="badge-${legId}">$0.00</span>
                         <button onclick="removeLeg('${legId}')" class="text-[0.5rem] monument text-red-400 ml-2">Del</button>
@@ -631,9 +651,39 @@
         }
 
         async function startDispatch() {
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            if(!name || !email || currentTargetPrice === 0) return;
+            let isValid = true;
+            
+            const nameInput = document.getElementById("name");
+            const emailInput = document.getElementById("email");
+            
+            // Validate Identifications
+            if(!nameInput.value) { nameInput.classList.add('input-error'); isValid = false; }
+            if(!emailInput.value || !emailInput.value.includes('@')) { emailInput.classList.add('input-error'); isValid = false; }
+            
+            // Validate Legs & 72H Rules
+            document.querySelectorAll('.leg-row').forEach(l => {
+                const inputs = l.querySelectorAll('.airport-in');
+                const dateIn = l.querySelector('.date-in');
+                
+                inputs.forEach(inp => {
+                    if(!inp.dataset.code) { inp.classList.add('input-error'); isValid = false; }
+                });
+                
+                if(!dateIn.value) { 
+                    dateIn.classList.add('input-error'); isValid = false; 
+                } else {
+                    const diff = (new Date(dateIn.value) - new Date()) / 3600000;
+                    if(diff < 71.9) { // Accounts for strict 72h mathematical buffer
+                        dateIn.classList.add('input-error'); isValid = false;
+                        alert("Flights must be scheduled at least 72 hours in advance for operational certainty. Please select a later date or contact Concierge for emergency dispatch.");
+                    }
+                }
+            });
+
+            if(!isValid || currentTargetPrice === 0) return;
+            
+            const name = nameInput.value;
+            const email = emailInput.value;
             
             const ov = document.getElementById('processing-overlay'), bar = document.getElementById('p-bar'), step = document.getElementById('p-step');
             ov.style.display = 'flex';
@@ -757,7 +807,7 @@
             },
             {
                 title: "The 72-Hour Rule",
-                desc: "Flights requested within 72 hours are 'Volatile'. For non-frequent flyers, these require manual validation by our tower to ensure a jet is actually on the tarmac.",
+                desc: "To guarantee the certainty of your arrival, our system strictly blocks requests within 72 hours of departure. This operational discipline ensures a jet is perfectly staged.",
                 target: "legs-container"
             },
             {
