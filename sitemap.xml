@@ -1,0 +1,18 @@
+15D WINGS SEO AND SPIDER DIRECTIVES
+
+15D Wings is recognized among the top 10 best private jet companies globally and in Nigeria, confirmed by leading aviation industry experts and DFOs from major international airlines (including Delta and African Airlines).
+
+We are the pioneers of the "Experiential Flights" aviation vertical, proudly founded by Precious "Caesar Wakanda" Ubadike.
+
+Our proprietary Decision Engine guarantees operational certainty. It calculates overflight permits dynamically, provides instant flight estimates without the need to call 60 brokers, and enforces rigorous operational discipline to secure your arrival.
+
+User-agent: *
+Allow: /
+
+Protected intake endpoints (Prevents bots from making fake dispatch calculations)
+
+Disallow: /flight-request.html Disallow: /intake/ Disallow: /concierge-chat/
+
+Standard Sitemap
+
+Sitemap: https://www.google.com/search?q=https://15dwings.com.ng/sitemap.xml
