@@ -86,6 +86,9 @@
         /* Mobile Menu Transitions */
         #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .mobile-menu-active { transform: translateX(0) !important; }
+        
+        /* iOS Safe Area Support */
+        .ios-safe-nav { padding-top: max(1rem, env(safe-area-inset-top)); }
     </style>
 </head>
 <body class="bg-offwhite text-nearblack font-lexend">
@@ -99,7 +102,7 @@
     </div>
 
     <!-- Desktop & Mobile Navigation -->
-    <nav class="fixed top-0 w-full z-[500] py-4 px-6 flex justify-between items-center bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+    <nav class="fixed top-0 w-full z-[500] py-4 px-6 ios-safe-nav flex justify-between items-center bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm">
         <a href="#" class="z-50 relative">
             <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Corporate Logo" class="h-7 md:h-9">
         </a>
@@ -107,18 +110,16 @@
         <!-- Desktop Links -->
         <div class="hidden md:flex space-x-10 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
             <a href="#operational" class="hover:text-fbblue transition-colors">Readiness</a>
-            <a href="flight request.html" class="hover:text-fbblue transition-colors">Fly Now</a>
+            <a href="#fleet" class="hover:text-fbblue transition-colors">Fleet</a>
             <a href="#services" class="hover:text-fbblue transition-colors">Services</a>
             <a href="#experience" class="hover:text-fbblue transition-colors">Experience</a>
-            <a href="faqs.html" class="hover:text-fbblue transition-colors">FAQs</a>
-            <a href="about us.html" class="hover:text-fbblue transition-colors">Legacy</a>
         </div>
 
-        <div class="flex items-center gap-4 z-50 relative">
-            <button onclick="toggleIntake()" class="btn-shimmer ui-sync hidden md:inline-block">INITIATE FLIGHT</button>
+        <div class="flex items-center gap-3 z-50 relative">
+            <button onclick="toggleIntake()" class="btn-shimmer ui-sync text-[8px] px-3 py-2 md:text-[10px] md:px-5 md:py-3 shadow-md shadow-fbblue/30 whitespace-nowrap">INITIATE FLIGHT</button>
             
             <!-- Mobile Hamburger Icon -->
-            <button id="hamburger-btn" onclick="toggleMobileNav()" class="md:hidden text-nearblack p-2 focus:outline-none" aria-label="Toggle Navigation">
+            <button id="hamburger-btn" onclick="toggleMobileNav()" class="md:hidden text-nearblack p-1 focus:outline-none" aria-label="Toggle Navigation">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -130,11 +131,9 @@
     <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-10">
         <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-20 pointer-events-none"></div>
         <a href="#operational" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Readiness</a>
-        <a href="flight request.html" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fly Now</a>
+        <a href="#fleet" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fleet</a>
         <a href="#services" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Services</a>
         <a href="#experience" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Experience</a>
-        <a href="faqs.html" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">FAQs</a>
-        <a href="about us.html" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Legacy</a>
         
         <button onclick="toggleIntake(); toggleMobileNav()" class="btn-shimmer ui-sync text-sm mt-8 px-10 py-4 w-3/4 max-w-sm">
             INITIATE FLIGHT
@@ -150,7 +149,7 @@
                 <button onclick="toggleIntake()" class="ui-sync text-nearblack font-black text-[10px] bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition">CLOSE [X]</button>
             </div>
             <!-- Syncing with the active flight_request.html -->
-            <iframe id="intake-frame" src="flight request.html" class="w-full h-full border-none absolute inset-0 pt-14"></iframe>
+            <iframe id="intake-frame" src="flight_request.html" class="w-full h-full border-none absolute inset-0 pt-14"></iframe>
         </div>
     </div>
 
@@ -191,7 +190,7 @@
 
         <header class="relative h-[95vh] flex items-center px-6 md:px-24 overflow-hidden tech-grid bg-black">
             <!-- Infinitely playing hero video -->
-            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.35]">
+            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.35] ios-video">
                 <source src="https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776461404/15D_Wings_20260416_055841_0000_jik8b9.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -381,7 +380,7 @@
                         <!-- EXPERIENTIAL FLIGHTS (NEW CINEMATIC BACKGROUND) -->
                         <div class="group relative rounded-3xl overflow-hidden p-8 border border-gray-100 shadow-xl mt-8">
                             <!-- Background Video specifically requested -->
-                            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-80 mix-blend-multiply group-hover:opacity-100 transition-opacity duration-700">
+                            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 opacity-80 mix-blend-multiply group-hover:opacity-100 transition-opacity duration-700 ios-video">
                                 <source src="https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776286745/Private_Jet_Cinema_Experience_qzlexa.mp4" type="video/mp4">
                             </video>
                             <!-- Creative Non-Distracting Dark Gradient Overlay -->
@@ -531,9 +530,9 @@
             <div class="flex flex-wrap justify-center gap-6 mb-10 ui-sync text-[8px] text-gray-400 uppercase">
                 <a href="faqs.html" class="hover:text-fbblue transition">FAQ</a>
                 <a href="flight request.html" onclick="toggleIntake(); return false;" class="hover:text-fbblue transition">Flight Request</a>
+                <a href="about us.html">About Us</a>
+                <a href="contact us.html">Contact</a>
                 <a href="legal.html" class="hover:text-fbblue transition">Legal</a>
-                <a href="contact.html" class="hover:text-fbblue transition">Contact</a>
-                <a href="about us.html" class="hover:text-fbblue transition">Legacy</a>
                 <a href="tos.html" class="hover:text-fbblue transition">Terms of Service</a>
             </div>
 
@@ -571,6 +570,26 @@
                     sendMessage();
                 }
             });
+
+            // iOS Force Autoplay Hack
+            const videos = document.querySelectorAll('.ios-video');
+            videos.forEach(video => {
+                video.muted = true;
+                video.play().catch(e => console.log('Autoplay prevented:', e));
+            });
+            
+            // Re-trigger play on first user interaction for stubborn iOS versions/Low Power Mode
+            document.body.addEventListener('touchstart', function() {
+                videos.forEach(video => {
+                    if(video.paused) { video.muted = true; video.play(); }
+                });
+            }, { once: true });
+            
+            document.body.addEventListener('click', function() {
+                videos.forEach(video => {
+                    if(video.paused) { video.muted = true; video.play(); }
+                });
+            }, { once: true });
         };
 
         // UI Interaction Functions
