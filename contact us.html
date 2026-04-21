@@ -126,11 +126,27 @@
         </a>
         <div class="hidden md:flex space-x-12 text-[9px] ui-sync text-gray-400">
             <a href="index.html" class="hover:text-fbblue transition-colors">Home</a>
-            <a href="about us.html" class="hover:text-fbblue transition-colors">About</a>
+            <a href="about.html" class="hover:text-fbblue transition-colors">About</a>
             <a href="contact us.html" class="text-fbblue">Contact</a>
         </div>
-        <a href="flight request.html" class="ui-sync text-[9px] bg-fbblue text-white px-5 py-2.5 rounded-full hover:shadow-lg transition-all active:scale-95">INITIATE FLIGHT</a>
+        <div class="flex items-center gap-4 z-50">
+            <a href="flight request.html" class="hidden md:inline-block ui-sync text-[9px] bg-fbblue text-white px-5 py-2.5 rounded-full hover:shadow-lg transition-all active:scale-95">INITIATE FLIGHT</a>
+            <button id="hamburger-btn" onclick="toggleMobileNav()" class="md:hidden text-nearblack p-1 focus:outline-none" aria-label="Toggle Navigation">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-10 transition-transform duration-500 ease-in-out">
+        <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-30 pointer-events-none"></div>
+        <a href="index.html" class="title-monument text-3xl text-nearblack hover:text-fbblue transition p-2">Home</a>
+        <a href="about.html" class="title-monument text-3xl text-nearblack hover:text-fbblue transition p-2">About</a>
+        <a href="contact us.html" class="title-monument text-3xl text-fbblue transition p-2">Contact</a>
+        <a href="flight request.html" class="ui-sync text-[10px] bg-fbblue text-white px-8 py-3 rounded-full hover:shadow-lg transition-all mt-4">INITIATE FLIGHT</a>
+    </div>
 
     <main class="radar-container pt-32 pb-24">
         <div class="radar-line"></div>
@@ -240,8 +256,16 @@
         </div>
     </main>
 
-    <footer class="py-16 border-t border-gray-50 text-center">
+    <footer class="py-16 border-t border-gray-50 text-center relative z-10 bg-white">
         <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Logo" class="h-5 mx-auto mb-6 grayscale opacity-20">
+        
+        <div class="flex flex-wrap justify-center gap-6 mb-8 ui-sync text-[7px] text-gray-400 uppercase tracking-widest">
+            <a href="about us.html" class="hover:text-fbblue transition">About Us</a>
+            <a href="privacy policy.html" class="hover:text-fbblue transition">Privacy Policy</a>
+            <a href="tos.html" class="hover:text-fbblue transition">Terms of Service</a>
+            <a href="legal.html" class="hover:text-fbblue transition">Legal</a>
+        </div>
+
         <p class="text-[7px] text-gray-300 ui-sync tracking-[0.6em]">ARCHITECTS OF CERTAINTY // © 2026</p>
     </footer>
 
@@ -250,6 +274,19 @@
         const form = document.getElementById('contact-form');
         const btn = document.getElementById('submit-btn');
         const status = document.getElementById('form-status');
+
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            } else {
+                menu.classList.add('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+            }
+        }
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
