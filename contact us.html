@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <title>15D WINGS | CONTACT | MISSION CONTROL RELAY</title>
+    <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { fbblue: '#1877F2', nearblack: '#030507', offwhite: '#F9FAFB' },
+                    fontFamily: { 
+                        sync: ['Syncopate', 'sans-serif'], 
+                        monument: ['Monument Extended', 'sans-serif'], 
+                        lexend: ['Lexend', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body, html { margin: 0; padding: 0; background: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-family: 'lexend', sans-serif; }
+        .tech-grid { background-image: linear-gradient(rgba(24, 119, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 119, 242, 0.05) 1px, transparent 1px); background-size: 40px 40px; }
+        
+        /* Contained Radar Scanline */
+        .header-radar { position: relative; overflow: hidden; }
+        .scanline { 
+            width: 100%; 
+            height: 2px; 
+            background: rgba(24, 119, 242, 0.4); 
+            box-shadow: 0 0 15px rgba(24, 119, 242, 0.6); 
+            position: absolute; 
+            top: 0; 
+            z-index: 10; 
+            animation: scan 4s linear infinite; 
+            pointer-events: none; 
+        }
+        @keyframes scan { 0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+        .title-monument { font-family: 'Monument Extended', sans-serif; text-transform: uppercase; letter-spacing: -0.04em; color: #000; }
+        .ui-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.65rem; font-weight: 700; }
+        
+        .contact-card { border: 1px solid #f1f1f1; border-radius: 1.5rem; background: #fff; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .input-field { width: 100%; background: #f9fafb; border: 1px solid #eee; border-radius: 12px; padding: 1rem; font-size: 0.9rem; transition: all 0.3s ease; outline: none; }
+        .input-field:focus { border-color: #1877F2; background: #fff; }
+
+        .btn-shimmer { position: relative; overflow: hidden; background: #1877F2; color: white; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); font-size: 0.65rem; padding: 1rem 2rem; font-weight: 800; border-radius: 9999px; cursor: pointer; transition: transform 0.3s ease; display: inline-block; text-align: center; }
+        .btn-shimmer:hover { transform: scale(1.02); }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-active { opacity: 1; transform: translateY(0); }
+
+        #form-status { display: none; margin-top: 1rem; padding: 1rem; border-radius: 12px; font-size: 0.75rem; border: 1px solid #eee; }
+    </style>
+</head>
+<body class="bg-offwhite text-nearblack font-lexend">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[500] py-4 px-6 flex justify-between items-center bg-white/95 backdrop-blur-xl border-b border-gray-100">
+        <a href="index.html">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Logo" class="h-7 md:h-9">
+        </a>
+        <div class="hidden md:flex space-x-10 text-[10px] ui-sync text-gray-500">
+            <a href="index.html" class="hover:text-fbblue transition-colors">Home</a>
+            <a href="about.html" class="hover:text-fbblue transition-colors">About</a>
+            <a href="contact us.html" class="text-fbblue">Contact</a>
+        </div>
+        <a href="flight request.html" class="btn-shimmer ui-sync py-2 px-4 md:py-3 md:px-6">INITIATE FLIGHT</a>
+    </nav>
+
+    <main class="pt-24 pb-24">
+        <!-- Header with Contained Radar -->
+        <header class="pt-20 pb-16 px-6 text-center tech-grid header-radar">
+            <div class="scanline"></div>
+            <div class="max-w-4xl mx-auto relative z-20">
+                <span class="ui-sync text-fbblue text-[10px] mb-6 block reveal tracking-[0.5em]">SYSTEM RELAY</span>
+                <h1 class="title-monument text-4xl md:text-6xl mb-4 leading-tight">CONTACT <br> MISSION CONTROL</h1>
+                <p class="ui-sync text-[8px] text-gray-400 tracking-widest">[ RADAR ACTIVE // FREQUENCY SECURED ]</p>
+            </div>
+        </header>
+
+        <section class="px-6 max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Messaging Form -->
+            <div class="lg:col-span-7 bg-white p-8 md:p-12 rounded-[2rem] border border-gray-100 shadow-sm reveal">
+                <div class="mb-8 flex justify-between items-end">
+                    <div>
+                        <span class="ui-sync text-fbblue text-[8px] block mb-2">SECURE MESSAGING</span>
+                        <h2 class="title-monument text-xl" style="color: black;">DIRECT TRANSMISSION</h2>
+                    </div>
+                    <div class="text-right">
+                        <span class="bg-blue-50 text-fbblue text-[9px] ui-sync py-1 px-3 rounded-full border border-fbblue/10 animate-pulse">
+                            FASTER THAN EMAIL
+                        </span>
+                    </div>
+                </div>
+
+                <p class="text-gray-500 text-sm mb-8 leading-relaxed">
+                    This relay is optimized for direct technical and corporate inquiries. Messages transmitted via this terminal receive prioritized queuing in our decision engine.
+                </p>
+
+                <form id="contact-form" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="ui-sync text-[8px] text-gray-400 mb-2 block">SENDER IDENTITY</label>
+                            <input type="text" name="name" required placeholder="Authorized Representative" class="input-field">
+                        </div>
+                        <div>
+                            <label class="ui-sync text-[8px] text-gray-400 mb-2 block">RETURN FREQUENCY (EMAIL)</label>
+                            <input type="email" name="email" required placeholder="representative@org.com" class="input-field">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="ui-sync text-[8px] text-gray-400 mb-2 block">MESSAGE CONTENT</label>
+                        <textarea name="message" required rows="6" placeholder="Enter transmission..." class="input-field"></textarea>
+                    </div>
+
+                    <div class="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                        <p class="text-[10px] text-gray-500 leading-relaxed italic">
+                            <strong class="text-nearblack">Notice:</strong> Due to the exceptionally high volume of flight coordination and system expansion requests, response times may be delayed. We appreciate the patience of our aligned partners as we maintain the integrity of each decision.
+                        </p>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-shimmer w-full ui-sync">
+                        EXECUTE TRANSMISSION
+                    </button>
+
+                    <div id="form-status"></div>
+                </form>
+            </div>
+
+            <!-- Context & Nodes -->
+            <div class="lg:col-span-5 space-y-8">
+                
+                <!-- Concierge Access -->
+                <div class="bg-nearblack p-8 rounded-[2rem] text-white reveal">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-2 h-2 bg-fbblue rounded-full animate-ping"></div>
+                        <span class="ui-sync text-[9px] tracking-[0.3em] text-fbblue">CONCIERGE ACCESS</span>
+                    </div>
+                    <h3 class="title-monument text-lg mb-4">PRIORITY CHANNELS</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-8">
+                        Aligned members and existing corporate accounts may bypass the standard queue via the direct WhatsApp relay.
+                    </p>
+                    <a href="https://wa.me/2349167621703" target="_blank" class="flex items-center justify-between group p-4 border border-white/10 rounded-xl hover:border-fbblue/50 transition-all">
+                        <span class="ui-sync text-[10px]">OPEN WHATSAPP RELAY</span>
+                        <span class="text-fbblue group-hover:translate-x-1 transition-transform">↗</span>
+                    </a>
+                </div>
+
+                <!-- Physical Locations (Text only) -->
+                <div class="space-y-6 reveal">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="ui-sync text-[8px] text-fbblue">SYSTEM HQ</span>
+                            <a href="https://www.google.com/maps?q=The+Heritage+Place+Ikoyi" target="_blank" class="ui-sync text-[8px] text-gray-400 hover:text-fbblue underline decoration-fbblue/20">SATELLITE VIEW</a>
+                        </div>
+                        <h4 class="font-bold text-nearblack mb-1">THE HERITAGE PLACE</h4>
+                        <p class="text-[11px] text-gray-500">21 Lugard Avenue, Ikoyi, Lagos, Nigeria.</p>
+                    </div>
+
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="ui-sync text-[8px] text-fbblue">OPERATIONAL NODE</span>
+                            <a href="https://www.google.com/maps?q=Murtala+Muhammed+Airport+GAT" target="_blank" class="ui-sync text-[8px] text-gray-400 hover:text-fbblue underline decoration-fbblue/20">SATELLITE VIEW</a>
+                        </div>
+                        <h4 class="font-bold text-nearblack mb-1">GAT OPERATIONAL BASE</h4>
+                        <p class="text-[11px] text-gray-500">After Bristow Gate GAT, Murtala Muhammed Airport, Lagos.</p>
+                    </div>
+                </div>
+
+                <!-- Support Relay -->
+                <div class="p-8 contact-card bg-offwhite/50 border-dashed border-gray-200 reveal">
+                    <span class="ui-sync text-[8px] text-gray-400 block mb-4">LEGACY SUPPORT</span>
+                    <p class="text-[11px] text-gray-600 mb-2">Manual Correspondence:</p>
+                    <a href="mailto:ops@15dwings.com.ng" class="text-sm font-medium text-fbblue hover:underline">ops@15dwings.com.ng</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 px-6 text-center bg-white border-t">
+        <p class="text-[8px] text-gray-400 ui-sync tracking-[0.4em]">ARCHITECTS OF CERTAINTY // © 2026</p>
+    </footer>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_ACTUAL_ID/exec';
+        const form = document.getElementById('contact-form');
+        const btn = document.getElementById('submit-btn');
+        const status = document.getElementById('form-status');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.textContent = 'TRANSMITTING...';
+            
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                status.style.display = 'block';
+                status.innerHTML = '<span class="text-green-600">MISSION CONTROL NOTIFIED.</span><br>Your transmission has been queued. Please note our current latency due to high demand.';
+                form.reset();
+            } catch (error) {
+                status.style.display = 'block';
+                status.innerHTML = '<span class="text-red-600">RELAY ERROR.</span><br>Please use the direct Concierge Access via WhatsApp.';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'EXECUTE TRANSMISSION';
+            }
+        });
+
+        window.onload = () => {
+            const observer = new IntersectionObserver((entries) => { 
+                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('reveal-active'); }); 
+            }, { threshold: 0.1 }); 
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); 
+        };
+    </script>
+</body>
+</html>
