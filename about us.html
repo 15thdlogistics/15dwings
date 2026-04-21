@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- iOS Optimization: viewport-fit=cover ensures edge-to-edge rendering behind the notch/dynamic island -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- SEO Optimization -->
+    <title>15D WINGS | ABOUT US | TOP PRIVATE JET COMPANY IN NIGERIA</title>
+    <meta name="description" content="15D Wings is a leading private jet company in Nigeria. We are Architects of Certainty, providing a decision engine and logistics infrastructure for private aviation, charter flights, and exclusive experiential flights.">
+    <meta name="keywords" content="private jet company in Nigeria, private charter flights Nigeria, book private jet Lagos Abuja, private aviation logistics, experiential flights, 15D Wings, charter coordination platform">
+
+    <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { fbblue: '#1877F2', gold: '#c5a059', nearblack: '#030507', offwhite: '#F9FAFB' },
+                    fontFamily: { 
+                        sync: ['Syncopate', 'sans-serif'], 
+                        monument: ['Monument Extended', 'sans-serif'], 
+                        lexend: ['Lexend', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body, html { margin: 0; padding: 0; background: #000; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-family: 'lexend', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .scanline { width: 100%; height: 3px; background: rgba(24, 119, 242, 0.2); position: absolute; top: 0; z-index: 5; animation: scan 4s linear infinite; pointer-events: none; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        .tech-grid { background-image: linear-gradient(rgba(24, 119, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 119, 242, 0.05) 1px, transparent 1px); background-size: 30px 30px; }
+        
+        .title-monument { font-family: 'Monument Extended', sans-serif; line-height: 0.95; text-transform: uppercase; letter-spacing: -0.04em; font-size: clamp(2.2rem, 10vw, 6rem); color: white; }
+        .ui-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.65rem; font-weight: 700; }
+        .btn-shimmer { position: relative; overflow: hidden; background: #1877F2; color: white; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); font-size: 0.6rem !important; padding: 0.75rem 1.25rem !important; font-weight: 800; border-radius: 9999px; white-space: nowrap; cursor: pointer; transition: transform 0.3s ease; }
+        .btn-shimmer:hover { transform: scale(1.05); }
+        @media (min-width: 768px) { .btn-shimmer { font-size: 0.75rem !important; padding: 1rem 2rem !important; } }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-active { opacity: 1; transform: translateY(0); }
+        
+        .img-card { border-radius: 1.5rem; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 1s; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        .profile-img { filter: grayscale(100%) contrast(1.1); transition: filter 0.5s ease, transform 0.5s ease; }
+        .team-card:hover .profile-img { filter: grayscale(0%) contrast(1); transform: scale(1.03); }
+        
+        .dash-border { border: 1px solid #f1f1f1; border-radius: 1.5rem; background: #fff; transition: all 0.3s ease; }
+        .dash-border:hover { border-color: #1877F2; box-shadow: 0 10px 30px rgba(24, 119, 242, 0.05); }
+
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        /* iOS Safe Area Support */
+        .ios-safe-nav { padding-top: max(1rem, env(safe-area-inset-top)); }
+        .ios-safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+
+        .abstract-avatar { background: linear-gradient(135deg, #030507 0%, #1a1e23 100%); border: 1px solid rgba(24, 119, 242, 0.1); }
+    </style>
+</head>
+<body class="bg-offwhite text-nearblack font-lexend ios-safe-bottom">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[500] py-4 px-6 ios-safe-nav flex justify-between items-center bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <a href="index.html" class="z-50 relative">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Corporate Logo" class="h-7 md:h-9">
+        </a>
+        
+        <div class="hidden md:flex space-x-10 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
+            <a href="index.html#operational" class="hover:text-fbblue transition-colors">Readiness</a>
+            <a href="index.html#fleet" class="hover:text-fbblue transition-colors">Fleet</a>
+            <a href="about.html" class="text-fbblue transition-colors">About Us</a>
+            <a href="experience.html" class="hover:text-fbblue transition-colors">Experience</a>
+        </div>
+
+        <div class="flex items-center gap-3 z-50 relative">
+            <a href="flight request.html" class="btn-shimmer ui-sync text-[8px] px-3 py-2 md:text-[10px] md:px-5 md:py-3 shadow-md shadow-fbblue/30 whitespace-nowrap inline-block text-center">INITIATE FLIGHT</a>
+            
+            <button id="hamburger-btn" onclick="toggleMobileNav()" class="md:hidden text-nearblack p-2 focus:outline-none" aria-label="Toggle Navigation">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-10 ios-safe-nav ios-safe-bottom">
+        <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-20 pointer-events-none"></div>
+        <a href="index.html#operational" class="title-monument text-3xl text-white hover:text-fbblue transition p-2">Readiness</a>
+        <a href="index.html#fleet" class="title-monument text-3xl text-white hover:text-fbblue transition p-2">Fleet</a>
+        <a href="about.html" class="title-monument text-3xl text-fbblue transition p-2">About Us</a>
+        <a href="index.html#experience" class="title-monument text-3xl text-white hover:text-fbblue transition p-2">Experience</a>
+    </div>
+
+    <main class="pt-16">
+        <div class="scanline"></div>
+
+        <!-- Hero Section -->
+        <header class="relative pt-32 pb-24 md:pt-48 md:pb-32 px-6 md:px-24 bg-nearblack overflow-hidden tech-grid text-white border-b border-white/5">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent z-0"></div>
+            <div class="relative z-10 max-w-5xl mx-auto text-center">
+                <span class="ui-sync text-fbblue text-[10px] mb-6 block reveal tracking-[0.4em]">CORPORATE IDENTITY</span>
+                <h1 class="title-monument reveal mb-8 leading-tight text-white md:text-6xl text-4xl">ARCHITECTS <br> OF CERTAINTY</h1>
+                <p class="font-lexend text-gray-400 text-sm md:text-lg reveal max-w-2xl mx-auto leading-relaxed">
+                    We do not just sell flights. As a premier private jet company in Nigeria, 15D Wings operates as a decision engine for private aviation, structuring the global private aviation ecosystem, beginning with Nigeria.
+                </p>
+            </div>
+        </header>
+
+        <!-- The Problem & System Logic -->
+        <section class="py-24 bg-offwhite px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-16 md:gap-24">
+                    <!-- The Problem -->
+                    <div class="reveal">
+                        <span class="ui-sync text-nearblack text-[10px] mb-4 block">THE PROBLEM</span>
+                        <h2 class="title-monument text-2xl md:text-3xl mb-8" style="color: black;">UNSTRUCTURED <br> DEMAND</h2>
+                        <div class="space-y-6 text-gray-600 border-l-2 border-nearblack/10 pl-6">
+                            <p>Private aviation demand is largely unstructured. Requests circulate without qualification, and operators respond without context.</p>
+                            <p>Execution entirely depends on fragmented communication.</p>
+                            <div class="pt-4 space-y-3">
+                                <p class="ui-sync text-[9px] text-red-500 font-bold">[X] DELAYED DECISIONS</p>
+                                <p class="ui-sync text-[9px] text-red-500 font-bold">[X] INCONSISTENT OUTCOMES</p>
+                                <p class="ui-sync text-[9px] text-red-500 font-bold">[X] WASTED OPERATOR CAPACITY</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Solution -->
+                    <div class="reveal bg-white p-8 md:p-12 border border-gray-100 rounded-3xl shadow-xl relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-fbblue/5 rounded-full blur-3xl"></div>
+                        <span class="ui-sync text-fbblue text-[10px] mb-4 block relative z-10">THE SYSTEM</span>
+                        <h2 class="title-monument text-2xl md:text-3xl mb-8 text-nearblack relative z-10" style="color: black;">LOGISTICS <br> ENGINEERING</h2>
+                        <div class="space-y-6 text-gray-600 relative z-10">
+                            <p>15D Wings restructures demand before it reaches supply. Through disciplined intake and coordination logic, we apply logistics engineering to a fragmented market.</p>
+                            <p class="font-bold text-nearblack italic border-l-4 border-fbblue pl-4">This is logistics engineering applied to private aviation, not brokerage.</p>
+                            <div class="pt-4 space-y-3">
+                                <p class="ui-sync text-[9px] text-fbblue font-bold">[✓] REQUESTS QUALIFIED BEFORE ENGAGEMENT</p>
+                                <p class="ui-sync text-[9px] text-fbblue font-bold">[✓] COMMUNICATION IS CENTRALIZED</p>
+                                <p class="ui-sync text-[9px] text-fbblue font-bold">[✓] EXECUTION MONITORED VIA DEFINED WORKFLOW</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experiential Flights Section -->
+        <section class="py-24 bg-nearblack px-6 text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537505/1772532021422_uk7ia5.jpg')] bg-cover bg-center opacity-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+            
+            <div class="max-w-6xl mx-auto reveal relative z-10 text-center mb-16">
+                <span class="ui-sync text-fbblue text-[10px] block mb-4">EXCLUSIVE OFFERINGS</span>
+                <h2 class="title-monument text-3xl md:text-5xl mb-6">EXPERIENTIAL FLIGHTS</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Beyond point-to-point transit, our system manages the coordination of high-tier exclusive aerial experiences.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto reveal relative z-10">
+                <div class="bg-gradient-to-br from-white/5 to-transparent border border-white/10 p-8 md:p-12 rounded-[2rem] backdrop-blur-sm flex flex-col md:flex-row items-center gap-10">
+                    <div class="flex-1">
+                        <h3 class="title-monument text-2xl mb-2 text-white">BlueHour™</h3>
+                        <p class="ui-sync text-fbblue text-[10px] mb-6 tracking-widest">THERAPEUTIC FLIGHTS</p>
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            Engineered for executive decompression. BlueHour™ transforms the cabin into a curated therapeutic environment while en route to your destination. Integrating digital behavioral psychology with high-altitude isolation to reset focus and eliminate executive fatigue.
+                        </p>
+                        <a href="https://www.skyparty.name.ng/experience" target="_blank" class="ui-sync text-xs text-white border-b border-fbblue pb-1 hover:text-fbblue transition-colors p-2 -ml-2 inline-block">EXPLORE EXPERIENCES ↗</a>
+                    </div>
+                    <div class="w-full md:w-1/3">
+                        <div class="aspect-square rounded-full border border-fbblue/30 p-2 relative">
+                            <div class="absolute inset-0 rounded-full border border-fbblue/10 animate-[spin_10s_linear_infinite]"></div>
+                            <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537192/1772530337581_qq5wv3.jpg" class="w-full h-full object-cover rounded-full grayscale opacity-80" alt="Cabin Atmosphere">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership Roster -->
+        <section class="py-24 bg-white px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20 reveal">
+                    <span class="ui-sync text-fbblue text-[10px] block mb-4">THE ARCHITECTS</span>
+                    <h2 class="title-monument text-3xl md:text-4xl text-nearblack" style="color: black;">MISSION CONTROL</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Precious Ubadike -->
+                    <div class="team-card reveal dash-border p-6 flex flex-col group md:col-span-3 lg:col-span-1 lg:row-span-2">
+                        <div class="relative overflow-hidden rounded-xl mb-6 bg-gray-100 aspect-[4/5]">
+                            <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1773121613/image_g9rbtg.jpg" alt="Precious Ubadike" class="w-full h-full object-cover profile-img">
+                            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent">
+                                <span class="ui-sync text-[8px] text-fbblue bg-black/50 px-2 py-1 rounded backdrop-blur-md">FOUNDER</span>
+                            </div>
+                        </div>
+                        <h3 class="title-monument text-xl mb-1 text-nearblack" style="color: black;">Precious Ubadike</h3>
+                        <p class="ui-sync text-[9px] text-gray-500 mb-4 tracking-widest leading-loose">SYSTEM ARCHITECT <br> BUSINESS DEVELOPER <br> FLIGHT DISPATCHER</p>
+                        <div class="mt-auto">
+                            <p class="text-xs text-gray-600 bg-gray-50 p-3 rounded-lg border border-gray-100 italic">
+                                Google Hustle Academy Scholar (Maiden Set)
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Amaechi Ubadike -->
+                    <div class="team-card reveal dash-border p-6 flex flex-col sm:flex-row gap-6 items-center md:col-span-2">
+                        <div class="w-32 h-32 sm:w-48 sm:h-48 flex-shrink-0 relative overflow-hidden rounded-xl bg-gray-100">
+                            <img src="https://uploads.onecompiler.io/43z22g7dk/442u87zes/1697710781500.jpeg" alt="Amaechi Ubadike" class="w-full h-full object-cover profile-img" style="object-position: top;">
+                        </div>
+                        <div>
+                            <h3 class="title-monument text-xl mb-1 text-nearblack" style="color: black;">Amaechi Ubadike</h3>
+                            <p class="ui-sync text-[9px] text-fbblue mb-3 tracking-widest">AVIATION EXPERT / CONSULTANT</p>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Retired Pilot (ATPL, CPL, PPL), Former Air Traffic Controller, and NCAA Licensing Officer. Bringing decades of unyielding operational doctrine to the 15D decision engine.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Peter "Tyler" Daniels -->
+                    <div class="team-card reveal dash-border p-6 flex flex-col sm:flex-row gap-6 items-center md:col-span-2">
+                        <div class="w-32 h-32 sm:w-48 sm:h-48 flex-shrink-0 relative overflow-hidden rounded-xl bg-gray-100">
+                            <img src="https://uploads.onecompiler.io/43z22g7dk/442u87zes/1664778553013.jpeg" alt="Peter Tyler Daniels" class="w-full h-full object-cover profile-img">
+                        </div>
+                        <div>
+                            <h3 class="title-monument text-xl mb-1 text-nearblack" style="color: black;">Peter "Tyler" Daniels</h3>
+                            <p class="ui-sync text-[9px] text-fbblue mb-3 tracking-widest">HEAD OF EXPERIENTIAL FLIGHT UNIT</p>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Product Manager and Digital Behavioral Psychologist. Designing the human element of aviation, translating transit into therapeutic and exclusive experiences like BlueHour™.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Ohiagu Chinedu -->
+                    <div class="team-card reveal dash-border p-6 flex flex-col">
+                        <div class="h-16 w-16 rounded-full abstract-avatar flex items-center justify-center mb-4">
+                            <span class="ui-sync text-white text-lg">OC</span>
+                        </div>
+                        <h3 class="title-monument text-lg mb-1 text-nearblack" style="color: black;">Ohiagu Chinedu</h3>
+                        <p class="ui-sync text-[9px] text-fbblue mb-3 tracking-widest">HEAD OF GROUND INTELLIGENCE</p>
+                        <p class="text-xs text-gray-500 mt-auto">Ensuring seamless logistical handoffs and ground-level certainty.</p>
+                    </div>
+
+                    <!-- Praise Ubadike -->
+                    <div class="team-card reveal dash-border p-6 flex flex-col">
+                        <div class="h-16 w-16 rounded-full abstract-avatar flex items-center justify-center mb-4">
+                            <span class="ui-sync text-white text-lg">PU</span>
+                        </div>
+                        <h3 class="title-monument text-lg mb-1 text-nearblack" style="color: black;">Praise Ubadike</h3>
+                        <p class="ui-sync text-[9px] text-fbblue mb-3 tracking-widest">BOARD OF DIRECTORS</p>
+                        <p class="text-xs text-gray-500 mt-auto">Strategic oversight and structural governance for network expansion.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Matrix Section: 100 Categories of Private Jet Flyers -->
+        <section class="py-24 bg-offwhite px-6 border-t border-gray-100">
+            <div class="max-w-6xl mx-auto reveal">
+                <span class="ui-sync text-fbblue text-[10px] block mb-4">SYSTEM REACH // DEMOGRAPHIC MATRIX</span>
+                <h2 class="title-monument text-2xl md:text-3xl mb-8 text-nearblack" style="color: black;">OPERATIONAL <br> COVERAGE</h2>
+                <p class="text-gray-600 mb-12 max-w-3xl leading-relaxed">
+                    As a leading private jet company in Nigeria, 15D Wings executes secure, structured aviation logistics for a highly diverse, global clientele. Our coordination infrastructure acts as a decision engine accommodating the complex operational needs of over 100 unique categories of travelers:
+                </p>
+                
+                <div class="bg-white p-8 md:p-10 rounded-3xl border border-gray-200 shadow-sm h-[400px] overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-4 ui-sync text-[8px] text-gray-500 uppercase tracking-widest">
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Corporate CEOs</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Financial Executives</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Board Members</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Venture Capitalists</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Angel Investors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Investment Bankers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Private Equity Partners</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Wealth Managers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Family Office Directors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Hedge Fund Managers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Tech Billionaires</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Startup Founders</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Silicon Valley Execs</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Real Estate Tycoons</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Property Developers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Oil and Gas Barons</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Energy Sector Execs</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Mining Magnates</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Shipping Tycoons</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Logistics Executives</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Telecom Leaders</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Manufacturing CEOs</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Aviation Enthusiasts</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Private Pilots</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Aerospace Engineers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Defense Contractors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Heads of State</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Federal Politicians</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> State Governors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Senators & Congressmen</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Diplomats</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Ambassadors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> UN Representatives</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> World Bank Officials</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> IMF Executives</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Trade Negotiators</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Royal Families</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Traditional Rulers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Monarchs</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> High-Net-Worth (HNWI)</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Ultra-High-Net-Worth</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> A-List Celebrities</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Blockbuster Actors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Film Directors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Hollywood Producers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Award-Winning Musicians</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Global Pop Stars</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Hip-Hop Artists</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Supermodels</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Fashion Designers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Brand Ambassadors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Professional Athletes</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Football Stars</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Basketball Champions</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Tennis Pros</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Formula 1 Drivers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Golf Champions</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Boxing Champions</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Sports Team Owners</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Sports Agents</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Talent Managers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Concert Promoters</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Event Organizers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Media Moguls</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Broadcasters</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Best-Selling Authors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Motivational Speakers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Mega-Church Pastors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Religious Leaders</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Philanthropists</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> NGO Founders</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Global Charity Directors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Renowned Surgeons</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Medical Tourists</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Medical Evacuations</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Transplant Couriers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Legal Moguls</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Top-Tier Lawyers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Corporate Fixers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Crisis Managers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> PR Gurus</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Top Influencers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> YouTube Stars</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Esports Champions</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Luxury Car Collectors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Superyacht Owners</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Private Island Owners</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Casino Owners</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Hospitality Execs</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Fine Dining Owners</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Elite Art Collectors</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Elite Auctioneers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Diamond Merchants</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Gold Traders</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Precious Cargo Couriers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> VIP Tourists</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Privacy Seekers</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> High-Tier Expatriates</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> VIP Security Details</div>
+                        <div class="flex gap-2"><span class="text-fbblue">[+]</span> Business Delegations</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 bg-nearblack text-center px-6 tech-grid relative border-t border-white/10">
+            <div class="max-w-2xl mx-auto relative z-10 reveal">
+                <h2 class="title-monument text-3xl md:text-4xl text-white mb-6">ENGAGE THE SYSTEM</h2>
+                <p class="text-gray-400 mb-10">Outcomes are predictable, not improvised. Request your flight and receive feasibility in seconds.</p>
+                <a href="flight request.html" class="btn-shimmer ui-sync px-8 py-4 inline-block text-sm">INITIATE FLIGHT</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-16 px-6 text-center bg-white border-t ios-safe-bottom">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Footer Logo" class="h-10 mx-auto mb-6">
+            <p class="text-[9px] ui-sync text-fbblue font-bold tracking-widest mb-8">ARCHITECTS OF CERTAINTY</p>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-10 ui-sync text-[8px] text-gray-400 uppercase">
+                <a href="faqs.html" class="hover:text-fbblue transition p-2">FAQ</a>
+                <a href="flight request.html" class="hover:text-fbblue transition p-2">Flight Request</a>
+                <a href="about.html" class="text-fbblue p-2">About Us</a>
+                <a href="contact us.html" class="hover:text-fbblue transition p-2">Contact</a>
+                <a href="legal.html" class="hover:text-fbblue transition p-2">Legal</a>
+                <a href="tos.html" class="hover:text-fbblue transition p-2">Terms of Service</a>
+            </div>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest border-y border-gray-50 py-6 leading-loose">
+                    15D Wings is a charter coordination platform. All flights are operated by appropriately licensed part 135 air carriers.
+                </p>
+                <p class="text-[8px] text-gray-400 uppercase tracking-[0.2em]">A Brand Product of sky party ltd (rc 8997727)</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        window.onload = () => {
+            initReveal();
+        };
+
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            } else {
+                menu.classList.add('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+            }
+        }
+
+        function initReveal() { 
+            const observer = new IntersectionObserver((entries) => { 
+                entries.forEach(entry => { 
+                    if(entry.isIntersecting) entry.target.classList.add('reveal-active'); 
+                }); 
+            }, { threshold: 0.1 }); 
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); 
+        }
+    </script>
+</body>
+</html>
