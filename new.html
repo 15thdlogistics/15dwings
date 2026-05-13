@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15D WINGS | Private Flight Booking v7.9.5</title>
+    <title>15D WINGS | Private Flight Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
@@ -431,9 +431,9 @@
 
         const AIRCRAFT = {
             LIGHT: { speed: 700, rate: 2800, minHrs: 1.0, label: "Light Jet", range: 2500, maxPax: 6, models: "Phenom 300, Citation CJ4, Hawker 400XP", image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=800&q=80" },
-            MID:   { speed: 780, rate: 4000, minHrs: 1.0, label: "Midsize Jet", range: 3800, maxPax: 9, models: "Hawker 800/900XP, Learjet 60XR, Praetor 500", image: "https://images.unsplash.com/photo-1579836314643-4171fb2ce112?auto=format&fit=crop&w=800&q=80" },
-            HEAVY: { speed: 850, rate: 6000, minHrs: 1.0, label: "Heavy Jet", range: 6500, maxPax: 14, models: "Challenger 604/605, Legacy 600/650, Falcon 900", image: "https://images.unsplash.com/photo-1583416750470-965b2707b355?auto=format&fit=crop&w=800&q=80" },
-            ULTRA: { speed: 920, rate: 9000, minHrs: 1.0, label: "Ultra/Regional", range: 12500, maxPax: 50, models: "ERJ-135/145, Global 6000/7500, G550/G650", image: "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=800&q=80" }
+            MID:   { speed: 780, rate: 4000, minHrs: 1.0, label: "Midsize Jet", range: 3800, maxPax: 9, models: "Hawker 800/900XP, Learjet 60XR, Praetor 500", image: "https://res.cloudinary.com/dw9m06rgf/image/upload/v1778682411/Website-midsize-JEt-1024x499_exojji.jpg" },
+            HEAVY: { speed: 850, rate: 6000, minHrs: 1.0, label: "Heavy Jet", range: 6500, maxPax: 14, models: "Challenger 604/605, Legacy 600/650, Falcon 900", image: "https://res.cloudinary.com/dw9m06rgf/image/upload/v1778682756/65bd26a6a22e0c57f5eb0fc8_65134bb72c32636b787adb9d_large-private-jet_icgtng.webp" },
+            ULTRA: { speed: 920, rate: 9000, minHrs: 1.0, label: "Ultra/Regional", range: 12500, maxPax: 50, models: "ERJ-135/145, Global 6000/7500, G550/G650", image: "https://res.cloudinary.com/dw9m06rgf/image/upload/v1778682889/Bombardier_Global_6000_LX-NST_Exterior_4_1600x1200_fnstut.jpg" }
         };
 
         let DB = {}, map, routeLines = [], currentTargetPrice = 0, currentTargetPriceHigh = 0, displayedPrice = 0, displayedPriceHigh = 0;
