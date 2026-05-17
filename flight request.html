@@ -23,7 +23,7 @@
             --glass-border-bottom: rgba(255, 255, 255, 0.10);
             
             /* ADJUSTED INPUTS BY 20% FOR CONTINUOUS DYNAMIC PASS-THROUGH VISIBILITY */
-            --input-bg: rgba(15, 23, 42, 0.70); /* Down from 0.90 to 0.70 */
+            --input-bg: rgba(15, 23, 42, 0.70);
             --input-border: rgba(255, 255, 255, 0.35);
 
             --text-main: #f8fafc; /* Crisp Slate 50 */
@@ -32,7 +32,7 @@
             --accent-glow: rgba(56, 189, 248, 0.40);
             
             /* ADJUSTED INTERNAL PANELS BY 20% FOR VISUAL COHESION */
-            --disclaimer-bg: rgba(15, 23, 42, 0.65); /* Down from 0.85 to 0.65 */
+            --disclaimer-bg: rgba(15, 23, 42, 0.65);
             --disclaimer-text: #f8fafc;
             --modal-bg: #090d16;
             
@@ -83,8 +83,8 @@
             z-index: -2;
             object-fit: cover;
             pointer-events: none;
-            opacity: 0.55; /* Slightly increased for more vibrant flight details */
-            filter: grayscale(30%) brightness(0.7); /* Optimized for rich, crisp dynamic contrast */
+            opacity: 0.55;
+            filter: grayscale(30%) brightness(0.7);
         }
 
         .bg-swirl {
@@ -431,12 +431,19 @@
         </footer>
     </main>
 
-    <!-- SUCCESS MODAL (STRICT SOLID DARK ACCESSIBLE TEXT SCHEME) -->
-    <div id="modal-success" class="fixed inset-0 backdrop-blur-2xl z-[2000] hidden items-center justify-center p-6 text-center">
-        <div class="max-w-xl space-y-10">
+    <!-- SUCCESS MODAL (OPTIMIZED WITH DOWNLOADS AT THE TOP AND MOBILE SCROLLABLE CAPABILITIES) -->
+    <div id="modal-success" class="fixed inset-0 backdrop-blur-2xl z-[2000] hidden flex-col items-center justify-start p-6 text-center overflow-y-auto">
+        <div class="max-w-xl space-y-8 my-auto py-10">
             <div class="price-text text-4xl uppercase font-black text-slate-50">Request Successfully Sent</div>
+            
+            <!-- CONTROLS POSITIONED CONVENIENTLY AT THE TOP FOR SHORTER VIEWPORTS -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center bg-slate-900/40 p-4 rounded-3xl border border-slate-800 backdrop-blur">
+                <button onclick="generatePDF()" class="monument text-[0.65rem] px-8 py-4 bg-white text-slate-950 rounded-full hover:scale-105 transition-transform shadow-lg font-black tracking-wider border-2 border-transparent">Download Cost Estimate (PDF)</button>
+                <button onclick="location.reload()" class="monument text-[0.65rem] px-8 py-4 text-slate-200 border-2 border-slate-700 rounded-full hover:bg-slate-800 transition-colors font-black tracking-wider">Book Another Flight</button>
+            </div>
+
             <p id="ref-id" class="monument text-sm text-slate-50 font-black tracking-widest">YOUR FLIGHT REQUEST IS PROCESSING</p>
-            <div class="glass-panel p-10 text-sm text-slate-50 leading-relaxed text-left font-semibold">
+            <div class="glass-panel p-8 md:p-10 text-sm text-slate-50 leading-relaxed text-left font-semibold">
                 <b class="text-slate-50 monument text-[0.7rem] block mb-2 underline font-black tracking-widest">NEXT STEPS:</b>
                 We have safely received your details. Please check your email immediately at <span id="conf-email" class="text-slate-50 font-black underline"></span> for your official flight estimate and next steps from our team.<br><br>
                 <div class="bg-slate-900/60 p-6 rounded-xl border-2 border-slate-800 text-center shadow-lg">
@@ -445,16 +452,13 @@
                     <p class="text-[0.75rem] mt-3 text-slate-200 opacity-100 leading-relaxed font-semibold">Use this Request ID to log into the VIP dashboard at portal.15dwings.com.ng to unlock your final quote and engineered outcomes.</p>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="generatePDF()" class="monument text-[0.6rem] px-8 py-4 bg-white text-slate-950 rounded-full hover:scale-105 transition-transform shadow-lg font-black tracking-wider border-2 border-transparent">Download Cost Estimate (PDF)</button>
-                <button onclick="location.reload()" class="monument text-[0.6rem] px-8 py-4 text-slate-200 border-2 border-slate-700 rounded-full hover:bg-slate-800 transition-colors font-black tracking-wider">Book Another Flight</button>
-            </div>
         </div>
     </div>
 
+    <!-- 3-STEP TOUR OVERLAY -->
     <div id="tour-overlay">
         <div class="tour-card animate-fade-in">
-            <span class="step-indicator monument font-black" id="tour-step-num">Step 1 of 5</span>
+            <span class="step-indicator monument font-black" id="tour-step-num">Step 1 of 3</span>
             <h2 class="monument text-xl mb-4 text-white font-black" id="tour-title">Instant Pricing</h2>
             <p class="text-sm text-white opacity-95 mb-8 leading-relaxed font-semibold" id="tour-desc">
                 No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.
@@ -624,6 +628,7 @@
             if(Object.keys(DB).length === 0) loadDB();
         }
 
+        // Keep removeLeg standard
         function removeLeg(id) {
             if(document.querySelectorAll('.leg-row').length > 1) {
                 document.getElementById(`leg-${id}`).remove();
@@ -899,9 +904,11 @@
             document.getElementById('ref-id-inline').innerText = serverMissionID;
             document.getElementById('modal-success').style.display = 'flex';
             ov.style.display = 'none';
+
+            // AUTOMATICALLY TRIGGER DOWNLOAD
+            generatePDF();
         }
 
-        // Keep document generation verbatim with standard styles
         function generatePDF() {
             const { jsPDF } = window.jspdf; const doc = new jsPDF();
             const pageWidth = doc.internal.pageSize.getWidth(); const pageHeight = doc.internal.pageSize.getHeight();
@@ -970,11 +977,12 @@
         const tourData = [
             { title: "Instant VIP Estimates", desc: "No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.", target: "price-val" },
             { title: "Jet Selection & Protocol", desc: "Your price updates automatically based on the jet selected. Please note we strictly require a 72-hour notice to perfectly prepare your jet for departure.", target: "ac-class" },
-            { title: "Book & Unlock Portal", desc: "Click 'Request VIP Flight Now' to generate a secure Request ID. You will use this exact flight number to log into your VIP Portal and access your confirmed quote.", target: "dispatch-btn" }
+            { title: "Dashboard Passcode", desc: "Upon submitting, your Flight Request ID (e.g., 15D-XXXXX) serves as your password key to log into portal.15dwings.com.ng. There, you can directly select premium Experiential Flights.", target: "dispatch-btn" }
         ];
 
         function checkFirstVisit() {
-            if (!localStorage.getItem('15d_tour_v2_completed')) {
+            // Using sessionStorage so clients are educated at least once per browsing session
+            if (!sessionStorage.getItem('15d_tour_v2_completed')) {
                 document.getElementById('tour-overlay').style.display = 'flex';
                 updateTourUI();
             }
@@ -990,7 +998,7 @@
             tourStep++;
             if (tourStep >= tourData.length) {
                 document.getElementById('tour-overlay').style.display = 'none';
-                localStorage.setItem('15d_tour_v2_completed', 'true');
+                sessionStorage.setItem('15d_tour_v2_completed', 'true');
                 return;
             }
             updateTourUI();
