@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15D WINGS | VIP Flight Booking</title>
+    <title>15D WINGS | VIP Flight Booking v7.9.8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
@@ -13,71 +13,76 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
         :root {
-            --bg-main: #f8fafc;
-            --glass: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --glass-border-bottom: rgba(0, 0, 0, 0.08);
+            /* THICK GLASSMORPHISM TOKENS */
+            --bg-main: transparent;
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-border-bottom: rgba(255, 255, 255, 0.15);
+            --input-bg: rgba(255, 255, 255, 0.25);
+            --input-border: rgba(255, 255, 255, 0.5);
+            
             --text-main: #0f172a;
             --text-soft: #64748b;
             --accent: #1877F2;
             --accent-glow: rgba(24, 119, 242, 0.15);
-            --input-bg: rgba(0, 0, 0, 0.03);
-            --disclaimer-bg: rgba(24, 119, 242, 0.05);
+            --disclaimer-bg: rgba(24, 119, 242, 0.1);
             --disclaimer-text: #475569;
             --modal-bg: rgba(255, 255, 255, 0.95);
+            
+            --glow-primary: rgba(56, 189, 248, 0.4);
+            --glow-secondary: rgba(37, 99, 235, 0.25);
         }
 
         [data-theme="dark"] {
-            --bg-main: #020617;
-            --glass: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8));
+            --glass: rgba(15, 23, 42, 0.25);
             --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-border-bottom: rgba(255, 255, 255, 0.05);
+            --glass-border-bottom: rgba(255, 255, 255, 0.02);
+            --input-bg: rgba(0, 0, 0, 0.2);
+            --input-border: rgba(255, 255, 255, 0.1);
+
             --text-main: #ffffff; 
             --text-soft: #94a3b8; 
             --accent: #38bdf8;
             --accent-glow: rgba(56, 189, 248, 0.2);
-            --input-bg: rgba(255, 255, 255, 0.05);
             --disclaimer-bg: rgba(15, 23, 42, 0.95);
             --disclaimer-text: #f8fafc;
             --modal-bg: rgba(15, 23, 42, 0.95);
-            --glow-primary: rgba(56, 189, 248, 0.15);
-            --glow-secondary: rgba(14, 165, 233, 0.1);
-        }
-
-        :root {
-            --glow-primary: rgba(56, 189, 248, 0.4);
-            --glow-secondary: rgba(37, 99, 235, 0.25);
         }
 
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
             font-family: 'Lexend', sans-serif;
-            transition: background-color 0.5s ease, color 0.3s ease;
+            transition: color 0.3s ease;
             min-height: 100vh;
             overflow-x: hidden;
         }
+
+        /* CINEMATIC VIDEO BACKGROUND */
+        .bg-video {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            z-index: -2;
+            object-fit: cover;
+            transition: opacity 0.5s ease, filter 0.5s ease;
+            pointer-events: none;
+        }
+        [data-theme="light"] .bg-video { opacity: 0.35; filter: grayscale(10%) brightness(1.15); }
+        [data-theme="dark"] .bg-video { opacity: 0.55; filter: grayscale(40%) brightness(0.8); }
 
         .bg-swirl {
             position: fixed;
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
-            filter: blur(100px);
+            filter: blur(120px);
             will-change: transform, left, top;
         }
         
-        #glow-1 {
-            width: 50vw; height: 50vw;
-            background: var(--glow-primary);
-            transform: translate(-50%, -50%);
-        }
-        
-        #glow-2 {
-            width: 60vw; height: 60vw;
-            background: var(--glow-secondary);
-            animation: orb-spin 12s infinite linear;
-        }
+        #glow-1 { width: 50vw; height: 50vw; background: var(--glow-primary); transform: translate(-50%, -50%); }
+        #glow-2 { width: 60vw; height: 60vw; background: var(--glow-secondary); animation: orb-spin 12s infinite linear; }
 
         @keyframes orb-spin {
             from { transform: translate(-50%, -50%) rotate(0deg) translateX(10%); }
@@ -86,28 +91,36 @@
 
         .monument { font-family: 'Monument Extended', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; }
 
+        /* REFRACTED THICK GLASS PANELS */
         .glass-panel {
             background: var(--glass);
-            backdrop-filter: blur(24px) saturate(140%);
-            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(80px) saturate(200%);
+            -webkit-backdrop-filter: blur(80px) saturate(200%);
+            border-top: 1.5px solid var(--glass-border);
+            border-left: 1.5px solid var(--glass-border);
+            border-right: 1px solid var(--glass-border-bottom);
             border-bottom: 1px solid var(--glass-border-bottom);
             border-radius: 26px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.4), inset 0 3px 6px rgba(255, 255, 255, 0.5), inset 0 -2px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
+        /* IOS 11 STYLE INPUT PILLS */
         .input-pill {
             background: var(--input-bg);
-            border: 1px solid var(--glass-border-bottom);
-            border-radius: 16px;
-            padding: 14px 20px;
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--input-border);
+            border-radius: 18px;
+            padding: 16px 20px;
             color: var(--text-main);
             width: 100%;
             transition: all 0.3s ease;
             font-size: 0.85rem;
             outline: none;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
         }
-        .input-pill:focus { border-color: var(--accent); background: rgba(255,255,255,0.02); }
+        .input-pill:focus { border-color: var(--accent); background: rgba(255,255,255,0.1); box-shadow: 0 0 0 3px var(--accent-glow), inset 0 2px 6px rgba(0,0,0,0.05); }
 
         .price-text {
             font-size: 3.5rem;
@@ -135,168 +148,107 @@
         #map { height: 350px; border-radius: 20px; z-index: 10; overflow: hidden; background: #f1f5f9; border: 1px solid var(--glass-border-bottom); }
 
         .log-line {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.55rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-soft);
-            margin-bottom: 12px;
-            opacity: 0.2;
-            transition: all 0.5s ease;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--text-soft); margin-bottom: 12px; opacity: 0.2; transition: all 0.5s ease;
         }
         .log-line.active { opacity: 1; color: var(--accent); }
         .dot { width: 5px; height: 5px; border-radius: 50%; background: #cbd5e1; }
         .log-line.active .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 
         .suggestion-box {
-            position: absolute;
-            top: 105%;
-            left: 0;
-            right: 0;
-            background: var(--bg-main);
-            border-radius: 12px;
-            border: 1px solid var(--glass-border-bottom);
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: none;
-            max-height: 250px;
-            overflow-y: auto;
+            position: absolute; top: 105%; left: 0; right: 0;
+            background: var(--bg-main); border-radius: 16px;
+            border: 1px solid var(--glass-border-bottom); z-index: 100;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: none;
+            max-height: 250px; overflow-y: auto; backdrop-filter: blur(30px);
         }
 
         .leg-row {
-            background: var(--input-bg);
-            padding: 20px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 24px;
             border-radius: 20px;
             position: relative;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--glass-border-bottom);
         }
 
         .leg-price-badge {
-            font-size: 0.55rem;
-            font-weight: bold;
-            color: var(--accent);
-            background: var(--accent-glow);
-            padding: 4px 10px;
-            border-radius: 8px;
-            margin-top: 8px;
-            display: inline-block;
+            font-size: 0.6rem; font-weight: bold; color: var(--accent);
+            background: var(--accent-glow); padding: 6px 12px;
+            border-radius: 8px; display: inline-block;
         }
 
         .disclaimer-box {
-            background: var(--disclaimer-bg);
-            border: 1px solid var(--accent-glow);
-            color: var(--disclaimer-text);
-            padding: 2rem;
-            border-radius: 26px;
-            line-height: 1.6;
+            background: var(--disclaimer-bg); border: 1px solid var(--accent-glow);
+            color: var(--disclaimer-text); padding: 2rem; border-radius: 26px; line-height: 1.6;
         }
 
         #processing-overlay {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-main);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(40px);
+            position: fixed; inset: 0; background: var(--bg-main); z-index: 1000;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            backdrop-filter: blur(60px);
         }
 
-        .export-error {
+        /* VALIDATION & ERROR STYLES */
+        .input-error {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.08) !important;
+        }
+        .error-msg {
             color: #ef4444;
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-family: 'Monument Extended', sans-serif;
             margin-top: 8px;
             display: none;
+            text-transform: uppercase;
+            padding-left: 12px;
+            letter-spacing: 0.05em;
+        }
+        .input-error ~ .error-msg { display: block; animation: fade-in 0.3s ease; }
+
+        .btn-error {
+            background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4) !important;
+            animation: shakeBtn 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
         }
 
-        .aircraft-detail {
-            font-size: 0.65rem;
-            background: var(--input-bg);
-            border: 1px solid var(--glass-border-bottom);
-            padding: 12px;
-            border-radius: 16px;
-            margin-top: 10px;
-            overflow: hidden;
+        @keyframes shakeBtn {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+            40%, 60% { transform: translate3d(8px, 0, 0); }
         }
-        
-        #modal-success {
-            background: var(--modal-bg);
-            transition: background 0.3s ease;
-        }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ... Modal/Tour styles ... */
+        #modal-success { background: var(--modal-bg); transition: background 0.3s ease; }
         #tour-overlay {
             position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); 
             z-index: 5000; display: none; flex-direction: column; align-items: center; justify-content: center;
-            padding: 2rem; text-align: center;
-            backdrop-filter: blur(5px);
+            padding: 2rem; text-align: center; backdrop-filter: blur(10px);
         }
-        
         .tour-card {
-            max-width: 500px; 
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-top: 1px solid rgba(255, 255, 255, 0.45);
+            max-width: 500px; background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(40px) saturate(200%); -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.25); border-top: 1px solid rgba(255, 255, 255, 0.45);
             border-left: 1px solid rgba(255, 255, 255, 0.35);
-            padding: 3rem 2.5rem; 
-            border-radius: 32px; 
+            padding: 3rem 2.5rem; border-radius: 32px; 
             box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            position: relative;
-            overflow: hidden;
+            color: #ffffff; position: relative; overflow: hidden;
         }
-
-        .tour-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
-            transform: skewX(-20deg);
-            animation: glass-shine 4s infinite;
-        }
-
-        @keyframes glass-shine {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
-        }
-
         .step-indicator { font-size: 0.65rem; color: #38bdf8; margin-bottom: 1.5rem; display: block; letter-spacing: 0.2em;}
-        
-        .volatility-warning {
-            background: #fef2f2; border: 1px solid #fee2e2; color: #991b1b;
-            padding: 10px; border-radius: 12px; font-size: 0.65rem; margin-top: 8px; display: none;
-        }
-        [data-theme="dark"] .volatility-warning { background: #450a0a; border-color: #7f1d1d; color: #fca5a5; }
-
-        .helper-tag {
-            font-size: 0.55rem; color: var(--accent); font-weight: bold;
-            text-transform: uppercase; margin-left: 8px;
-        }
-        
-        .tour-highlight { position: relative; z-index: 5001 !important; box-shadow: 0 0 0 9999px rgba(0,0,0,0.8); }
-
-        .input-error {
-            border-color: #ef4444 !important;
-            background: rgba(239, 68, 68, 0.05) !important;
-            animation: shake 0.4s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-        }
-
     </style>
 </head>
 <body class="p-4 md:p-10">
 
+    <!-- Infinite Looping Video Background -->
+    <video id="bg-video" class="bg-video" autoplay loop muted playsinline>
+        <source src="https://res.cloudinary.com/dfbweqelf/video/upload/v1777901872/VID-20260428-WA0004_xuyz4u.mp4" type="video/mp4">
+    </video>
+
+    <!-- Cursor Following Gradients -->
     <div id="glow-1" class="bg-swirl"></div>
     <div id="glow-2" class="bg-swirl"></div>
 
@@ -310,18 +262,18 @@
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto space-y-10">
+    <main class="max-w-7xl mx-auto space-y-10 relative z-10">
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
                 <h1 class="monument text-3xl mb-1">15D WINGS</h1>
-                <p class="text-[0.6rem] tracking-[0.5em] text-blue-600 font-bold">EXCLUSIVE PRIVATE JET BOOKING v7.9.7</p>
+                <p class="text-[0.6rem] tracking-[0.5em] text-blue-600 font-bold">EXCLUSIVE PRIVATE JET BOOKING v7.9.8</p>
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex gap-4">
                     <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 opacity-50">Download Estimate PDF</button>
                     <button onclick="toggleTheme()" class="glass-panel px-6 py-3 text-[0.6rem] monument hover:scale-105 transition-transform">Switch Theme</button>
                 </div>
-                <span id="export-error-msg" class="export-error">ACTION REQUIRED: PLEASE REQUEST FLIGHT TO UNLOCK PDF</span>
+                <span id="export-error-msg" class="error-msg text-center !mt-4" style="display:none;">ACTION REQUIRED: PLEASE REQUEST FLIGHT TO UNLOCK PDF</span>
             </div>
         </header>
 
@@ -331,18 +283,34 @@
                     <div>
                         <span class="monument text-[0.6rem] text-slate-400 block mb-6">/ Executive Details</span>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <input type="text" id="name" placeholder="Full Name" class="input-pill" oninput="this.classList.remove('input-error')" required>
-                            <input type="email" id="email" placeholder="Your Email Address" class="input-pill" oninput="this.classList.remove('input-error')" required>
-                            <input type="tel" id="phone" placeholder="Phone (Required)" class="input-pill" oninput="this.classList.remove('input-error')" required>
+                            <div class="relative">
+                                <input type="text" id="name" placeholder="Full Name" class="input-pill" oninput="clearError(this)" required>
+                                <span class="error-msg">Add the missing details</span>
+                            </div>
+                            <div class="relative">
+                                <input type="email" id="email" placeholder="Your Email Address" class="input-pill" oninput="clearError(this)" required>
+                                <span class="error-msg">Add the missing details</span>
+                            </div>
+                            <div class="relative">
+                                <input type="tel" id="phone" placeholder="Phone (Required)" class="input-pill" oninput="clearError(this)" required>
+                                <span class="error-msg">Add the missing details</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="pt-10 border-t border-slate-100/10">
-                        <div class="flex justify-between items-end mb-6">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                             <span class="monument text-[0.6rem] text-slate-400 block">/ Your Travel Route</span>
+                            
+                            <!-- Trip Type Selector -->
+                            <div class="flex items-center gap-2 bg-slate-500/10 p-1.5 rounded-full border border-slate-500/20 backdrop-blur-md">
+                                <button id="btn-oneway" onclick="setTripType('ONEWAY')" class="flex items-center gap-2 text-[0.6rem] monument text-blue-600 bg-blue-500/10 shadow-sm px-5 py-2.5 rounded-full border border-blue-500/20 transition-all">✈️ ONE WAY TRIP</button>
+                                <button id="btn-round" onclick="setTripType('ROUND')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-500 hover:text-blue-600 hover:bg-blue-500/10 px-5 py-2.5 rounded-full border border-transparent transition-all">🔄 ROUND TRIP</button>
+                            </div>
                         </div>
+                        
                         <div id="legs-container" class="space-y-4"></div>
-                        <button onclick="addLeg()" class="text-[0.6rem] monument text-blue-600 mt-4 px-4 py-2 border border-blue-100/20 rounded-full hover:bg-blue-500/10 transition-all">
+                        <button id="add-leg-btn" onclick="addLeg()" class="text-[0.6rem] monument text-blue-600 mt-4 px-4 py-3 border border-blue-100/20 rounded-full hover:bg-blue-500/10 transition-all shadow-sm">
                             [ + Add Another Stop ]
                         </button>
                     </div>
@@ -356,7 +324,7 @@
                                 <option value="HEAVY" selected>Heavy Jet | 10-14 Seats (VIP Group)</option>
                                 <option value="ULTRA">Ultra/Regional | 15-50 Seats (Corporate)</option>
                             </select>
-                            <div id="ac-specs" class="aircraft-detail text-slate-500 italic">
+                            <div id="ac-specs" class="text-xs bg-black/5 dark:bg-white/5 border border-slate-500/20 padding p-4 rounded-xl mt-4 text-slate-500 italic backdrop-blur-md">
                                 Loading fleet profile...
                             </div>
                         </div>
@@ -466,9 +434,7 @@
     <script>
         const INTAKE_WORKER_URL = 'https://intake.15d.name.ng';
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbwhhmVYLdMHeqBvb5mETjWhBJdPi3rMdoHsWBTxdEOWRy_uchTV43f63fU6Mi3_ncrf/exec';
-        
-        // Setup your Supabase keys here for the backend insert
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // e.g., 'https://xyz.supabase.co'
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
         const AIRCRAFT = {
@@ -480,6 +446,7 @@
 
         let DB = {}, map, routeLines = [], currentTargetPrice = 0, currentTargetPriceHigh = 0, displayedPrice = 0, displayedPriceHigh = 0;
         let activeLegsData = [], serverMissionID = null;
+        let isRoundTrip = false;
 
         function getMinDateTime() {
             const tzoffset = (new Date()).getTimezoneOffset() * 60000;
@@ -515,14 +482,48 @@
             }
         }
 
+        function clearError(el) {
+            el.classList.remove('input-error');
+            if (el.classList.contains('airport-in')) suggest(el);
+        }
+
+        function setTripType(type) {
+            isRoundTrip = (type === 'ROUND');
+            
+            // Toggle Active Button Styles
+            document.getElementById('btn-oneway').className = isRoundTrip ?
+                "flex items-center gap-2 text-[0.6rem] monument text-slate-500 hover:text-blue-600 hover:bg-blue-500/10 px-5 py-2.5 rounded-full border border-transparent transition-all" :
+                "flex items-center gap-2 text-[0.6rem] monument text-blue-600 bg-blue-500/10 shadow-sm px-5 py-2.5 rounded-full border border-blue-500/20 transition-all";
+
+            document.getElementById('btn-round').className = isRoundTrip ?
+                "flex items-center gap-2 text-[0.6rem] monument text-blue-600 bg-blue-500/10 shadow-sm px-5 py-2.5 rounded-full border border-blue-500/20 transition-all" :
+                "flex items-center gap-2 text-[0.6rem] monument text-slate-500 hover:text-blue-600 hover:bg-blue-500/10 px-5 py-2.5 rounded-full border border-transparent transition-all";
+
+            // If switching to Round Trip, simplify routing to just one standard leg row (A to B)
+            if (isRoundTrip) {
+                const legs = document.querySelectorAll('.leg-row');
+                for(let i = 1; i < legs.length; i++) legs[i].remove();
+                document.getElementById('add-leg-btn').style.display = 'none';
+            } else {
+                document.getElementById('add-leg-btn').style.display = 'inline-block';
+            }
+
+            // Show/Hide the return date inputs across existing legs
+            document.querySelectorAll('.return-date-block').forEach(el => {
+                el.style.display = isRoundTrip ? 'block' : 'none';
+            });
+
+            runAnalysis();
+        }
+
         function syncPaxLogic() {
             const cls = document.getElementById('ac-class').value;
             const spec = AIRCRAFT[cls];
             document.getElementById('ac-specs').innerHTML = `
-                <div class="w-full h-32 rounded-xl mb-3 bg-slate-200 overflow-hidden relative shadow-inner">
+                <div class="w-full h-32 rounded-xl mb-3 overflow-hidden relative shadow-inner">
                     <img src="${spec.image}" alt="${spec.label}" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <span class="absolute bottom-2 left-3 text-white font-bold tracking-widest text-[0.6rem] uppercase drop-shadow-md">${spec.label}</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <span class="absolute bottom-3 left-4 text-white font-bold tracking-widest text-[0.6rem] uppercase drop-shadow-md">${spec.label}</span>
                 </div>
                 <span class="block font-bold text-blue-600 uppercase mb-1">Fleet Profile: ${spec.models}</span>
                 Range: ~${spec.range}km | Speed: ${spec.speed}km/h | Capacity: Up to ${spec.maxPax} Seats
@@ -536,23 +537,40 @@
             const d = document.createElement('div');
             d.className = "leg-row";
             d.id = `leg-${legId}`;
+            
+            const isFirstLeg = c.children.length === 0;
+            const delBtnHtml = isFirstLeg ? '' : `<button onclick="removeLeg('${legId}')" class="text-[0.55rem] monument text-red-500 hover:text-red-700 hover:bg-red-500/10 px-4 py-2 rounded-full transition-colors ml-4 uppercase">Delete Stop</button>`;
+
             d.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                     <div class="relative">
-                        <input type="text" placeholder="Departure Airport" class="input-pill uppercase airport-in" oninput="suggest(this); this.classList.remove('input-error')" required>
+                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">From where</span>
+                        <input type="text" placeholder="Enter the city" class="input-pill uppercase airport-in" oninput="clearError(this)" required>
                         <div class="suggestion-box"></div>
+                        <span class="error-msg">Add the missing details</span>
                     </div>
                     <div class="relative">
-                        <input type="text" placeholder="Arrival Airport" class="input-pill uppercase airport-in" oninput="suggest(this); this.classList.remove('input-error')" required>
+                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">To where</span>
+                        <input type="text" placeholder="Enter the city" class="input-pill uppercase airport-in" oninput="clearError(this)" required>
                         <div class="suggestion-box"></div>
+                        <span class="error-msg">Add the missing details</span>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                    <input type="datetime-local" class="input-pill date-in" min="${getMinDateTime()}" onchange="runAnalysis(); this.classList.remove('input-error')" style="flex: 2" required>
-                    <div class="flex gap-2 items-center">
-                        <span class="leg-price-badge" id="badge-${legId}">$0.00</span>
-                        <button onclick="removeLeg('${legId}')" class="text-[0.5rem] monument text-red-400 ml-2">Del</button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+                    <div class="relative w-full">
+                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">Flight Date and Time</span>
+                        <input type="datetime-local" class="input-pill date-in forward-date" min="${getMinDateTime()}" onchange="clearError(this); runAnalysis()" required>
+                        <span class="error-msg">Add the missing details</span>
                     </div>
+                    <div class="relative w-full return-date-block" style="display: ${isRoundTrip ? 'block' : 'none'};">
+                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">Return Date and Time</span>
+                        <input type="datetime-local" class="input-pill date-in return-date" min="${getMinDateTime()}" onchange="clearError(this); runAnalysis()">
+                        <span class="error-msg">Add the missing details</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-5 ${!isFirstLeg ? 'border-t border-slate-500/10 pt-5' : ''}">
+                    <span class="leg-price-badge" id="badge-${legId}">$0.00</span>
+                    ${delBtnHtml}
                 </div>
             `;
             c.appendChild(d);
@@ -576,7 +594,7 @@
                 box.style.display = 'block';
                 m.forEach(([k, d]) => {
                     const i = document.createElement('div');
-                    i.className = "p-3 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-blue-600 cursor-pointer text-xs border-b border-slate-50/10";
+                    i.className = "p-3 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 cursor-pointer text-xs border-b border-slate-500/10";
                     i.innerHTML = `<b class="text-blue-600">${k}</b> — ${d.name} (${d.city})`;
                     i.onclick = () => { 
                         el.value = `${k} | ${d.name}`; 
@@ -620,7 +638,8 @@
             document.querySelectorAll('.leg-row').forEach(l => {
                 const inputs = l.querySelectorAll('.airport-in');
                 const oCode = inputs[0].dataset.code, dCode = inputs[1].dataset.code;
-                const dtRaw = l.querySelector('.date-in').value;
+                const fDateIn = l.querySelector('.forward-date');
+                const rDateIn = l.querySelector('.return-date');
                 const badge = l.querySelector('.leg-price-badge');
 
                 if(oCode && dCode && DB[oCode] && DB[dCode]) {
@@ -642,24 +661,35 @@
                     if(isIntl) intl = true;
 
                     let legTotal = adjustedBase + logisticsFee;
+                    
+                    // Add Forward Leg
                     total += legTotal;
-                    badge.innerText = `$${Math.round(legTotal).toLocaleString()}`;
-                    
                     activeLegsData.push({ 
-                        from: oCode, 
-                        to: dCode, 
-                        cost: legTotal, 
-                        date: dtRaw ? new Date(dtRaw).toLocaleDateString() : 'TBD',
-                        time: dtRaw ? new Date(dtRaw).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'TBD',
-                        fromFull: inputs[0].dataset.fullName, 
-                        toFull: inputs[1].dataset.fullName 
+                        from: oCode, to: dCode, cost: legTotal, 
+                        date: fDateIn.value ? new Date(fDateIn.value).toLocaleDateString() : 'TBD',
+                        time: fDateIn.value ? new Date(fDateIn.value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'TBD',
+                        fromFull: inputs[0].dataset.fullName, toFull: inputs[1].dataset.fullName 
                     });
-                    
                     allPoints.push([DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]);
                     routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#1877F2", weight: 2, dashArray: '5, 10' }).addTo(map));
 
-                    if(dtRaw) {
-                        const diff = (new Date(dtRaw) - new Date()) / 3600000;
+                    // Add Return Leg if active and valid
+                    if (isRoundTrip && rDateIn && rDateIn.value) {
+                        total += legTotal; // Duplicate the flight cost for the return trip automatically
+                        activeLegsData.push({ 
+                            from: dCode, to: oCode, cost: legTotal, 
+                            date: new Date(rDateIn.value).toLocaleDateString(),
+                            time: new Date(rDateIn.value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                            fromFull: inputs[1].dataset.fullName, toFull: inputs[0].dataset.fullName 
+                        });
+                        allPoints.push([DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]);
+                        routeLines.push(L.polyline([[DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]], { color: "#38bdf8", weight: 2, dashArray: '5, 10' }).addTo(map));
+                    }
+                    
+                    badge.innerText = `$${Math.round(isRoundTrip && rDateIn.value ? legTotal * 2 : legTotal).toLocaleString()}`;
+
+                    if(fDateIn.value) {
+                        const diff = (new Date(fDateIn.value) - new Date()) / 3600000;
                         if(diff > 0 && diff < 72) { urg = true; isVolatile = true; }
                     }
                 }
@@ -679,7 +709,7 @@
             const logUrg = document.getElementById('l-urg');
             if(isVolatile) {
                 logUrg.classList.add('active');
-                logUrg.innerHTML = `<div class="dot"></div> NOTICE: EMERGENCY FLIGHT (UNDER 72H) REQUIRES CONCIERGE`;
+                logUrg.innerHTML = `<div class="dot"></div> NOTICE: EMERGENCY FLIGHT REQUIRES CONCIERGE`;
                 logUrg.style.color = '#ef4444';
             } else if (urg) {
                 logUrg.classList.add('active');
@@ -721,22 +751,15 @@
         let glow1X = mouseX, glow1Y = mouseY;
         let glow2X = mouseX, glow2Y = mouseY;
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
 
         function animateSwirl() {
-            glow1X += (mouseX - glow1X) * 0.08;
-            glow1Y += (mouseY - glow1Y) * 0.08;
-            glow2X += (mouseX - glow2X) * 0.03;
-            glow2Y += (mouseY - glow2Y) * 0.03;
+            glow1X += (mouseX - glow1X) * 0.08; glow1Y += (mouseY - glow1Y) * 0.08;
+            glow2X += (mouseX - glow2X) * 0.03; glow2Y += (mouseY - glow2Y) * 0.03;
 
-            const g1 = document.getElementById('glow-1');
-            const g2 = document.getElementById('glow-2');
+            const g1 = document.getElementById('glow-1'), g2 = document.getElementById('glow-2');
             if(g1) { g1.style.left = glow1X + 'px'; g1.style.top = glow1Y + 'px'; }
             if(g2) { g2.style.left = glow2X + 'px'; g2.style.top = glow2Y + 'px'; }
-
             requestAnimationFrame(animateSwirl);
         }
 
@@ -747,45 +770,54 @@
             const emailInput = document.getElementById("email");
             const phoneInput = document.getElementById("phone");
             
-            if(!nameInput.value) { nameInput.classList.add('input-error'); isValid = false; }
-            if(!emailInput.value || !emailInput.value.includes('@')) { emailInput.classList.add('input-error'); isValid = false; }
-            if(!phoneInput.value) { phoneInput.classList.add('input-error'); isValid = false; }
+            function markInvalid(el) { el.classList.add('input-error'); isValid = false; }
+
+            if(!nameInput.value) markInvalid(nameInput);
+            if(!emailInput.value || !emailInput.value.includes('@')) markInvalid(emailInput);
+            if(!phoneInput.value) markInvalid(phoneInput);
             
             document.querySelectorAll('.leg-row').forEach(l => {
                 const inputs = l.querySelectorAll('.airport-in');
-                const dateIn = l.querySelector('.date-in');
+                const fDateIn = l.querySelector('.forward-date');
+                const rDateIn = l.querySelector('.return-date');
                 
-                inputs.forEach(inp => {
-                    if(!inp.dataset.code) { inp.classList.add('input-error'); isValid = false; }
-                });
+                inputs.forEach(inp => { if(!inp.dataset.code) markInvalid(inp); });
                 
-                if(!dateIn.value) { 
-                    dateIn.classList.add('input-error'); isValid = false; 
+                if(!fDateIn.value) { 
+                    markInvalid(fDateIn); 
                 } else {
-                    const diff = (new Date(dateIn.value) - new Date()) / 3600000;
+                    const diff = (new Date(fDateIn.value) - new Date()) / 3600000;
                     if(diff < 71.9) { 
-                        dateIn.classList.add('input-error'); isValid = false;
+                        markInvalid(fDateIn);
                         alert("For operational perfection, flights require 72 hours notice. Please select a later date or contact our Concierge directly on WhatsApp for an emergency jet booking.");
+                    }
+                }
+
+                if (isRoundTrip) {
+                    if(!rDateIn.value) markInvalid(rDateIn);
+                    else if (fDateIn.value && new Date(rDateIn.value) <= new Date(fDateIn.value)) {
+                        markInvalid(rDateIn);
+                        alert("Return date and time must be after the forward flight date and time.");
                     }
                 }
             });
 
-            if(!isValid || currentTargetPrice === 0) return;
+            if(!isValid || currentTargetPrice === 0) {
+                const btn = document.getElementById('dispatch-btn');
+                btn.classList.add('btn-error');
+                setTimeout(() => btn.classList.remove('btn-error'), 400);
+                return;
+            }
             
-            const name = nameInput.value;
-            const email = emailInput.value;
-            const phone = phoneInput.value;
+            const name = nameInput.value, email = emailInput.value, phone = phoneInput.value;
             
             const ov = document.getElementById('processing-overlay'), bar = document.getElementById('p-bar'), step = document.getElementById('p-step');
             ov.style.display = 'flex';
             
             const requestID = `15D-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
             const payload = { 
-                name, 
-                email, 
-                phone,
-                request_id: requestID, 
-                ref_id: requestID, // Sent to prevent legacy systems from throwing errors
+                name, email, phone,
+                request_id: requestID, ref_id: requestID,
                 total_estimate: Math.round(currentTargetPrice),
                 estimate_lower: Math.round(currentTargetPrice),
                 estimate_upper: Math.round(currentTargetPriceHigh),
@@ -796,32 +828,21 @@
 
             const steps = ["Validating Routing", "Preparing Executive Estimate", "Sending Details to Concierge"];
             for(let i=0; i<steps.length; i++) {
-                step.innerText = steps[i];
-                bar.style.width = `${(i+1)*33}%`;
+                step.innerText = steps[i]; bar.style.width = `${(i+1)*33}%`;
                 await new Promise(r => setTimeout(r, 600));
             }
 
             try {
-                // Send fully enriched payload everywhere:
-                // 1. Intake Worker
                 await fetch(INTAKE_WORKER_URL, { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) });
-                // 2. Google Apps Script
                 fetch(GAS_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
                 
-                // 3. Supabase Dashboard Backend
                 if(SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
                     fetch(`${SUPABASE_URL}/rest/v1/missions`, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'apikey': SUPABASE_ANON_KEY,
-                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                            'Prefer': 'return=minimal'
-                        },
+                        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
                         body: JSON.stringify(payload)
                     }).catch(e => console.error("Supabase sync failed silently.", e));
                 }
-                
             } catch (e) {}
 
             serverMissionID = requestID;
@@ -834,82 +855,63 @@
         }
 
         function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-            const clientName = document.getElementById('name').value;
-            const clientEmail = document.getElementById('email').value;
-            const clientPhone = document.getElementById('phone').value;
-            const aircraftLabel = AIRCRAFT[document.getElementById('ac-class').value].label;
+            const { jsPDF } = window.jspdf; const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.getWidth(); const pageHeight = doc.internal.pageSize.getHeight();
+            const clientName = document.getElementById('name').value, clientEmail = document.getElementById('email').value;
+            const clientPhone = document.getElementById('phone').value, aircraftLabel = AIRCRAFT[document.getElementById('ac-class').value].label;
             const issuanceDate = new Date().toLocaleString();
 
-            doc.saveGraphicsState();
-            doc.setGState(new doc.GState({ opacity: 0.1 }));
-            doc.setFontSize(60);
-            doc.setTextColor(200);
+            doc.saveGraphicsState(); doc.setGState(new doc.GState({ opacity: 0.1 }));
+            doc.setFontSize(60); doc.setTextColor(200);
             doc.text("15D WINGS", pageWidth / 2, pageHeight / 2, { align: "center", angle: 45 });
             doc.restoreGraphicsState();
 
-            doc.setFillColor(24, 119, 242);
-            doc.rect(0, 0, pageWidth, 20, 'F');
-            doc.setTextColor(255);
-            doc.setFontSize(10);
+            doc.setFillColor(24, 119, 242); doc.rect(0, 0, pageWidth, 20, 'F');
+            doc.setTextColor(255); doc.setFontSize(10);
             doc.text(`VIP FLIGHT ESTIMATE: ${serverMissionID}`, 15, 13);
             doc.text(`ISSUED: ${issuanceDate}`, pageWidth - 15, 13, { align: 'right' });
 
-            doc.setTextColor(0);
-            doc.setFontSize(24);
-            doc.text("15D WINGS", 15, 40);
-            doc.setFontSize(9);
-            doc.text("Premium Private Jet Services", 15, 47);
+            doc.setTextColor(0); doc.setFontSize(24); doc.text("15D WINGS", 15, 40);
+            doc.setFontSize(9); doc.text("Premium Private Jet Services", 15, 47);
             
-            doc.setFontSize(10);
-            doc.text(`EXECUTIVE: ${clientName.toUpperCase()}`, 15, 60);
-            doc.setFontSize(8);
-            doc.setTextColor(100);
-            doc.text(`EMAIL: ${clientEmail}`, 15, 65);
-            doc.text(`PHONE: ${clientPhone}`, 15, 70);
-            doc.setTextColor(24, 119, 242);
-            doc.setFont(undefined, 'bold');
+            doc.setFontSize(10); doc.text(`EXECUTIVE: ${clientName.toUpperCase()}`, 15, 60);
+            doc.setFontSize(8); doc.setTextColor(100);
+            doc.text(`EMAIL: ${clientEmail}`, 15, 65); doc.text(`PHONE: ${clientPhone}`, 15, 70);
+            doc.setTextColor(24, 119, 242); doc.setFont(undefined, 'bold');
             doc.text(`AIRCRAFT: ${aircraftLabel.toUpperCase()}`, 15, 75);
-            doc.setFont(undefined, 'normal');
-            doc.setTextColor(100);
+            doc.setFont(undefined, 'normal'); doc.setTextColor(100);
             doc.text("21 Lugard Avenue, Ikoyi Lagos, Nigeria", 15, 80);
 
             doc.autoTable({
                 startY: 90,
                 head: [['Flight Route', 'Date', 'Time', 'Estimated Cost (USD)']],
                 body: activeLegsData.map(l => [`${l.from} > ${l.to}`, l.date, l.time, `$${Math.round(l.cost).toLocaleString()}`]),
-                headStyles: { fillColor: [24, 119, 242] },
-                theme: 'striped'
+                headStyles: { fillColor: [24, 119, 242] }, theme: 'striped'
             });
 
             const finalY = doc.lastAutoTable.finalY;
-            doc.setFontSize(14);
-            doc.setTextColor(24, 119, 242);
+            doc.setFontSize(14); doc.setTextColor(24, 119, 242);
             doc.text(`ESTIMATED RANGE: $${Math.round(currentTargetPrice).toLocaleString()} - $${Math.round(currentTargetPriceHigh).toLocaleString()}`, 15, finalY + 15);
 
-            doc.setFontSize(9);
-            doc.setTextColor(0);
-            doc.setFont(undefined, 'bold');
-            doc.text('"Architects of Certainty"', pageWidth / 2, finalY + 35, { align: 'center' });
+            doc.setFontSize(9); doc.setTextColor(0); doc.setFont(undefined, 'bold');
+            doc.text('"Architects of Certainty in Private Aviation"', pageWidth / 2, finalY + 32, { align: 'center' });
             
-            doc.setFont(undefined, 'normal');
-            doc.setFontSize(8);
-            doc.setTextColor(100);
+            doc.setFont(undefined, 'italic'); doc.setFontSize(8); doc.setTextColor(80);
+            doc.text('"Certainty is not Hope, it is Engineered Readiness"', pageWidth / 2, finalY + 40, { align: 'center' });
+            
+            doc.setFont(undefined, 'normal'); doc.setFontSize(8); doc.setTextColor(100);
             const encouragement = [
                 "This document provides a highly accurate market estimate for your requested route.",
                 "Please use your Request ID to log into the VIP portal at portal.15dwings.com.ng",
                 "to access your final quote and engineered outcomes.",
                 "Our Concierge team will contact you shortly to confirm and secure your booking."
             ];
-            doc.text(encouragement, 15, finalY + 45);
+            doc.text(encouragement, 15, finalY + 52);
 
-            doc.setFontSize(7);
-            doc.setTextColor(150);
+            doc.setFontSize(7); doc.setTextColor(150);
             doc.text("24/7 SUPPORT: ops@15dwings.com.ng", 15, pageHeight - 15);
-            doc.text("15dwings.com.ng | 15D Wings | Sky Party LTD", pageWidth - 15, pageHeight - 15, { align: 'right' });
+            doc.text("15dwings.com.ng | 15D Wings | Sky Party LTD (RC 8997727)", pageWidth - 15, pageHeight - 15, { align: 'right' });
+            doc.text("TIN: 33695910-0001", pageWidth - 15, pageHeight - 11, { align: 'right' });
 
             doc.save(`15D-WINGS-EXECUTIVE-ESTIMATE-${serverMissionID}.pdf`);
         }
@@ -918,21 +920,9 @@
 
         let tourStep = 0;
         const tourData = [
-            {
-                title: "Instant VIP Estimates",
-                desc: "No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.",
-                target: "price-val"
-            },
-            {
-                title: "Jet Selection & Protocol",
-                desc: "Your price updates automatically based on the jet selected. Please note we strictly require a 72-hour notice to perfectly prepare your jet for departure.",
-                target: "ac-class"
-            },
-            {
-                title: "Book & Unlock Portal",
-                desc: "Click 'Request VIP Flight Now' to generate a secure Booking ID. You will use this exact flight number to log into your VIP Portal and access your confirmed quote.",
-                target: "dispatch-btn"
-            }
+            { title: "Instant VIP Estimates", desc: "No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.", target: "price-val" },
+            { title: "Jet Selection & Protocol", desc: "Your price updates automatically based on the jet selected. Please note we strictly require a 72-hour notice to perfectly prepare your jet for departure.", target: "ac-class" },
+            { title: "Book & Unlock Portal", desc: "Click 'Request VIP Flight Now' to generate a secure Request ID. You will use this exact flight number to log into your VIP Portal and access your confirmed quote.", target: "dispatch-btn" }
         ];
 
         function checkFirstVisit() {
@@ -958,10 +948,7 @@
             updateTourUI();
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            checkFirstVisit();
-        });
-
+        window.addEventListener('DOMContentLoaded', () => { checkFirstVisit(); });
         window.onload = () => { loadDB(); addLeg(); initMap(); syncPaxLogic(); animateSwirl(); };
     </script>
 </body>
