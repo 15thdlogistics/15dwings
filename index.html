@@ -110,6 +110,7 @@
         <!-- Desktop Links -->
         <div class="hidden md:flex space-x-8 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
             <a href="#operational" class="hover:text-fbblue transition-colors">Readiness</a>
+            <a href="#booking-protocol" class="hover:text-fbblue transition-colors">How To Book</a>
             <a href="#experience" class="hover:text-fbblue transition-colors">360° Cabin</a>
             <a href="#experiential-flights" class="hover:text-fbblue transition-colors">Experiences</a>
             <a href="#fleet" class="hover:text-fbblue transition-colors">Fleet</a>
@@ -117,7 +118,7 @@
         </div>
 
         <div class="flex items-center gap-3 z-50 relative">
-            <button onclick="toggleIntake()" class="btn-shimmer ui-sync text-[8px] px-3 py-2 md:text-[10px] md:px-5 md:py-3 shadow-md shadow-fbblue/30 whitespace-nowrap">INITIATE FLIGHT</button>
+            <button onclick="toggleIntake()" class="btn-shimmer ui-sync text-[8px] px-3 py-2 md:text-[10px] md:px-5 md:py-3 shadow-md shadow-fbblue/30 whitespace-nowrap">BOOK FLIGHT</button>
             
             <!-- Mobile Hamburger Icon -->
             <button id="hamburger-btn" onclick="toggleMobileNav()" class="md:hidden text-nearblack p-1 focus:outline-none" aria-label="Toggle Navigation">
@@ -132,13 +133,14 @@
     <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-8">
         <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-20 pointer-events-none"></div>
         <a href="#operational" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Readiness</a>
+        <a href="#booking-protocol" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">How To Book</a>
         <a href="#experience" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">360° Cabin</a>
         <a href="#experiential-flights" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Experiences</a>
         <a href="#fleet" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fleet</a>
         <a href="#services" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Services</a>
         
         <button onclick="toggleIntake(); toggleMobileNav()" class="btn-shimmer ui-sync text-sm mt-8 px-10 py-4 w-3/4 max-w-sm">
-            INITIATE FLIGHT
+            BOOK FLIGHT
         </button>
     </div>
 
@@ -150,7 +152,6 @@
                 <span class="ui-sync text-fbblue text-[9px]">REAL-TIME FEASIBILITY ENGINE</span>
                 <button onclick="toggleIntake()" class="ui-sync text-nearblack font-black text-[10px] bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition">CLOSE [X]</button>
             </div>
-            <!-- Syncing with the active flight_request.html -->
             <iframe id="intake-frame" src="flight request.html" class="w-full h-full border-none absolute inset-0 pt-14"></iframe>
         </div>
     </div>
@@ -169,12 +170,12 @@
             </div>
             <div id="chat-messages" class="flex-1 p-5 overflow-y-auto text-[10px] flex flex-col space-y-4 bg-gray-50/50">
                 <div class="msg-bot">
-                    Protocol engaged. Our <strong>Decision Engine</strong> is monitoring global airspace variables. Identify your requirements. AI can make mistakes                                                                     
+                    Protocol engaged. Our <strong>Decision Engine</strong> is monitoring global airspace variables. Identify your requirements.
                 </div>
             </div>
             <div class="px-5 pb-2">
                 <button onclick="toggleIntake()" class="w-full py-3 bg-fbblue text-white ui-sync text-[8px] rounded-xl shadow-lg hover:scale-[1.02] transition-transform">
-                    INITIATE FLIGHT
+                    BOOK FLIGHT
                 </button>
             </div>
             <div class="p-4 border-t flex items-center bg-white">
@@ -203,7 +204,7 @@
                 <p class="font-sync text-white text-[10px] md:text-[12px] reveal uppercase tracking-[0.2em] max-w-xl leading-relaxed">
                     REQUEST A PRIVATE FLIGHT ACROSS NIGERIA AND RECEIVE A <strong class="text-fbblue">RAPID OPERATIONAL RESPONSE FROM OUR DECISION ENGINE IN SECONDS</strong>.
                 </p>
-                <button onclick="toggleIntake()" class="btn-shimmer ui-sync reveal mt-10">INITIATE FLIGHT</button>
+                <button onclick="toggleIntake()" class="btn-shimmer ui-sync reveal mt-10">BOOK FLIGHT</button>
             </div>
         </header>
 
@@ -227,6 +228,63 @@
                         <div class="absolute bottom-0 right-0 p-8 bg-nearblack text-white max-w-xs rounded-tl-3xl">
                             <p class="text-2xl font-light leading-tight mb-2">"Clear response. Clear status."</p>
                             <span class="ui-sync text-[8px] text-fbblue">FEASIBILITY UNDER 180s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION: FLIGHT BOOKING PROTOCOL (EARLY EXPLANATION FOR BOOKING & REQUEST IDS) -->
+        <section class="py-24 bg-offwhite px-6 border-b border-gray-100" id="booking-protocol">
+            <div class="max-w-6xl mx-auto reveal">
+                <div class="text-center md:text-left mb-16">
+                    <h2 class="ui-sync text-fbblue text-[10px] mb-4">THE PROTOCOL OF CERTAINTY</h2>
+                    <h3 class="title-monument text-3xl md:text-5xl text-nearblack mb-6" style="color:black">HOW TO BOOK A FLIGHT</h3>
+                    <p class="text-gray-600 max-w-3xl leading-relaxed text-sm md:text-base">
+                        Our platform bypasses broker delays. In under three minutes, secure your premium layout blueprint and receive direct physical pricing configurations. Here is the operational framework.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Step 1 Card -->
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[300px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[10px] font-black block mb-4">STEP 01</span>
+                            <h4 class="font-extrabold text-xl text-nearblack mb-3">Trigger Portal</h4>
+                            <p class="text-gray-500 text-xs leading-relaxed">
+                                Click the "BOOK FLIGHT" control located globally in the menu interface. This opens the real-time flight configuration workspace immediately.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <button onclick="toggleIntake()" class="text-xs text-fbblue font-bold hover:underline uppercase tracking-wider block">LAUNCH BOOKING ENGINE NOW →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 Card -->
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[300px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[10px] font-black block mb-4">STEP 02</span>
+                            <h4 class="font-extrabold text-xl text-nearblack mb-3">Route & Price</h4>
+                            <p class="text-gray-500 text-xs leading-relaxed">
+                                Define departure airports, dates, passenger numbers, and luxury fleet category (Light, Midsize, Heavy, or Regional jets). The decision engine will calculate your cost estimate instantly.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <span class="text-[9px] ui-sync text-slate-400 block">[ REALTIME ESTIMATION ACTIVE ]</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 Card -->
+                    <div class="dash-border p-8 bg-slate-900 text-white flex flex-col justify-between min-h-[300px] border border-fbblue/30">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[10px] font-black block mb-4">STEP 03</span>
+                            <h4 class="font-extrabold text-xl text-white mb-3">Secure Your Password</h4>
+                            <p class="text-gray-300 text-xs leading-relaxed">
+                                Once submitted, the system instantly initiates coordination and issues your **Flight Request ID** (e.g., 15D-7F9E). This string is your secure login key to log into **portal.15dwings.com.ng** where you can unlock luxury experiences.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <span class="text-[9px] ui-sync text-fbblue block">[ DESIGNED FOR SECURITY ]</span>
                         </div>
                     </div>
                 </div>
