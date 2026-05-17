@@ -11,7 +11,7 @@
     <meta property="og:image" content="https://uploads.onecompiler.io/43z22g7dk/444u5qgt2/Gemini_Generated_Image_afl123afl123afl1.png">
     <meta property="og:type" content="website">
 
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,7 +31,7 @@
     </script>
 
     <style>
-        body, html { margin: 0; padding: 0; background: #000; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-family: 'lexend', sans-serif; }
+        body, html { margin: 0; padding: 0; background: #000; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-family: 'lexend', sans-serif; scroll-behavior: smooth; }
         .scanline { width: 100%; height: 3px; background: rgba(24, 119, 242, 0.2); position: absolute; top: 0; z-index: 5; animation: scan 4s linear infinite; pointer-events: none; }
         @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
         .tech-grid { background-image: linear-gradient(rgba(24, 119, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 119, 242, 0.05) 1px, transparent 1px); background-size: 30px 30px; }
@@ -72,7 +72,7 @@
 
         .animate-scroll { display: flex; width: max-content; }
         
-        .dash-border { border: 1px solid #f1f1f1; border-radius: 1.5rem; background: #fff; transition: all 0.3s ease; }
+        .dash-border { border: 1px solid #e5e7eb; border-radius: 1.5rem; background: #fff; transition: all 0.3s ease; }
         .dash-border:hover { border-color: #1877F2; box-shadow: 0 10px 30px rgba(24, 119, 242, 0.05); }
 
         .msg-user { align-self: flex-end; background: #1877F2; color: white; padding: 8px 12px; border-radius: 15px 15px 0 15px; max-width: 80%; }
@@ -108,11 +108,12 @@
         </a>
         
         <!-- Desktop Links -->
-        <div class="hidden md:flex space-x-10 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
+        <div class="hidden md:flex space-x-8 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
             <a href="#operational" class="hover:text-fbblue transition-colors">Readiness</a>
+            <a href="#experience" class="hover:text-fbblue transition-colors">360° Cabin</a>
+            <a href="#experiential-flights" class="hover:text-fbblue transition-colors">Experiences</a>
             <a href="#fleet" class="hover:text-fbblue transition-colors">Fleet</a>
             <a href="#services" class="hover:text-fbblue transition-colors">Services</a>
-            <a href="#experience" class="hover:text-fbblue transition-colors">Experience</a>
         </div>
 
         <div class="flex items-center gap-3 z-50 relative">
@@ -128,12 +129,13 @@
     </nav>
 
     <!-- Full-Screen Mobile Navigation Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-10">
+    <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-8">
         <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-20 pointer-events-none"></div>
         <a href="#operational" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Readiness</a>
+        <a href="#experience" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">360° Cabin</a>
+        <a href="#experiential-flights" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Experiences</a>
         <a href="#fleet" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fleet</a>
         <a href="#services" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Services</a>
-        <a href="#experience" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Experience</a>
         
         <button onclick="toggleIntake(); toggleMobileNav()" class="btn-shimmer ui-sync text-sm mt-8 px-10 py-4 w-3/4 max-w-sm">
             INITIATE FLIGHT
@@ -197,7 +199,6 @@
             <div class="hero-overlay"></div>
             
             <div class="z-20 w-full mt-10">
-                
                 <h1 class="title-monument reveal mb-8 text-white leading-tight">PRIVATE <br> JET <br> FLIGHTS</h1>
                 <p class="font-sync text-white text-[10px] md:text-[12px] reveal uppercase tracking-[0.2em] max-w-xl leading-relaxed">
                     REQUEST A PRIVATE FLIGHT ACROSS NIGERIA AND RECEIVE A <strong class="text-fbblue">RAPID OPERATIONAL RESPONSE FROM OUR DECISION ENGINE IN SECONDS</strong>.
@@ -206,6 +207,7 @@
             </div>
         </header>
 
+        <!-- SECTION 1: OPERATIONAL READINESS -->
         <section class="py-24 bg-white px-6 border-b border-gray-100" id="operational">
             <div class="max-w-6xl mx-auto reveal">
                 <h2 class="ui-sync text-fbblue text-[10px] mb-12">KNOW WHERE YOU STAND BEFORE YOU PLAN THE FLIGHT</h2>
@@ -231,6 +233,109 @@
             </div>
         </section>
 
+        <!-- SECTION 2: INTERACTIVE ACCESS (360° CABIN TOUR - LIFTED UP) -->
+        <section class="py-32 bg-nearblack px-6 tech-grid text-center" id="experience">
+            <div class="max-w-5xl mx-auto reveal">
+                <span class="ui-sync text-fbblue text-[10px] block mb-8">INTERACTIVE ACCESS</span>
+                <h2 class="title-monument text-2xl md:text-5xl mb-8 text-white uppercase">DON'T JUST LOOK. <br><span class="text-fbblue">ENTER THE CABIN.</span></h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-gray-400">
+                    This is not a static photo gallery. Tap the aircraft door below to enter a full 360° interactive cabin environment. Walk the cabin. Check the galley. Verify the certainty.
+                </p>
+                <div class="relative group cursor-pointer inline-block overflow-hidden rounded-3xl border-4 border-white/10" onclick="this.querySelector('iframe').classList.remove('hidden'); this.querySelector('.overlay-trigger').classList.add('hidden');">
+                    <div class="overlay-trigger relative">
+                        <div class="absolute -inset-4 border border-fbblue/40 enter-glow pointer-events-none z-20"></div>
+                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537192/1772530337581_qq5wv3.jpg" alt="Interactive 360 Cabin View Gateway" class="w-full h-[60vh] object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center z-10">
+                            <div class="bg-fbblue text-white ui-sync px-12 py-6 text-xs shadow-2xl tracking-[0.4em]">TAP TO ENTER 360° TOUR</div>
+                        </div>
+                    </div>
+                    <iframe src="https://tours.360virtualtours.co.uk/legacy-aircraft-tour/" title="Legacy Aircraft 360 Tour" class="hidden w-full h-[75vh] md:w-[80vw] border-none bg-black" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXPERIENTIAL FLIGHTS (NEW REPLACEMENT FOR DOMESTIC NETWORK COVERAGE) -->
+        <section class="py-24 bg-white px-6 border-b border-gray-100" id="experiential-flights">
+            <div class="max-w-6xl mx-auto reveal">
+                <div class="mb-16 text-center md:text-left">
+                    <h2 class="ui-sync text-fbblue text-[10px] mb-4">THE HIGHEST PARADIGM OF FLIGHT</h2>
+                    <h3 class="title-monument text-3xl md:text-5xl text-nearblack mb-6" style="color:black">EXPERIENTIAL FLIGHTS</h3>
+                    <p class="text-gray-600 max-w-3xl leading-relaxed text-sm md:text-base">
+                        15D Wings is the pioneer of **Flights-As-An-Experience**. We believe transit shouldn't just be operational—it should be unforgettable. Our engineered outcomes allow you to curate the physical space inside the sky.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12 font-lexend items-center mb-16">
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-fbblue pl-6 py-2">
+                            <span class="ui-sync text-fbblue text-[9px] block mb-1">UNLOCKED BY ID</span>
+                            <h4 class="font-extrabold text-xl mb-2 text-nearblack">Select Experiences on Your Dashboard</h4>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">
+                                When you secure your private charter, you receive an official **Flight Booking ID**. Use this unique key to log into your custom VIP Dashboard and directly select from our suite of curated cabin atmosphere packages.
+                            </p>
+                        </div>
+                        <div class="border-l-4 border-gray-200 pl-6 py-2">
+                            <span class="ui-sync text-gray-500 text-[9px] block mb-1">CUSTOMIZATION LAYERS</span>
+                            <h4 class="font-extrabold text-xl mb-2 text-nearblack">Atmosphere & Service Profiles</h4>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">
+                                Tailor cabin scent branding, culinary journeys, professional soundscapes, and flight watch schedules. Our operations team prepares the jet according to your dashboard blueprint.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <!-- EXPERIENTIAL FLIGHTS HERO CARD (VIDEO INTEGRATION) -->
+                        <div class="group relative rounded-3xl overflow-hidden p-8 border border-gray-200 shadow-xl h-[450px] flex flex-col justify-end">
+                            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 opacity-90 mix-blend-multiply transition-opacity duration-700 ios-video">
+                                <source src="https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776286745/Private_Jet_Cinema_Experience_qzlexa.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+                            
+                            <div class="relative z-20 text-white">
+                                <span class="ui-sync text-fbblue text-[9px] block mb-2">LIVE DEMO</span>
+                                <h4 class="title-monument text-lg mb-2">Experiential Mastery</h4>
+                                <p class="text-gray-300 text-xs leading-relaxed">Secure your booking to select event architectures directly on your executive timeline.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERIENTIAL SELECTION GRID -->
+                <div class="grid md:grid-cols-3 gap-6 pt-10 border-t border-gray-100">
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[250px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">THE SIGNATURE SKY EVENT</span>
+                            <h4 class="font-bold text-lg mb-2">Sky Party™</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">Celebrate premium events, corporate milestones, and customized gatherings in high altitudes with curated catering and production.</p>
+                        </div>
+                        <div class="mt-6">
+                            <a href="https://www.skyparty.name.ng/experience" target="_blank" class="text-xs text-fbblue font-bold hover:underline uppercase tracking-wider block">LAUNCH SKY PARTY OUTLET →</a>
+                        </div>
+                    </div>
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[250px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">THERAPY & SILENCE</span>
+                            <h4 class="font-bold text-lg mb-2">BlueHour™</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">Atmospheric sensory therapy flights featuring noise-isolated cabins, custom calming blue lighting arrays, and tailored wellness culinary menus.</p>
+                        </div>
+                        <div class="mt-6">
+                            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block">[ AVAILABLE ON DASHBOARD ]</span>
+                        </div>
+                    </div>
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[250px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">PREMIUM ROMANCE</span>
+                            <h4 class="font-bold text-lg mb-2">Sky Date™</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">Intimate custom dining layout in private cabins, floral enhancements, live performance acoustic recordings, and exclusive ground escorts.</p>
+                        </div>
+                        <div class="mt-6">
+                            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block">[ AVAILABLE ON DASHBOARD ]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SOVEREIGN FLIGHT CREDITS -->
         <section class="py-24 bg-nearblack px-6 relative overflow-hidden">
             <div class="max-w-6xl mx-auto reveal flex flex-col md:flex-row items-center gap-16">
                 <div class="flex-1 z-10 relative">
@@ -272,43 +377,7 @@
             </div>
         </section>
 
-        <section class="py-24 bg-offwhite px-6">
-            <div class="max-w-6xl mx-auto reveal">
-                <div class="mb-16">
-                    <h2 class="title-monument text-3xl mb-4 text-nearblack" style="color:black">Operational Readiness</h2>
-                    <p class="text-gray-500 max-w-2xl">Our coordination system continuously monitors the operational factors that determine whether a flight can depart as planned.</p>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="dash-border p-8 bg-white">
-                        <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">NETWORK COVERAGE</span>
-                        <h4 class="font-bold text-lg mb-2">Aircraft Network Coverage</h4>
-                        <p class="text-[10px] text-gray-400 uppercase leading-relaxed">Across Nigeria’s key private aviation airports.</p>
-                    </div>
-                    <div class="dash-border p-8 bg-white">
-                        <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">VETTING PROTOCOL</span>
-                        <h4 class="font-bold text-lg mb-2">Verified Operator Network</h4>
-                        <p class="text-[10px] text-gray-400 uppercase leading-relaxed">Licensed aviation operators across Nigeria.</p>
-                    </div>
-                    <div class="dash-border p-8 bg-white">
-                        <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">RESPONSE SPEED</span>
-                        <h4 class="font-bold text-lg mb-2">Average Feasibility Response</h4>
-                        <p class="text-[10px] text-gray-400 uppercase leading-relaxed">Initial operational assessment delivered in under 3 minutes.</p>
-                    </div>
-                    <div class="dash-border p-8 bg-white">
-                        <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">FLIGHT WATCH</span>
-                        <h4 class="font-bold text-lg mb-2">Operational Readiness Monitoring</h4>
-                        <p class="text-[10px] text-gray-400 uppercase leading-relaxed">Flights monitored up to 72 hours before departure.</p>
-                    </div>
-                    <div class="dash-border p-8 bg-nearblack text-white md:col-span-2">
-                        <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">FAILSAFE SYSTEMS</span>
-                        <h4 class="font-bold text-lg mb-2">Asset Redundancy</h4>
-                        <p class="text-[10px] text-gray-400/60 uppercase leading-relaxed">Primary • Secondary • Shadow aircraft coordination.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <!-- PARALLAX TRANSITION SECTION -->
         <section class="h-[60vh] slide-parallax flex items-center justify-center text-center px-6" style="background-image: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537520/1772530224629_kl7gdt.jpg');" aria-label="A private jet cruising over clouds">
             <div class="z-10">
                 <h2 class="title-monument text-white text-4xl mb-4">TACTICAL PRECISION</h2>
@@ -317,6 +386,7 @@
             <div class="absolute inset-0 bg-black/60"></div>
         </section>
 
+        <!-- SECTION 5: FLEET OVERVIEW & ESCORT LEADING DIRECTLY TO THE LIFTED VIRTUAL TOUR -->
         <section class="py-24 bg-white px-6 border-b" id="fleet">
             <div class="max-w-6xl mx-auto reveal">
                 <div class="grid md:grid-cols-2 gap-16">
@@ -338,33 +408,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-nearblack p-10 rounded-3xl text-white shadow-2xl">
-                        <h2 class="ui-sync text-fbblue text-[10px] mb-6">NETWORK REACH</h2>
-                        <h3 class="title-monument text-3xl mb-8">DESTINATIONS</h3>
-                        <p class="ui-sync text-[10px] text-white/60 mb-8 tracking-widest">Flights Across Nigeria</p>
-                        <div class="grid grid-cols-1 gap-4 text-xs font-bold font-sync">
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
-                                <span>LAGOS</span> <span class="text-fbblue">→</span> <span>ABUJA</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
-                                <span>ABUJA</span> <span class="text-fbblue">→</span> <span>LAGOS</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
-                                <span>LAGOS</span> <span class="text-fbblue">→</span> <span>ASABA</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
-                                <span>ABUJA</span> <span class="text-fbblue">→</span> <span>PORT HARCOURT</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
-                                <span>LAGOS</span> <span class="text-fbblue">→</span> <span>KANO</span>
-                            </div>
+                    
+                    <!-- HIGH-CONTRAST INTERACTION POINT DIRECTLY LINKED TO VIRTUAL TOUR -->
+                    <div class="bg-nearblack p-10 rounded-3xl text-white shadow-2xl flex flex-col justify-between relative overflow-hidden min-h-[400px]">
+                        <div class="relative z-10">
+                            <h2 class="ui-sync text-fbblue text-[10px] mb-6">CABIN READINESS</h2>
+                            <h3 class="title-monument text-2xl md:text-3xl mb-8">INSPECT THE CABIN LAYOUT</h3>
+                            <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-8">
+                                To support absolute certainty before you initiate booking procedures, we provide direct structural transparency. Walk the interior configurations, evaluate seat spacing, and inspect the cabin environments.
+                            </p>
                         </div>
-                        <p class="mt-8 text-[9px] text-white/40 italic uppercase tracking-widest text-center">We coordinate flights across major Nigerian airports.</p>
+                        <div class="relative z-10">
+                            <a href="#experience" class="w-full inline-block text-center py-4 bg-fbblue hover:bg-fbblue/90 text-white ui-sync text-[10px] tracking-[0.2em] rounded-xl shadow-lg transition-transform hover:scale-[1.02] uppercase">
+                                LAUNCH 360° CABIN EXPERIENCE ↑
+                            </a>
+                        </div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-fbblue/10 blur-3xl"></div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- SECTION 6: SERVICES -->
         <section class="py-24 bg-white px-6" id="services">
             <div class="max-w-6xl mx-auto reveal">
                 <h2 class="ui-sync text-fbblue text-[10px] mb-4">SERVICES</h2>
@@ -376,52 +441,24 @@
                             <h4 class="title-monument text-xl mb-4 group-hover:text-fbblue transition-colors" style="color:black">Executive Travel</h4>
                             <p class="text-gray-600 leading-relaxed">Private flights for executives, corporate teams, and business leaders.</p>
                         </div>
-                        
-                        <!-- EXPERIENTIAL FLIGHTS (NEW CINEMATIC BACKGROUND) -->
-                        <div class="group relative rounded-3xl overflow-hidden p-8 border border-gray-100 shadow-xl mt-8">
-                            <!-- Background Video specifically requested -->
-                            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 opacity-80 mix-blend-multiply group-hover:opacity-100 transition-opacity duration-700 ios-video">
-                                <source src="https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776286745/Private_Jet_Cinema_Experience_qzlexa.mp4" type="video/mp4">
-                            </video>
-                            <!-- Creative Non-Distracting Dark Gradient Overlay -->
-                            <div class="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/80 to-black/40 z-10"></div>
-                            
-                            <!-- Content overlay -->
-                            <div class="relative z-20">
-                                <h4 class="title-monument text-xl mb-4 text-white transition-colors drop-shadow-md">Experiential Flights</h4>
-                                <p class="text-gray-300 mb-8 leading-relaxed text-sm">Unique private aviation experiences including:</p>
-                                <div class="grid gap-4">
-                                    <a href="https://www.skyparty.name.ng/experience" target="_blank" class="block p-4 border border-white/20 bg-black/40 backdrop-blur-sm rounded-xl hover:border-fbblue hover:bg-fbblue/10 transition-all text-white">
-                                        <span class="ui-sync text-fbblue text-[9px] block mb-1">THE SIGNATURE EVENT</span>
-                                        <span class="font-bold">Sky Party™</span>
-                                    </a>
-                                    <div class="p-4 border border-white/20 bg-black/40 backdrop-blur-sm rounded-xl text-white">
-                                        <span class="ui-sync text-fbblue text-[9px] block mb-1">THERAPY FLIGHTS</span>
-                                        <span class="font-bold">BlueHour™</span>
-                                    </div>
-                                    <div class="p-4 border border-white/20 bg-black/40 backdrop-blur-sm rounded-xl text-white">
-                                        <span class="ui-sync text-fbblue text-[9px] block mb-1">PREMIUM ROMANCE</span>
-                                        <span class="font-bold">Sky Date™</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="group">
+                            <h4 class="title-monument text-xl mb-4 group-hover:text-fbblue transition-colors" style="color:black">The Aviation Feasibility Principle</h4>
+                            <p class="text-gray-600 leading-relaxed">Using proprietary technology parameters to guarantee absolute coordination and security across key destinations.</p>
                         </div>
                     </div>
                     
                     <div class="bg-nearblack p-10 rounded-3xl text-white shadow-2xl relative overflow-hidden">
                         <div class="relative z-10">
                             <h4 class="title-monument text-xl mb-4">VIP Airport Coordination</h4>
-                            <p class="text-gray-400 text-sm mb-12">Ground coordination to simplify airport arrivals and departures.</p>
+                            <p class="text-gray-400 text-sm mb-6">Ground coordination to simplify airport arrivals and departures.</p>
+                            <p class="text-gray-300 text-xs leading-relaxed mb-8">
+                                Every client itinerary includes direct concierge alignment, VIP terminal coordinates, customs fast-tracking protocols, and baggage security integration.
+                            </p>
                             
-                            <h5 class="ui-sync text-fbblue text-[9px] mb-6">POPULAR COORDINATED ROUTES</h5>
-                            <div class="space-y-6 text-sm font-bold tracking-tighter">
-                                <div class="flex justify-between border-b border-white/10 pb-3"><span>LAGOS</span> <span class="text-fbblue">→</span> <span>ABUJA</span></div>
-                                <div class="flex justify-between border-b border-white/10 pb-3"><span>ABUJA</span> <span class="text-fbblue">→</span> <span>LAGOS</span></div>
-                                <div class="flex justify-between border-b border-white/10 pb-3"><span>LAGOS</span> <span class="text-fbblue">→</span> <span>ASABA</span></div>
-                                <div class="flex justify-between border-b border-white/10 pb-3"><span>ABUJA</span> <span class="text-fbblue">→</span> <span>PORT HARCOURT</span></div>
-                                <div class="flex justify-between border-b border-white/10 pb-3"><span>LAGOS</span> <span class="text-fbblue">→</span> <span>KANO</span></div>
+                            <div class="p-6 border border-white/10 bg-white/5 rounded-2xl">
+                                <span class="ui-sync text-fbblue text-[8px] block mb-2">SYSTEM PROTOCOL</span>
+                                <span class="text-white text-xs font-bold leading-normal block">Pre-Cleared Flight Logistics Activated on All Bookings</span>
                             </div>
-                            <p class="mt-12 text-[10px] text-white/40 italic">We coordinate flights across major Nigerian airports.</p>
                         </div>
                         <div class="absolute top-0 right-0 w-32 h-32 bg-fbblue/10 blur-3xl"></div>
                     </div>
@@ -429,26 +466,7 @@
             </div>
         </section>
 
-        <section class="py-32 bg-nearblack px-6 tech-grid text-center" id="experience">
-            <div class="max-w-5xl mx-auto reveal">
-                <span class="ui-sync text-fbblue text-[10px] block mb-8">INTERACTIVE ACCESS</span>
-                <h2 class="title-monument text-2xl md:text-5xl mb-8 text-white uppercase">DON'T JUST LOOK. <br><span class="text-fbblue">ENTER THE CABIN.</span></h2>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-gray-400">
-                    This is not a static photo gallery. Tap the aircraft door below to enter a full 360° interactive cabin environment. Walk the cabin. Check the galley. Verify the certainty.
-                </p>
-                <div class="relative group cursor-pointer inline-block overflow-hidden rounded-3xl border-4 border-white/10" onclick="this.querySelector('iframe').classList.remove('hidden'); this.querySelector('.overlay-trigger').classList.add('hidden');">
-                    <div class="overlay-trigger relative">
-                        <div class="absolute -inset-4 border border-fbblue/40 enter-glow pointer-events-none z-20"></div>
-                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537192/1772530337581_qq5wv3.jpg" alt="Interactive 360 Cabin View Gateway" class="w-full h-[60vh] object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center z-10">
-                            <div class="bg-fbblue text-white ui-sync px-12 py-6 text-xs shadow-2xl tracking-[0.4em]">TAP TO ENTER 360° TOUR</div>
-                        </div>
-                    </div>
-                    <iframe src="https://tours.360virtualtours.co.uk/legacy-aircraft-tour/" title="Legacy Aircraft 360 Tour" class="hidden w-full h-[75vh] md:w-[80vw] border-none bg-black" allowfullscreen></iframe>
-                </div>
-            </div>
-        </section>
-
+        <!-- DOCTRINE SECTION -->
         <section class="py-24 bg-nearblack text-white px-6 tech-grid relative overflow-hidden border-b border-white/5">
             <div class="absolute inset-0 opacity-20 grayscale hover:grayscale-0 transition-all duration-1000" style="background: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537141/1772530842988_ymqcil.jpg') center/cover;"></div>
             <div class="max-w-4xl mx-auto reveal relative z-10">
@@ -461,6 +479,7 @@
             </div>
         </section>
 
+        <!-- FEEDBACK SECTION -->
         <section class="py-24 bg-white px-6">
             <div class="max-w-6xl mx-auto reveal">
                 <div class="grid md:grid-cols-2 gap-16">
@@ -506,6 +525,7 @@
             </div>
         </section>
 
+        <!-- SECTOR MARQUEE SCROLLER -->
         <section class="py-16 bg-white overflow-hidden border-y">
             <div id="logo-scroller" class="animate-scroll items-center">
                 <div class="flex space-x-20 px-10 items-center">
@@ -523,24 +543,26 @@
             </div>
         </section>
 
+        <!-- SUBSTANTIAL HIGH-CONTRAST FOOTER -->
         <footer class="py-16 px-6 text-center bg-white border-t">
             <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Footer Logo" class="h-10 mx-auto mb-6">
-            <p class="text-[9px] ui-sync text-fbblue font-bold tracking-widest mb-8">ARCHITECTS OF CERTAINTY</p>
+            <p class="text-[9px] ui-sync text-fbblue font-black tracking-widest mb-8">ARCHITECTS OF CERTAINTY</p>
             
-            <div class="flex flex-wrap justify-center gap-6 mb-10 ui-sync text-[8px] text-gray-400 uppercase">
-                <a href="faqs.html" class="hover:text-fbblue transition">FAQ</a>
-                <a href="flight request.html" onclick="toggleIntake(); return false;" class="hover:text-fbblue transition">Flight Request</a>
-                <a href="about us.html">About Us</a>
-                <a href="contact us.html">Contact</a>
-                <a href="legal.html" class="hover:text-fbblue transition">Legal</a>
-                <a href="tos.html" class="hover:text-fbblue transition">Terms of Service</a>
+            <!-- THICKER, MORE CLICKABLE FOOTER LINKS -->
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10 text-[10px] uppercase font-extrabold tracking-wider text-slate-800">
+                <a href="faqs.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">FAQ</a>
+                <a href="flight request.html" onclick="toggleIntake(); return false;" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Flight Request</a>
+                <a href="about us.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">About Us</a>
+                <a href="contact us.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Contact</a>
+                <a href="legal.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Legal</a>
+                <a href="tos.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Terms of Service</a>
             </div>
 
             <div class="max-w-2xl mx-auto space-y-6">
-                <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest border-y border-gray-50 py-6 leading-loose">
+                <p class="text-[9px] text-slate-900 font-extrabold uppercase tracking-widest border-y border-gray-100 py-6 leading-loose">
                     15D Wings is a charter coordination platform. All flights are operated by appropriately licensed part 135 air carriers.
                 </p>
-                <p class="text-[8px] text-gray-400 uppercase tracking-[0.2em]">A Brand Product of sky party ltd (rc 8997727)</p>
+                <p class="text-[8px] text-gray-400 uppercase tracking-[0.2em] font-medium">A Brand Product of sky party ltd (rc 8997727)</p>
             </div>
         </footer>
     </main>
