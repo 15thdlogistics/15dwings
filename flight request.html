@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15D WINGS | VIP Flight Booking v7.9.8</title>
+    <title>15D WINGS | VIP Flight Booking v8.0.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
@@ -13,52 +13,68 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
         :root {
-            /* THICK GLASSMORPHISM TOKENS */
-            --bg-main: transparent;
-            --glass: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-border-bottom: rgba(255, 255, 255, 0.15);
-            --input-bg: rgba(255, 255, 255, 0.25);
-            --input-border: rgba(255, 255, 255, 0.5);
+            /* PERMANENT DARK THEME AS THE ABSOLUTE DEFAULT */
+            --bg-main: #090d16;
             
-            --text-main: #0f172a;
-            --text-soft: #64748b;
-            --accent: #1877F2;
-            --accent-glow: rgba(24, 119, 242, 0.15);
-            --disclaimer-bg: rgba(24, 119, 242, 0.1);
-            --disclaimer-text: #475569;
-            --modal-bg: rgba(255, 255, 255, 0.95);
+            /* REDUCED OPACITY BY 20% (from 0.75 to 0.55) FOR INCREDIBLE VIDEO VISIBILITY */
+            --glass: rgba(15, 23, 42, 0.55); 
             
-            --glow-primary: rgba(56, 189, 248, 0.4);
-            --glow-secondary: rgba(37, 99, 235, 0.25);
-        }
-
-        [data-theme="dark"] {
-            --glass: rgba(15, 23, 42, 0.25);
             --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-border-bottom: rgba(255, 255, 255, 0.02);
-            --input-bg: rgba(0, 0, 0, 0.2);
-            --input-border: rgba(255, 255, 255, 0.1);
+            --glass-border-bottom: rgba(255, 255, 255, 0.10);
+            
+            /* ADJUSTED INPUTS BY 20% FOR CONTINUOUS DYNAMIC PASS-THROUGH VISIBILITY */
+            --input-bg: rgba(15, 23, 42, 0.70); /* Down from 0.90 to 0.70 */
+            --input-border: rgba(255, 255, 255, 0.35);
 
-            --text-main: #ffffff; 
-            --text-soft: #94a3b8; 
+            --text-main: #f8fafc; /* Crisp Slate 50 */
+            --text-soft: #cbd5e1; /* Slate 300 secondary text */
             --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.2);
-            --disclaimer-bg: rgba(15, 23, 42, 0.95);
+            --accent-glow: rgba(56, 189, 248, 0.40);
+            
+            /* ADJUSTED INTERNAL PANELS BY 20% FOR VISUAL COHESION */
+            --disclaimer-bg: rgba(15, 23, 42, 0.65); /* Down from 0.85 to 0.65 */
             --disclaimer-text: #f8fafc;
-            --modal-bg: rgba(15, 23, 42, 0.95);
+            --modal-bg: #090d16;
+            
+            --glow-primary: rgba(56, 189, 248, 0.15);
+            --glow-secondary: rgba(37, 99, 235, 0.10);
+            
+            --overlay-bg: rgba(9, 13, 22, 0.99);
         }
 
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
             font-family: 'Lexend', sans-serif;
-            transition: color 0.3s ease;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* CINEMATIC VIDEO BACKGROUND */
+        /* MONUMENT REGULAR ENFORCEMENT - NEVER BOLDED */
+        .monument {
+            font-family: 'Monument Extended', sans-serif !important;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 400 !important;
+        }
+
+        /* GUARANTEED HIGH-CONTRAST PLACEHOLDERS */
+        ::-webkit-input-placeholder { color: var(--text-soft) !important; font-weight: 600; opacity: 0.85 !important; }
+        ::-moz-placeholder { color: var(--text-soft) !important; font-weight: 600; opacity: 0.85 !important; }
+        :-ms-input-placeholder { color: var(--text-soft) !important; font-weight: 600; opacity: 0.85 !important; }
+        ::placeholder { color: var(--text-soft) !important; font-weight: 600; opacity: 0.85 !important; }
+
+        /* FORCE NATIVE CALENDAR/DATE ICON TO BE CRISP WHITE */
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(100%);
+            cursor: pointer;
+            opacity: 0.9;
+        }
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        /* CINEMATIC VIDEO BACKGROUND - REVEALED VIVIDLY */
         .bg-video {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -66,11 +82,10 @@
             width: auto; height: auto;
             z-index: -2;
             object-fit: cover;
-            transition: opacity 0.5s ease, filter 0.5s ease;
             pointer-events: none;
+            opacity: 0.55; /* Slightly increased for more vibrant flight details */
+            filter: grayscale(30%) brightness(0.7); /* Optimized for rich, crisp dynamic contrast */
         }
-        [data-theme="light"] .bg-video { opacity: 0.35; filter: grayscale(10%) brightness(1.15); }
-        [data-theme="dark"] .bg-video { opacity: 0.55; filter: grayscale(40%) brightness(0.8); }
 
         .bg-swirl {
             position: fixed;
@@ -89,128 +104,140 @@
             to { transform: translate(-50%, -50%) rotate(360deg) translateX(10%); }
         }
 
-        .monument { font-family: 'Monument Extended', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; }
-
-        /* REFRACTED THICK GLASS PANELS */
+        /* REFRACTED GLASS PANELS WITH ROBUST CONTRAST STRUCTURE */
         .glass-panel {
             background: var(--glass);
-            backdrop-filter: blur(80px) saturate(200%);
-            -webkit-backdrop-filter: blur(80px) saturate(200%);
-            border-top: 1.5px solid var(--glass-border);
-            border-left: 1.5px solid var(--glass-border);
-            border-right: 1px solid var(--glass-border-bottom);
-            border-bottom: 1px solid var(--glass-border-bottom);
+            backdrop-filter: blur(80px) saturate(180%);
+            -webkit-backdrop-filter: blur(80px) saturate(180%);
+            border-top: 2.5px solid var(--glass-border);
+            border-left: 2.5px solid var(--glass-border);
+            border-right: 1.5px solid var(--glass-border-bottom);
+            border-bottom: 1.5px solid var(--glass-border-bottom);
             border-radius: 26px;
-            box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.4), inset 0 3px 6px rgba(255, 255, 255, 0.5), inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.1);
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* IOS 11 STYLE INPUT PILLS */
+        /* HIGH-AFFORDANCE INTERACTIVE FIELDS */
         .input-pill {
             background: var(--input-bg);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border: 1px solid var(--input-border);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 2px solid var(--input-border);
             border-radius: 18px;
             padding: 16px 20px;
             color: var(--text-main);
             width: 100%;
             transition: all 0.3s ease;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
+            font-weight: 600;
             outline: none;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
         }
-        .input-pill:focus { border-color: var(--accent); background: rgba(255,255,255,0.1); box-shadow: 0 0 0 3px var(--accent-glow), inset 0 2px 6px rgba(0,0,0,0.05); }
+        .input-pill:focus { 
+            border-color: var(--accent); 
+            background: #0f172a; 
+            box-shadow: 0 0 0 4px var(--accent-glow), inset 0 2px 4px rgba(0,0,0,0.15); 
+        }
 
+        /* THE CHOSEN PRIMARY ACCENT FOR COST */
         .price-text {
             font-size: 3.5rem;
             font-weight: 700;
-            background: linear-gradient(120deg, var(--text-main), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent);
             letter-spacing: -0.04em;
+            text-shadow: 0 4px 15px var(--accent-glow);
         }
 
+        /* INTERACTION AFFORDANCES FOR SYSTEM CONTROLS */
         .btn-luxury {
-            background: linear-gradient(135deg, var(--accent), #1d4ed8);
-            color: white;
+            background: #ffffff;
+            color: #0f172a;
             border-radius: 20px;
             padding: 20px;
             font-family: 'Monument Extended', sans-serif;
+            font-weight: 400;
             font-size: 0.75rem;
-            box-shadow: 0 10px 25px var(--accent-glow);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 100%;
+            border: 2px solid #ffffff;
         }
         .btn-luxury:disabled { opacity: 0.3; filter: grayscale(1); cursor: not-allowed; transform: scale(0.98); }
-        .btn-luxury:hover:not(:disabled) { box-shadow: 0 15px 35px var(--accent-glow); transform: translateY(-2px); }
+        .btn-luxury:hover:not(:disabled) { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); transform: translateY(-2px); }
 
-        #map { height: 350px; border-radius: 20px; z-index: 10; overflow: hidden; background: #f1f5f9; border: 1px solid var(--glass-border-bottom); }
+        #map { height: 350px; border-radius: 20px; z-index: 10; overflow: hidden; background: #e2e8f0; border: 2.5px solid var(--glass-border); }
 
         .log-line {
             display: flex; align-items: center; gap: 10px;
-            font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em;
-            color: var(--text-soft); margin-bottom: 12px; opacity: 0.2; transition: all 0.5s ease;
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--text-soft); margin-bottom: 12px; opacity: 0.9; transition: all 0.5s ease;
+            font-weight: 700;
         }
-        .log-line.active { opacity: 1; color: var(--accent); }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: #cbd5e1; }
-        .log-line.active .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+        .log-line.active { color: var(--text-main); opacity: 1; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ffffff; }
+        .log-line.active .dot { background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
 
         .suggestion-box {
             position: absolute; top: 105%; left: 0; right: 0;
-            background: var(--bg-main); border-radius: 16px;
-            border: 1px solid var(--glass-border-bottom); z-index: 100;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: none;
-            max-height: 250px; overflow-y: auto; backdrop-filter: blur(30px);
+            background: var(--modal-bg); border-radius: 16px;
+            border: 2.5px solid var(--input-border); z-index: 100;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.5); display: none;
+            max-height: 250px; overflow-y: auto; backdrop-filter: blur(40px);
         }
 
         .leg-row {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
+            background: var(--disclaimer-bg);
             padding: 24px;
             border-radius: 20px;
             position: relative;
             margin-bottom: 16px;
-            border: 1px solid var(--glass-border-bottom);
+            border: 2.5px solid var(--input-border);
         }
 
         .leg-price-badge {
-            font-size: 0.6rem; font-weight: bold; color: var(--accent);
-            background: var(--accent-glow); padding: 6px 12px;
-            border-radius: 8px; display: inline-block;
+            font-size: 0.8rem; font-weight: 900; color: var(--text-main);
+            background: rgba(255, 255, 255, 0.12); padding: 8px 16px;
+            border-radius: 10px; display: inline-block;
+            letter-spacing: 0.05em;
+            border: 2px solid var(--input-border);
         }
 
         .disclaimer-box {
-            background: var(--disclaimer-bg); border: 1px solid var(--accent-glow);
-            color: var(--disclaimer-text); padding: 2rem; border-radius: 26px; line-height: 1.6;
+            background: var(--disclaimer-bg); border: 2.5px solid var(--glass-border);
+            color: var(--disclaimer-text); padding: 2.2rem; border-radius: 26px; line-height: 1.7;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         #processing-overlay {
-            position: fixed; inset: 0; background: var(--bg-main); z-index: 1000;
+            position: fixed; inset: 0; background: var(--overlay-bg); z-index: 1000;
             display: none; flex-direction: column; align-items: center; justify-content: center;
             backdrop-filter: blur(60px);
         }
 
         /* VALIDATION & ERROR STYLES */
         .input-error {
-            border-color: #ef4444 !important;
-            background: rgba(239, 68, 68, 0.08) !important;
+            border-color: #dc2626 !important;
+            background: rgba(239, 68, 68, 0.15) !important;
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2) !important;
         }
         .error-msg {
-            color: #ef4444;
-            font-size: 0.5rem;
+            color: #dc2626;
+            font-size: 0.65rem;
             font-family: 'Monument Extended', sans-serif;
+            font-weight: 400;
             margin-top: 8px;
             display: none;
             text-transform: uppercase;
             padding-left: 12px;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
         }
         .input-error ~ .error-msg { display: block; animation: fade-in 0.3s ease; }
 
         .btn-error {
-            background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4) !important;
+            background: linear-gradient(135deg, #dc2626, #991b1b) !important;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4) !important;
+            color: white !important;
             animation: shakeBtn 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
         }
 
@@ -222,20 +249,19 @@
         }
         @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ... Modal/Tour styles ... */
-        #modal-success { background: var(--modal-bg); transition: background 0.3s ease; }
+        /* Success & Modal Contrast Optimization */
+        #modal-success { background: var(--modal-bg); }
         #tour-overlay {
-            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); 
+            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.96); 
             z-index: 5000; display: none; flex-direction: column; align-items: center; justify-content: center;
-            padding: 2rem; text-align: center; backdrop-filter: blur(10px);
+            padding: 2rem; text-align: center; backdrop-filter: blur(20px);
         }
         .tour-card {
-            max-width: 500px; background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(40px) saturate(200%); -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.25); border-top: 1px solid rgba(255, 255, 255, 0.45);
-            border-left: 1px solid rgba(255, 255, 255, 0.35);
+            max-width: 500px; background: rgba(15, 23, 42, 0.9); 
+            backdrop-filter: blur(40px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             padding: 3rem 2.5rem; border-radius: 32px; 
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
             color: #ffffff; position: relative; overflow: hidden;
         }
         .step-indicator { font-size: 0.65rem; color: #38bdf8; margin-bottom: 1.5rem; display: block; letter-spacing: 0.2em;}
@@ -254,24 +280,24 @@
 
     <div id="processing-overlay">
         <div class="text-center space-y-8 max-w-md w-full px-10">
-            <div class="price-text text-4xl mb-4 uppercase">Calculating Estimate</div>
-            <div class="h-1 w-full bg-slate-200/20 rounded-full overflow-hidden">
-                <div id="p-bar" class="h-full bg-blue-600 w-0 transition-all duration-700"></div>
+            <div class="price-text text-5xl mb-4 uppercase font-black tracking-wider text-slate-50 filter drop-shadow">Calculating Estimate</div>
+            <div class="h-2.5 w-full bg-slate-700 rounded-full overflow-hidden">
+                <div id="p-bar" class="h-full bg-white w-0 transition-all duration-700"></div>
             </div>
-            <p id="p-step" class="monument text-[0.6rem] text-slate-400">Securing your VIP flight details...</p>
+            <p id="p-step" class="monument text-[0.7rem] text-slate-50 bg-black/95 px-5 py-3 rounded-lg backdrop-blur border-2 border-slate-800">Securing your VIP flight details...</p>
         </div>
     </div>
 
     <main class="max-w-7xl mx-auto space-y-10 relative z-10">
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
-                <h1 class="monument text-3xl mb-1">15D WINGS</h1>
-                <p class="text-[0.6rem] tracking-[0.5em] text-blue-600 font-bold">EXCLUSIVE PRIVATE JET BOOKING v7.9.8</p>
+                <h1 class="monument text-3xl mb-1 text-slate-50">15D WINGS</h1>
+                <p class="text-[0.65rem] tracking-[0.5em] text-slate-50 font-black">EXCLUSIVE PRIVATE JET BOOKING v8.0.2</p>
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex gap-4">
-                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 opacity-50">Download Estimate PDF</button>
-                    <button onclick="toggleTheme()" class="glass-panel px-6 py-3 text-[0.6rem] monument hover:scale-105 transition-transform">Switch Theme</button>
+                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 text-slate-50 font-black hover:scale-105">Download Estimate PDF</button>
+                    <span class="glass-panel px-6 py-3 text-[0.6rem] monument text-slate-400 font-black cursor-default selection:bg-transparent">VIP PORTAL STANDARD</span>
                 </div>
                 <span id="export-error-msg" class="error-msg text-center !mt-4" style="display:none;">ACTION REQUIRED: PLEASE REQUEST FLIGHT TO UNLOCK PDF</span>
             </div>
@@ -281,57 +307,62 @@
             <div class="lg:col-span-7 space-y-8">
                 <div class="glass-panel p-6 md:p-10 space-y-10">
                     <div>
-                        <span class="monument text-[0.6rem] text-slate-400 block mb-6">/ Executive Details</span>
+                        <span class="monument text-[0.7rem] text-slate-50 block mb-6 font-black tracking-widest">/ Executive Details</span>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="relative">
-                                <input type="text" id="name" placeholder="Full Name" class="input-pill" oninput="clearError(this)" required>
+                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2 uppercase">Full Name</label>
+                                <input type="text" id="name" placeholder="Executive Name" class="input-pill" oninput="clearError(this)" required>
                                 <span class="error-msg">Add the missing details</span>
                             </div>
                             <div class="relative">
-                                <input type="email" id="email" placeholder="Your Email Address" class="input-pill" oninput="clearError(this)" required>
+                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2 uppercase">Email Address</label>
+                                <input type="email" id="email" placeholder="executive@domain.com" class="input-pill" oninput="clearError(this)" required>
                                 <span class="error-msg">Add the missing details</span>
                             </div>
                             <div class="relative">
-                                <input type="tel" id="phone" placeholder="Phone (Required)" class="input-pill" oninput="clearError(this)" required>
+                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2 uppercase">Phone Number</label>
+                                <input type="tel" id="phone" placeholder="+1 (555) 000-0000" class="input-pill" oninput="clearError(this)" required>
                                 <span class="error-msg">Add the missing details</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pt-10 border-t border-slate-100/10">
+                    <div class="pt-10 border-t border-slate-800">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
-                            <span class="monument text-[0.6rem] text-slate-400 block">/ Your Travel Route</span>
+                            <span class="monument text-[0.7rem] text-slate-50 block font-black tracking-widest">/ Your Travel Route</span>
                             
                             <!-- Trip Type Selector -->
-                            <div class="flex items-center gap-2 bg-slate-500/10 p-1.5 rounded-full border border-slate-500/20 backdrop-blur-md">
-                                <button id="btn-oneway" onclick="setTripType('ONEWAY')" class="flex items-center gap-2 text-[0.6rem] monument text-blue-600 bg-blue-500/10 shadow-sm px-5 py-2.5 rounded-full border border-blue-500/20 transition-all">✈️ ONE WAY TRIP</button>
-                                <button id="btn-round" onclick="setTripType('ROUND')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-500 hover:text-blue-600 hover:bg-blue-500/10 px-5 py-2.5 rounded-full border border-transparent transition-all">🔄 ROUND TRIP</button>
+                            <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-full border-2 border-slate-800 backdrop-blur-md">
+                                <button id="btn-oneway" onclick="setTripType('ONEWAY')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-black">✈️ ONE WAY TRIP</button>
+                                <button id="btn-round" onclick="setTripType('ROUND')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-black">🔄 ROUND TRIP</button>
                             </div>
                         </div>
                         
                         <div id="legs-container" class="space-y-4"></div>
-                        <button id="add-leg-btn" onclick="addLeg()" class="text-[0.6rem] monument text-blue-600 mt-4 px-4 py-3 border border-blue-100/20 rounded-full hover:bg-blue-500/10 transition-all shadow-sm">
+                        
+                        <!-- HIGH ACCESSIBILITY CONTRAST BUTTON -->
+                        <button id="add-leg-btn" onclick="addLeg()" class="flex items-center gap-2 text-[0.65rem] monument text-slate-950 bg-white hover:opacity-90 shadow-lg px-6 py-4 rounded-full border-2 border-slate-300 transition-all font-black tracking-widest">
                             [ + Add Another Stop ]
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-slate-100/10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-slate-800">
                         <div>
-                            <span class="monument text-[0.6rem] text-slate-400 block mb-4">/ Choose Your Jet</span>
-                            <select id="ac-class" class="input-pill" onchange="syncPaxLogic()">
+                            <span class="monument text-[0.7rem] text-slate-50 block mb-4 font-black tracking-widest">/ Choose Your Jet</span>
+                            <select id="ac-class" class="input-pill font-bold" onchange="syncPaxLogic()">
                                 <option value="LIGHT">Light Jet | 4-6 Seats (Short Trips)</option>
                                 <option value="MID">Midsize Jet | 7-9 Seats (Extended Range)</option>
                                 <option value="HEAVY" selected>Heavy Jet | 10-14 Seats (VIP Group)</option>
                                 <option value="ULTRA">Ultra/Regional | 15-50 Seats (Corporate)</option>
                             </select>
-                            <div id="ac-specs" class="text-xs bg-black/5 dark:bg-white/5 border border-slate-500/20 padding p-4 rounded-xl mt-4 text-slate-500 italic backdrop-blur-md">
+                            <div id="ac-specs" class="text-xs bg-slate-950/80 border border-slate-800 p-4 rounded-xl mt-4 text-slate-100 italic font-medium backdrop-blur-md leading-relaxed">
                                 Loading fleet profile...
                             </div>
                         </div>
                         <div>
-                            <span class="monument text-[0.6rem] text-slate-400 block mb-4">/ Number of Passengers</span>
-                            <input type="number" id="pax" value="1" min="1" class="input-pill" oninput="runAnalysis()">
-                            <p id="pax-warning" class="text-[0.5rem] text-red-500 monument mt-2 hidden">TOO MANY PASSENGERS FOR THIS JET: PLEASE UPGRADE</p>
+                            <span class="monument text-[0.7rem] text-slate-50 block mb-4 font-black tracking-widest">/ Number of Passengers</span>
+                            <input type="number" id="pax" value="1" min="1" class="input-pill font-black text-slate-50" oninput="runAnalysis()">
+                            <p id="pax-warning" class="text-[0.55rem] text-red-400 monument mt-2 font-black hidden">TOO MANY PASSENGERS FOR THIS JET: PLEASE UPGRADE</p>
                         </div>
                     </div>
                 </div>
@@ -339,9 +370,9 @@
 
             <div class="lg:col-span-5 space-y-8">
                 <div class="glass-panel p-10 text-center relative overflow-hidden">
-                    <span class="monument text-[0.55rem] text-slate-400 mb-6 block">Estimated Flight Cost (USD)</span>
+                    <span class="monument text-[0.65rem] text-slate-50 mb-6 block font-black tracking-widest">Estimated Flight Cost (USD)</span>
                     <div id="price-val" class="price-text">$0</div>
-                    <div id="confidence-tag" class="text-[0.5rem] monument text-slate-400 mt-2 uppercase">Subject to final market confirmation</div>
+                    <div id="confidence-tag" class="text-[0.55rem] monument text-slate-50 mt-2 uppercase font-black tracking-wider">Subject to final market confirmation</div>
                 </div>
 
                 <div class="glass-panel p-6">
@@ -349,7 +380,7 @@
                 </div>
 
                 <div class="glass-panel p-10">
-                    <span class="monument text-[0.6rem] text-slate-400 mb-8 block">Flight Logistics & Status</span>
+                    <span class="monument text-[0.65rem] text-slate-50 mb-8 block font-black tracking-widest">Flight Logistics & Status</span>
                     <div id="intel-log" class="space-y-2">
                         <div class="log-line" id="l-dist"><div class="dot"></div> Flight route confirmed</div>
                         <div class="log-line" id="l-min"><div class="dot"></div> Standard flight time applied</div>
@@ -360,13 +391,13 @@
                 </div>
 
                 <div class="disclaimer-box">
-                    <span class="monument text-[0.6rem] text-blue-600 mb-4 block font-bold">Important VIP Flight Advisory</span>
-                    <p class="text-[0.65rem] opacity-70 italic mb-4">
-                        <span class="text-blue-600 font-bold uppercase block mb-1">72-Hour Advance Booking:</span>
+                    <span class="monument text-[0.65rem] text-slate-50 mb-4 block font-black tracking-widest border-b-2 border-slate-800 pb-2">Important VIP Flight Advisory</span>
+                    <p class="text-[0.7rem] opacity-95 mb-4 text-slate-100 font-semibold leading-relaxed">
+                        <span class="text-slate-50 font-black uppercase block mb-1 text-[0.65rem] tracking-wider">72-Hour Advance Booking:</span>
                         To guarantee the highest standard of service and ensure the jet is perfectly prepared, we require at least 3 days notice. For emergency flights, please chat with our Chief Concierge immediately.
                     </p>
-                    <p class="text-[0.65rem] opacity-70 italic">
-                        <span class="text-blue-600 font-bold uppercase block mb-1">Pricing Notice:</span>
+                    <p class="text-[0.7rem] opacity-95 text-slate-100 font-semibold leading-relaxed">
+                        <span class="text-slate-50 font-black uppercase block mb-1 text-[0.65rem] tracking-wider">Pricing Notice:</span>
                         The price shown above is a very close estimate. Your final cost might be slightly less or more depending on exact jet availability when you book.
                     </p>
                 </div>
@@ -374,57 +405,58 @@
         </div>
 
         <div class="max-w-2xl mx-auto mt-20 mb-10 space-y-5">
-            <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury py-5 text-[0.8rem]">Request VIP Flight Now</button>
-            <a href="https://wa.me/+2349167621703" target="_blank" class="glass-panel w-full block text-center py-5 font-bold monument text-[0.7rem] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-300 dark:hover:border-slate-700">
+            <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury py-5 text-[0.8rem] font-black tracking-widest uppercase">Request VIP Flight Now</button>
+            <a href="https://wa.me/+2349167621703" target="_blank" class="glass-panel w-full block text-center py-5 font-black monument text-[0.7rem] text-slate-50 hover:bg-slate-800/50 transition-colors border-2 border-transparent hover:border-slate-700">
                 Chat with Chief Concierge
             </a>
             
             <div class="flex flex-col items-center pt-4">
-                <button onclick="toggleSupport()" class="text-[0.55rem] text-slate-500 uppercase monument tracking-widest hover:text-blue-600 transition-colors flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> 24/7 Executive Support
+                <button onclick="toggleSupport()" class="text-[0.55rem] text-slate-50 uppercase monument tracking-widest hover:opacity-80 transition-opacity flex items-center gap-2 font-black">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span> 24/7 Executive Support
                 </button>
-                <div id="support-msg" class="text-[0.65rem] text-slate-500 dark:text-slate-400 italic mt-0 opacity-0 h-0 overflow-hidden transition-all duration-500 ease-in-out text-center max-w-sm">
+                <div id="support-msg" class="text-[0.65rem] text-slate-50 italic mt-0 opacity-0 h-0 overflow-hidden transition-all duration-500 ease-in-out text-center max-w-sm font-semibold">
                     Our luxury concierge team is working diligently to assist you. Responses are usually within 15 minutes.
                 </div>
             </div>
         </div>
 
-        <footer class="text-center pt-10 pb-16 border-t border-slate-200/10">
-            <div class="max-w-2xl mx-auto space-y-4">
-                <p class="text-[0.7rem] monument text-slate-400">15D Wings | Sky Party LTD (RC 8997727)</p>
-                <p class="text-[0.6rem] text-slate-400 leading-relaxed uppercase tracking-widest px-4">
+        <footer class="text-center pt-10 pb-16 border-t-2 border-slate-800">
+            <div class="max-w-2xl mx-auto space-y-4 font-bold">
+                <p class="text-[0.7rem] monument text-slate-50">15D Wings | Sky Party LTD (RC 8997727)</p>
+                <p class="text-[0.6rem] text-slate-50 leading-relaxed uppercase tracking-widest px-4">
                     21 Lugard Avenue, Ikoyi Lagos, Nigeria.
                 </p>
-                <a href="mailto:ops@15dwings.com.ng" class="text-[0.55rem] text-blue-600 underline opacity-70 hover:opacity-100">ops@15dwings.com.ng</a>
+                <a href="mailto:ops@15dwings.com.ng" class="text-[0.65rem] text-slate-50 underline opacity-90 hover:opacity-100">ops@15dwings.com.ng</a>
             </div>
         </footer>
     </main>
 
+    <!-- SUCCESS MODAL (STRICT SOLID DARK ACCESSIBLE TEXT SCHEME) -->
     <div id="modal-success" class="fixed inset-0 backdrop-blur-2xl z-[2000] hidden items-center justify-center p-6 text-center">
         <div class="max-w-xl space-y-10">
-            <div class="price-text text-4xl uppercase">Request Successfully Sent</div>
-            <p id="ref-id" class="monument text-sm text-blue-600 font-bold">YOUR FLIGHT REQUEST IS PROCESSING</p>
-            <div class="glass-panel p-10 text-sm text-slate-600 dark:text-slate-200 leading-relaxed text-left">
-                <b class="text-blue-600 monument text-[0.6rem] block mb-2 underline">NEXT STEPS:</b>
-                We have safely received your details. Please check your email immediately at <span id="conf-email" class="text-blue-600 font-bold underline"></span> for your official flight estimate and next steps from our team.<br><br>
-                <div class="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-xl border border-blue-100 dark:border-blue-800 text-center">
-                    <span class="block text-[0.65rem] text-slate-700 dark:text-slate-400 uppercase tracking-widest mb-2 font-bold">Your Dashboard Password</span>
-                    <span class="font-bold text-xl text-blue-600 tracking-wider" id="ref-id-inline"></span>
-                    <p class="text-[0.65rem] mt-3 text-slate-800 dark:text-slate-300 opacity-90 leading-relaxed font-medium">Use this Request ID to log into the VIP dashboard at portal.15dwings.com.ng to unlock your final quote and engineered outcomes.</p>
+            <div class="price-text text-4xl uppercase font-black text-slate-50">Request Successfully Sent</div>
+            <p id="ref-id" class="monument text-sm text-slate-50 font-black tracking-widest">YOUR FLIGHT REQUEST IS PROCESSING</p>
+            <div class="glass-panel p-10 text-sm text-slate-50 leading-relaxed text-left font-semibold">
+                <b class="text-slate-50 monument text-[0.7rem] block mb-2 underline font-black tracking-widest">NEXT STEPS:</b>
+                We have safely received your details. Please check your email immediately at <span id="conf-email" class="text-slate-50 font-black underline"></span> for your official flight estimate and next steps from our team.<br><br>
+                <div class="bg-slate-900/60 p-6 rounded-xl border-2 border-slate-800 text-center shadow-lg">
+                    <span class="block text-[0.7rem] text-slate-200 uppercase tracking-widest mb-2 font-black">Your Dashboard Password</span>
+                    <span class="font-black text-3xl text-slate-50 tracking-widest block py-2" id="ref-id-inline"></span>
+                    <p class="text-[0.75rem] mt-3 text-slate-200 opacity-100 leading-relaxed font-semibold">Use this Request ID to log into the VIP dashboard at portal.15dwings.com.ng to unlock your final quote and engineered outcomes.</p>
                 </div>
             </div>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="generatePDF()" class="monument text-[0.6rem] px-8 py-4 bg-blue-600 text-white rounded-full hover:scale-105 transition-transform shadow-lg shadow-blue-500/30">Download Cost Estimate (PDF)</button>
-                <button onclick="location.reload()" class="monument text-[0.6rem] px-8 py-4 text-slate-500 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Book Another Flight</button>
+                <button onclick="generatePDF()" class="monument text-[0.6rem] px-8 py-4 bg-white text-slate-950 rounded-full hover:scale-105 transition-transform shadow-lg font-black tracking-wider border-2 border-transparent">Download Cost Estimate (PDF)</button>
+                <button onclick="location.reload()" class="monument text-[0.6rem] px-8 py-4 text-slate-200 border-2 border-slate-700 rounded-full hover:bg-slate-800 transition-colors font-black tracking-wider">Book Another Flight</button>
             </div>
         </div>
     </div>
 
     <div id="tour-overlay">
-        <div class="tour-card">
-            <span class="step-indicator monument" id="tour-step-num">Step 1 of 5</span>
-            <h2 class="monument text-xl mb-4 text-white" id="tour-title">Instant Pricing</h2>
-            <p class="text-sm text-white opacity-80 mb-8 leading-relaxed font-light" id="tour-desc">
+        <div class="tour-card animate-fade-in">
+            <span class="step-indicator monument font-black" id="tour-step-num">Step 1 of 5</span>
+            <h2 class="monument text-xl mb-4 text-white font-black" id="tour-title">Instant Pricing</h2>
+            <p class="text-sm text-white opacity-95 mb-8 leading-relaxed font-semibold" id="tour-desc">
                 No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.
             </p>
             <button onclick="nextTourStep()" class="btn-luxury py-3 px-10 w-auto inline-block border border-white/20">Next Step</button>
@@ -448,10 +480,26 @@
         let activeLegsData = [], serverMissionID = null;
         let isRoundTrip = false;
 
+        // Force a physical locked 72-Hour ISO Minimum Limit
         function getMinDateTime() {
             const tzoffset = (new Date()).getTimezoneOffset() * 60000;
             const minTime = new Date(Date.now() + (72 * 3600000) - tzoffset);
             return minTime.toISOString().slice(0, 16);
+        }
+
+        // Continually updates and enforces constraints on Date fields physically
+        function enforceDatePickerLimits() {
+            const minStr = getMinDateTime();
+            document.querySelectorAll('.date-in').forEach(input => {
+                input.setAttribute('min', minStr);
+                // Physical control filter on entry
+                input.addEventListener('input', function() {
+                    if (this.value && this.value < minStr) {
+                        this.value = minStr;
+                        alert("For operational perfection, flights require 72 hours notice. The system has automatically reset the departure to our earliest available slot.");
+                    }
+                });
+            });
         }
 
         async function loadDB() {
@@ -463,14 +511,14 @@
 
         function initMap() {
             map = L.map('map', { zoomControl: false, attributionControl: false }).setView([9.08, 7.39], 5);
+            // Switched back to Light Mode tiles for clean dynamic contrast
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
         }
 
-        function toggleTheme() {
-            const h = document.documentElement;
-            h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
-        }
+        // Left empty as theme switcher is deprecated, keeping structural signature verbatim
+        function toggleTheme() {}
         
+        // Fix for toggling Support message
         function toggleSupport() {
             const msg = document.getElementById('support-msg');
             if (msg.classList.contains('opacity-0')) {
@@ -491,13 +539,11 @@
             isRoundTrip = (type === 'ROUND');
             
             // Toggle Active Button Styles
-            document.getElementById('btn-oneway').className = isRoundTrip ?
-                "flex items-center gap-2 text-[0.6rem] monument text-slate-500 hover:text-blue-600 hover:bg-blue-500/10 px-5 py-2.5 rounded-full border border-transparent transition-all" :
-                "flex items-center gap-2 text-[0.6rem] monument text-blue-600 bg-blue-500/10 shadow-sm px-5 py-2.5 rounded-full border border-blue-500/20 transition-all";
+            const activeClass = "flex items-center gap-2 text-[0.6rem] monument text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-black";
+            const inactiveClass = "flex items-center gap-2 text-[0.6rem] monument text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-black";
 
-            document.getElementById('btn-round').className = isRoundTrip ?
-                "flex items-center gap-2 text-[0.6rem] monument text-blue-600 bg-blue-500/10 shadow-sm px-5 py-2.5 rounded-full border border-blue-500/20 transition-all" :
-                "flex items-center gap-2 text-[0.6rem] monument text-slate-500 hover:text-blue-600 hover:bg-blue-500/10 px-5 py-2.5 rounded-full border border-transparent transition-all";
+            document.getElementById('btn-oneway').className = isRoundTrip ? inactiveClass : activeClass;
+            document.getElementById('btn-round').className = isRoundTrip ? activeClass : inactiveClass;
 
             // If switching to Round Trip, simplify routing to just one standard leg row (A to B)
             if (isRoundTrip) {
@@ -505,7 +551,7 @@
                 for(let i = 1; i < legs.length; i++) legs[i].remove();
                 document.getElementById('add-leg-btn').style.display = 'none';
             } else {
-                document.getElementById('add-leg-btn').style.display = 'inline-block';
+                document.getElementById('add-leg-btn').style.display = 'flex';
             }
 
             // Show/Hide the return date inputs across existing legs
@@ -525,8 +571,8 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <span class="absolute bottom-3 left-4 text-white font-bold tracking-widest text-[0.6rem] uppercase drop-shadow-md">${spec.label}</span>
                 </div>
-                <span class="block font-bold text-blue-600 uppercase mb-1">Fleet Profile: ${spec.models}</span>
-                Range: ~${spec.range}km | Speed: ${spec.speed}km/h | Capacity: Up to ${spec.maxPax} Seats
+                <span class="block font-black text-slate-50 uppercase mb-1">Fleet Profile: ${spec.models}</span>
+                <span class="block text-slate-300 font-medium">Range: ~${spec.range}km | Speed: ${spec.speed}km/h | Capacity: Up to ${spec.maxPax} Seats</span>
             `;
             runAnalysis();
         }
@@ -539,41 +585,42 @@
             d.id = `leg-${legId}`;
             
             const isFirstLeg = c.children.length === 0;
-            const delBtnHtml = isFirstLeg ? '' : `<button onclick="removeLeg('${legId}')" class="text-[0.55rem] monument text-red-500 hover:text-red-700 hover:bg-red-500/10 px-4 py-2 rounded-full transition-colors ml-4 uppercase">Delete Stop</button>`;
+            const delBtnHtml = isFirstLeg ? '' : `<button onclick="removeLeg('${legId}')" class="text-[0.55rem] monument text-slate-50 hover:bg-red-500/10 px-4 py-2.5 rounded-full border-2 border-slate-50 transition-colors ml-4 uppercase font-black">Delete Stop</button>`;
 
             d.innerHTML = `
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                     <div class="relative">
-                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">From where</span>
-                        <input type="text" placeholder="Enter the city" class="input-pill uppercase airport-in" oninput="clearError(this)" required>
+                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">From where</span>
+                        <input type="text" placeholder="LOS - Murtala Muhammed Int'l" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 placeholder-slate-400 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-bold" oninput="clearError(this)" required>
                         <div class="suggestion-box"></div>
-                        <span class="error-msg">Add the missing details</span>
+                        <span class="error-msg font-black">Add the missing details</span>
                     </div>
                     <div class="relative">
-                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">To where</span>
-                        <input type="text" placeholder="Enter the city" class="input-pill uppercase airport-in" oninput="clearError(this)" required>
+                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">To where</span>
+                        <input type="text" placeholder="ABV - Nnamdi Azikiwe Int'l" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 placeholder-slate-400 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-bold" oninput="clearError(this)" required>
                         <div class="suggestion-box"></div>
-                        <span class="error-msg">Add the missing details</span>
+                        <span class="error-msg font-black">Add the missing details</span>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
                     <div class="relative w-full">
-                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">Flight Date and Time</span>
-                        <input type="datetime-local" class="input-pill date-in forward-date" min="${getMinDateTime()}" onchange="clearError(this); runAnalysis()" required>
-                        <span class="error-msg">Add the missing details</span>
+                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">Flight Date and Time</span>
+                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all date-in forward-date font-black" onchange="clearError(this); runAnalysis()" required>
+                        <span class="error-msg font-black">Add the missing details</span>
                     </div>
                     <div class="relative w-full return-date-block" style="display: ${isRoundTrip ? 'block' : 'none'};">
-                        <span class="text-[0.55rem] uppercase monument text-slate-400 mb-2 block font-bold">Return Date and Time</span>
-                        <input type="datetime-local" class="input-pill date-in return-date" min="${getMinDateTime()}" onchange="clearError(this); runAnalysis()">
-                        <span class="error-msg">Add the missing details</span>
+                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">Return Date and Time</span>
+                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all date-in return-date font-black" onchange="clearError(this); runAnalysis()">
+                        <span class="error-msg font-black">Add the missing details</span>
                     </div>
                 </div>
-                <div class="flex justify-between items-center mt-5 ${!isFirstLeg ? 'border-t border-slate-500/10 pt-5' : ''}">
-                    <span class="leg-price-badge" id="badge-${legId}">$0.00</span>
+                <div class="flex justify-between items-center mt-5 ${!isFirstLeg ? 'border-t-2 border-slate-800 pt-5' : ''}">
+                    <span class="leg-price-badge font-black" id="badge-${legId}">$0.00</span>
                     ${delBtnHtml}
                 </div>
             `;
             c.appendChild(d);
+            enforceDatePickerLimits();
             if(Object.keys(DB).length === 0) loadDB();
         }
 
@@ -594,8 +641,8 @@
                 box.style.display = 'block';
                 m.forEach(([k, d]) => {
                     const i = document.createElement('div');
-                    i.className = "p-3 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 cursor-pointer text-xs border-b border-slate-500/10";
-                    i.innerHTML = `<b class="text-blue-600">${k}</b> — ${d.name} (${d.city})`;
+                    i.className = "p-4 hover:bg-slate-800 hover:text-blue-400 cursor-pointer text-xs border-b border-slate-800 font-black text-slate-100";
+                    i.innerHTML = `<b class="text-blue-400">${k}</b> — ${d.name} (${d.city})`;
                     i.onclick = () => { 
                         el.value = `${k} | ${d.name}`; 
                         el.dataset.code = k; 
@@ -671,11 +718,11 @@
                         fromFull: inputs[0].dataset.fullName, toFull: inputs[1].dataset.fullName 
                     });
                     allPoints.push([DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]);
-                    routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#1877F2", weight: 2, dashArray: '5, 10' }).addTo(map));
+                    routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#38bdf8", weight: 3, dashArray: '5, 10' }).addTo(map));
 
                     // Add Return Leg if active and valid
                     if (isRoundTrip && rDateIn && rDateIn.value) {
-                        total += legTotal; // Duplicate the flight cost for the return trip automatically
+                        total += legTotal; 
                         activeLegsData.push({ 
                             from: dCode, to: oCode, cost: legTotal, 
                             date: new Date(rDateIn.value).toLocaleDateString(),
@@ -683,7 +730,7 @@
                             fromFull: inputs[1].dataset.fullName, toFull: inputs[0].dataset.fullName 
                         });
                         allPoints.push([DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]);
-                        routeLines.push(L.polyline([[DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]], { color: "#38bdf8", weight: 2, dashArray: '5, 10' }).addTo(map));
+                        routeLines.push(L.polyline([[DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]], { color: "#0284c7", weight: 3, dashArray: '5, 10' }).addTo(map));
                     }
                     
                     badge.innerText = `$${Math.round(isRoundTrip && rDateIn.value ? legTotal * 2 : legTotal).toLocaleString()}`;
@@ -710,7 +757,7 @@
             if(isVolatile) {
                 logUrg.classList.add('active');
                 logUrg.innerHTML = `<div class="dot"></div> NOTICE: EMERGENCY FLIGHT REQUIRES CONCIERGE`;
-                logUrg.style.color = '#ef4444';
+                logUrg.style.color = '#dc2626';
             } else if (urg) {
                 logUrg.classList.add('active');
                 logUrg.innerHTML = `<div class="dot"></div> Standard 72-hour notice applied`;
@@ -789,7 +836,7 @@
                     const diff = (new Date(fDateIn.value) - new Date()) / 3600000;
                     if(diff < 71.9) { 
                         markInvalid(fDateIn);
-                        alert("For operational perfection, flights require 72 hours notice. Please select a later date or contact our Concierge directly on WhatsApp for an emergency jet booking.");
+                        alert("For operational perfection, flights require 72 hours notice. Please select a valid date or contact our Concierge directly on WhatsApp for an emergency jet booking.");
                     }
                 }
 
@@ -854,6 +901,7 @@
             ov.style.display = 'none';
         }
 
+        // Keep document generation verbatim with standard styles
         function generatePDF() {
             const { jsPDF } = window.jspdf; const doc = new jsPDF();
             const pageWidth = doc.internal.pageSize.getWidth(); const pageHeight = doc.internal.pageSize.getHeight();
@@ -866,7 +914,7 @@
             doc.text("15D WINGS", pageWidth / 2, pageHeight / 2, { align: "center", angle: 45 });
             doc.restoreGraphicsState();
 
-            doc.setFillColor(24, 119, 242); doc.rect(0, 0, pageWidth, 20, 'F');
+            doc.setFillColor(0, 0, 0); doc.rect(0, 0, pageWidth, 20, 'F');
             doc.setTextColor(255); doc.setFontSize(10);
             doc.text(`VIP FLIGHT ESTIMATE: ${serverMissionID}`, 15, 13);
             doc.text(`ISSUED: ${issuanceDate}`, pageWidth - 15, 13, { align: 'right' });
@@ -877,7 +925,7 @@
             doc.setFontSize(10); doc.text(`EXECUTIVE: ${clientName.toUpperCase()}`, 15, 60);
             doc.setFontSize(8); doc.setTextColor(100);
             doc.text(`EMAIL: ${clientEmail}`, 15, 65); doc.text(`PHONE: ${clientPhone}`, 15, 70);
-            doc.setTextColor(24, 119, 242); doc.setFont(undefined, 'bold');
+            doc.setTextColor(0, 0, 0); doc.setFont(undefined, 'bold');
             doc.text(`AIRCRAFT: ${aircraftLabel.toUpperCase()}`, 15, 75);
             doc.setFont(undefined, 'normal'); doc.setTextColor(100);
             doc.text("21 Lugard Avenue, Ikoyi Lagos, Nigeria", 15, 80);
@@ -886,7 +934,7 @@
                 startY: 90,
                 head: [['Flight Route', 'Date', 'Time', 'Estimated Cost (USD)']],
                 body: activeLegsData.map(l => [`${l.from} > ${l.to}`, l.date, l.time, `$${Math.round(l.cost).toLocaleString()}`]),
-                headStyles: { fillColor: [24, 119, 242] }, theme: 'striped'
+                headStyles: { fillColor: [0, 0, 0] }, theme: 'striped'
             });
 
             const finalY = doc.lastAutoTable.finalY;
