@@ -1,1081 +1,783 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15D WINGS | VIP Flight Booking v8.0.2</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>15D WINGS | PRIVATE JET FLIGHTS | ARCHITECTS OF CERTAINTY</title>
+
+    <!-- Bulletproof Dynamic Favicon Integration -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 fill=%22%231877F2%22>✈️</text></svg>">
+    <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png">
+
+    <!-- OpenGraph Metadata -->
+    <meta property="og:title" content="15D WINGS | Architects of Certainty">
+    <meta property="og:description" content="Book A Private Jet, Get An Estimate and Flight Operational Feasibility in Seconds.">
+    <meta property="og:image" content="https://uploads.onecompiler.io/43z22g7dk/444u5qgt2/Gemini_Generated_Image_afl123afl123afl1.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://15dwings.com.ng">
+
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { fbblue: '#1877F2', gold: '#c5a059', nearblack: '#030507', offwhite: '#F9FAFB' },
+                    fontFamily: { 
+                        sync: ['Syncopate', 'sans-serif'], 
+                        monument: ['Monument Extended', 'sans-serif'], 
+                        lexend: ['Lexend', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            /* PERMANENT DARK THEME AS THE ABSOLUTE DEFAULT */
-            --bg-main: #090d16;
-            
-            /* REDUCED OPACITY BY 20% (from 0.75 to 0.55) FOR INCREDIBLE VIDEO VISIBILITY */
-            --glass: rgba(15, 23, 42, 0.55); 
-            
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-border-bottom: rgba(255, 255, 255, 0.10);
-            
-            /* ADJUSTED INPUTS BY 20% FOR CONTINUOUS DYNAMIC PASS-THROUGH VISIBILITY */
-            --input-bg: rgba(15, 23, 42, 0.70);
-            --input-border: rgba(255, 255, 255, 0.35);
-
-            --text-main: #f8fafc; /* Crisp Slate 50 */
-            --text-soft: #cbd5e1; /* Slate 300 secondary text */
-            --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.40);
-            
-            /* ADJUSTED INTERNAL PANELS BY 20% FOR VISUAL COHESION */
-            --disclaimer-bg: rgba(15, 23, 42, 0.65);
-            --disclaimer-text: #f8fafc;
-            --modal-bg: #090d16;
-            
-            --glow-primary: rgba(56, 189, 248, 0.15);
-            --glow-secondary: rgba(37, 99, 235, 0.10);
-            
-            --overlay-bg: rgba(9, 13, 22, 0.99);
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Lexend', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* MONUMENT REGULAR ENFORCEMENT - NEVER BOLDED */
-        .monument {
-            font-family: 'Monument Extended', sans-serif !important;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 400 !important;
-        }
-
-        /* GUARANTEED HIGH-CONTRAST PLACEHOLDERS IN LEXEND SENTENCE CASE */
-        ::-webkit-input-placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
-        ::-moz-placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
-        :-ms-input-placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
-        ::placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
-
-        /* FORCE NATIVE CALENDAR/DATE ICON TO BE CRISP WHITE */
-        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-            filter: invert(1) brightness(100%);
-            cursor: pointer;
-            opacity: 0.9;
-        }
-        input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
-            opacity: 1;
-        }
-
-        /* CINEMATIC VIDEO BACKGROUND - REVEALED VIVIDLY */
-        .bg-video {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto;
-            z-index: -2;
-            object-fit: cover;
-            pointer-events: none;
-            opacity: 0.55;
-            filter: grayscale(30%) brightness(0.7);
-        }
-
-        .bg-swirl {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            filter: blur(120px);
-            will-change: transform, left, top;
-        }
+        body, html { margin: 0; padding: 0; background: #000; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-family: 'lexend', sans-serif; scroll-behavior: smooth; }
+        .scanline { width: 100%; height: 3px; background: rgba(24, 119, 242, 0.2); position: absolute; top: 0; z-index: 5; animation: scan 4s linear infinite; pointer-events: none; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        .tech-grid { background-image: linear-gradient(rgba(24, 119, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 119, 242, 0.05) 1px, transparent 1px); background-size: 30px 30px; }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(24, 119, 242, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(24, 119, 242, 0); } 100% { box-shadow: 0 0 0 0 rgba(24, 119, 242, 0); } }
+        .enter-glow { animation: pulseGlow 2s infinite; }
+        @keyframes vigilance { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-12px);} 60% {transform: translateY(-6px);} }
+        .vigilance-bounce { animation: vigilance 3s infinite; }
+        .stop-animation { animation: none !important; }
         
-        #glow-1 { width: 50vw; height: 50vw; background: var(--glow-primary); transform: translate(-50%, -50%); }
-        #glow-2 { width: 60vw; height: 60vw; background: var(--glow-secondary); animation: orb-spin 12s infinite linear; }
+        #corridor { position: fixed; inset: 0; background: #000; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 1s ease-out; }
+        .statement { position: absolute; opacity: 0; font-family: 'Syncopate', sans-serif; letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.9rem; transition: opacity 1.2s ease-in-out; text-align: center; width: 85%; }
+        #skip-btn { position: absolute; top: 80%; color: rgba(255,255,255,0.4); font-family: 'Syncopate'; font-size: 10px; cursor: pointer; letter-spacing: 0.3em; z-index: 10000; border: 1px solid rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 4px; }
+        
+        .title-monument { font-family: 'Monument Extended', sans-serif; line-height: 0.95; text-transform: uppercase; letter-spacing: -0.04em; font-size: clamp(2.2rem, 10vw, 6rem); color: white; }
+        .ui-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.65rem; font-weight: 700; }
+        .btn-shimmer { position: relative; overflow: hidden; background: #1877F2; color: white; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); font-size: 0.6rem !important; padding: 0.75rem 1.25rem !important; font-weight: 800; border-radius: 9999px; white-space: nowrap; cursor: pointer; }
+        @media (min-width: 768px) { .btn-shimmer { font-size: 0.75rem !important; padding: 1rem 2rem !important; } }
+        
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 100%); z-index: 1; pointer-events: none; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-active { opacity: 1; transform: translateY(0); }
+        
+        #intake-drawer { position: fixed; bottom: 0; left: 0; width: 100%; height: 96vh; background: #fff; z-index: 10010; transform: translateY(105%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 30px 30px 0 0; }
+        #intake-drawer.open { transform: translateY(0); }
+        .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10009; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        #chatbot-container { position: fixed; bottom: 4rem; right: 2rem; z-index: 10001; transition: all 0.3s ease; }
+        #chat-bubble { width: 65px; height: 65px; border-radius: 50%; background: #1877F2; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 15px 35px rgba(24,119,242,0.5); }
+        #chat-window { position: absolute; bottom: 80px; right: 0; width: 330px; height: 500px; background: #fff; border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; }
+        .sync-dot { width: 5px; height: 5px; background: #10b981; border-radius: 50%; display: inline-block; margin-right: 6px; animation: syncPulse 1.4s infinite ease-in-out; }
 
-        @keyframes orb-spin {
-            from { transform: translate(-50%, -50%) rotate(0deg) translateX(10%); }
-            to { transform: translate(-50%, -50%) rotate(360deg) translateX(10%); }
-        }
+        .credit-card { background: linear-gradient(135deg, #030507 0%, #1a1e23 100%); border: 1px solid rgba(24, 119, 242, 0.3); position: relative; overflow: hidden; }
+        .credit-card::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(24,119,242,0.1) 0%, transparent 70%); pointer-events: none; }
+        .img-card { border-radius: 1.5rem; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 1s; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        .slide-parallax { position: relative; overflow: hidden; background-attachment: fixed; background-size: cover; background-position: center; filter: grayscale(100%); transition: filter 1s ease; }
+        .slide-parallax:hover { filter: grayscale(0%); }
 
-        /* REFRACTED GLASS PANELS WITH ROBUST CONTRAST STRUCTURE */
-        .glass-panel {
-            background: var(--glass);
-            backdrop-filter: blur(80px) saturate(180%);
-            -webkit-backdrop-filter: blur(80px) saturate(180%);
-            border-top: 2.5px solid var(--glass-border);
-            border-left: 2.5px solid var(--glass-border);
-            border-right: 1.5px solid var(--glass-border-bottom);
-            border-bottom: 1.5px solid var(--glass-border-bottom);
-            border-radius: 26px;
-            box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
+        .animate-scroll { display: flex; width: max-content; }
+        
+        .dash-border { border: 1px solid #e5e7eb; border-radius: 1.5rem; background: #fff; transition: all 0.3s ease; }
+        .dash-border:hover { border-color: #1877F2; box-shadow: 0 10px 30px rgba(24, 119, 242, 0.05); }
 
-        /* HIGH-AFFORDANCE INTERACTIVE FIELDS - SENTENCE CASE SENSITIVE */
-        .input-pill {
-            background: var(--input-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 2px solid var(--input-border);
-            border-radius: 18px;
-            padding: 16px 20px;
-            color: var(--text-main);
-            width: 100%;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-            font-weight: 500;
-            outline: none;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
-        }
-        .input-pill:focus { 
-            border-color: var(--accent); 
-            background: #0f172a; 
-            box-shadow: 0 0 0 4px var(--accent-glow), inset 0 2px 4px rgba(0,0,0,0.15); 
-        }
+        .msg-user { align-self: flex-end; background: #1877F2; color: white; padding: 8px 12px; border-radius: 15px 15px 0 15px; max-width: 80%; }
+        .msg-bot { align-self: flex-start; background: white; color: #030507; padding: 8px 12px; border-radius: 15px 15px 15px 0; max-width: 80%; border: 1px solid #eee; }
 
-        /* THE CHOSEN PRIMARY ACCENT FOR COST */
-        .price-text {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: -0.04em;
-            text-shadow: 0 4px 15px var(--accent-glow);
-        }
-
-        /* INTERACTION AFFORDANCES FOR SYSTEM CONTROLS */
-        .btn-luxury {
-            background: #ffffff;
-            color: #0f172a;
-            border-radius: 20px;
-            padding: 20px;
-            font-family: 'Monument Extended', sans-serif;
-            font-weight: 400;
-            font-size: 0.75rem;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 100%;
-            border: 2px solid #ffffff;
-        }
-        .btn-luxury:disabled { opacity: 0.3; filter: grayscale(1); cursor: not-allowed; transform: scale(0.98); }
-        .btn-luxury:hover:not(:disabled) { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); transform: translateY(-2px); }
-
-        #map { height: 350px; border-radius: 20px; z-index: 10; overflow: hidden; background: #e2e8f0; border: 2.5px solid var(--glass-border); }
-
-        .log-line {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 0.7rem;
-            color: var(--text-soft); margin-bottom: 12px; opacity: 0.9; transition: all 0.5s ease;
-            font-weight: 500;
-        }
-        .log-line.active { color: var(--text-main); opacity: 1; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ffffff; }
-        .log-line.active .dot { background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
-
-        .suggestion-box {
-            position: absolute; top: 105%; left: 0; right: 0;
-            background: var(--modal-bg); border-radius: 16px;
-            border: 2.5px solid var(--input-border); z-index: 100;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.5); display: none;
-            max-height: 250px; overflow-y: auto; backdrop-filter: blur(40px);
-        }
-
-        .leg-row {
-            background: var(--disclaimer-bg);
-            padding: 24px;
-            border-radius: 20px;
-            position: relative;
-            margin-bottom: 16px;
-            border: 2.5px solid var(--input-border);
-        }
-
-        .leg-price-badge {
-            font-size: 0.8rem; font-weight: 700; color: var(--text-main);
-            background: rgba(255, 255, 255, 0.12); padding: 8px 16px;
-            border-radius: 10px; display: inline-block;
-            border: 2px solid var(--input-border);
-        }
-
-        .disclaimer-box {
-            background: var(--disclaimer-bg); border: 2.5px solid var(--glass-border);
-            color: var(--disclaimer-text); padding: 2.2rem; border-radius: 26px; line-height: 1.7;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        #processing-overlay {
-            position: fixed; inset: 0; background: var(--overlay-bg); z-index: 1000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(60px);
-        }
-
-        /* VALIDATION & ERROR STYLES */
-        .input-error {
-            border-color: #dc2626 !important;
-            background: rgba(239, 68, 68, 0.15) !important;
-            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2) !important;
-        }
-        .error-msg {
-            color: #dc2626;
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin-top: 8px;
-            display: none;
-            padding-left: 12px;
-        }
-        .input-error ~ .error-msg { display: block; animation: fade-in 0.3s ease; }
-
-        .btn-error {
-            background: linear-gradient(135deg, #dc2626, #991b1b) !important;
-            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4) !important;
-            color: white !important;
-            animation: shakeBtn 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-        }
-
-        @keyframes shakeBtn {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            20%, 80% { transform: translate3d(4px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
-            40%, 60% { transform: translate3d(8px, 0, 0); }
-        }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Success & Modal Contrast Optimization */
-        #modal-success { background: var(--modal-bg); }
-        #tour-overlay {
-            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.96); 
-            z-index: 5000; display: none; flex-direction: column; align-items: center; justify-content: center;
-            padding: 2rem; text-align: center; backdrop-filter: blur(20px);
-        }
-        .tour-card {
-            max-width: 500px; background: rgba(15, 23, 42, 0.9); 
-            backdrop-filter: blur(40px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 3rem 2.5rem; border-radius: 32px; 
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
-            color: #ffffff; position: relative; overflow: hidden;
-        }
-        .step-indicator { font-size: 0.65rem; color: #38bdf8; margin-bottom: 1.5rem; display: block; letter-spacing: 0.2em;}
+        .feedback-bg { background-image: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537505/1772532021422_uk7ia5.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
+        @keyframes floatText { 0% { transform: translateY(10px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(10px); } }
+        .review-pop { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .review-pop:hover { transform: scale(1.05); background: white !important; color: #030507 !important; }
+        
+        /* Mobile Menu Transitions */
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mobile-menu-active { transform: translateX(0) !important; }
+        
+        /* iOS Safe Area Support */
+        .ios-safe-nav { padding-top: max(1rem, env(safe-area-inset-top)); }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="bg-offwhite text-nearblack font-lexend">
 
-    <!-- Infinite Looping Video Background -->
-    <video id="bg-video" class="bg-video" autoplay loop muted playsinline>
-        <source src="https://res.cloudinary.com/dfbweqelf/video/upload/v1777901872/VID-20260428-WA0004_xuyz4u.mp4" type="video/mp4">
-    </video>
+    <div id="corridor">
+        <div id="msg1" class="statement text-gray-500">THE WORLD IS VOLATILE.</div>
+        <div id="msg2" class="statement text-white">WE ARE THE CONSTANT.</div>
+        <div id="msg3" class="statement text-gray-400 italic">We do not just sell flights.</div>
+        <div id="msg4" class="statement text-fbblue font-bold">WE EXECUTE THE CERTAINTY OF YOUR ARRIVAL.</div>
+        <div id="skip-btn" onclick="forceSkip()">SKIP NOW [X]</div>
+    </div>
 
-    <!-- Cursor Following Gradients -->
-    <div id="glow-1" class="bg-swirl"></div>
-    <div id="glow-2" class="bg-swirl"></div>
+    <!-- Desktop & Mobile Navigation -->
+    <nav class="fixed top-0 w-full z-[500] py-4 px-6 ios-safe-nav flex justify-between items-center bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <a href="#" class="z-50 relative">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Corporate Logo" class="h-7 md:h-9">
+        </a>
+        
+        <!-- Desktop Links -->
+        <div class="hidden md:flex space-x-8 text-[10px] ui-sync text-gray-500 items-center absolute left-1/2 transform -translate-x-1/2">
+            <a href="#operational" class="hover:text-fbblue transition-colors">Readiness</a>
+            <a href="#booking-protocol" class="hover:text-fbblue transition-colors">How To Book</a>
+            <a href="#experience" class="hover:text-fbblue transition-colors">360° Cabin</a>
+            <a href="#experiential-flights" class="hover:text-fbblue transition-colors">Experiences</a>
+            <a href="#fleet" class="hover:text-fbblue transition-colors">Fleet</a>
+            <a href="#services" class="hover:text-fbblue transition-colors">Services</a>
+        </div>
 
-    <div id="processing-overlay">
-        <div class="text-center space-y-8 max-w-md w-full px-10">
-            <div class="price-text text-5xl mb-4 uppercase font-black tracking-wider text-slate-50 filter drop-shadow">Calculating Estimate</div>
-            <div class="h-2.5 w-full bg-slate-700 rounded-full overflow-hidden">
-                <div id="p-bar" class="h-full bg-white w-0 transition-all duration-700"></div>
+        <div class="flex items-center gap-2 md:gap-3 z-50 relative">
+            <!-- Sign In To VIP Portal Header Button (Desktop & Mobile responsive) -->
+            <a href="https://portal.15dwings.com.ng" class="text-[7px] md:text-[10px] ui-sync text-fbblue hover:text-white border border-fbblue/20 hover:bg-fbblue hover:border-fbblue px-2.5 py-2 md:px-4 md:py-3 transition duration-300 rounded-none tracking-[0.2em] whitespace-nowrap">VIP PORTAL</a>
+            
+            <button onclick="toggleIntake()" class="btn-shimmer ui-sync text-[8px] px-3 py-2 md:text-[10px] md:px-5 md:py-3 shadow-md shadow-fbblue/30 whitespace-nowrap">BOOK FLIGHT</button>
+            
+            <!-- Mobile Hamburger Icon -->
+            <button id="hamburger-btn" onclick="toggleMobileNav()" class="md:hidden text-nearblack p-1 focus:outline-none" aria-label="Toggle Navigation">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Navigation Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-nearblack z-[400] transform translate-x-full flex flex-col justify-center items-center space-y-8">
+        <div class="absolute top-0 left-0 w-full h-full tech-grid opacity-20 pointer-events-none"></div>
+        
+        <!-- iOS Mobile Portal Access Option -->
+        <a href="https://portal.15dwings.com.ng" class="ui-sync text-xs text-fbblue border border-fbblue/40 px-8 py-3.5 tracking-[0.2em] hover:bg-fbblue/10 mb-6 font-bold">SIGN IN TO VIP PORTAL</a>
+        
+        <a href="#operational" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Readiness</a>
+        <a href="#booking-protocol" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">How To Book</a>
+        <a href="#experience" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">360° Cabin</a>
+        <a href="#experiential-flights" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Experiences</a>
+        <a href="#fleet" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Fleet</a>
+        <a href="#services" onclick="toggleMobileNav()" class="title-monument text-3xl text-white hover:text-fbblue transition">Services</a>
+        
+        <button onclick="toggleIntake(); toggleMobileNav()" class="btn-shimmer ui-sync text-sm mt-8 px-10 py-4 w-3/4 max-w-sm">
+            BOOK FLIGHT
+        </button>
+    </div>
+
+    <!-- Flight Intake Drawer -->
+    <div class="drawer-overlay" id="overlay" onclick="toggleIntake()"></div>
+    <div id="intake-drawer">
+        <div class="h-full w-full flex flex-col overflow-hidden relative">
+            <div class="px-6 py-4 flex justify-between items-center bg-white border-b border-gray-100 z-50 shadow-sm relative">
+                <span class="ui-sync text-fbblue text-[9px]">REAL-TIME FEASIBILITY ENGINE</span>
+                <button onclick="toggleIntake()" class="ui-sync text-nearblack font-black text-[10px] bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition">CLOSE [X]</button>
             </div>
-            <p id="p-step" class="monument text-[0.7rem] text-slate-50 bg-black/95 px-5 py-3 rounded-lg backdrop-blur border-2 border-slate-800">Securing your VIP flight details...</p>
+            <iframe id="intake-frame" src="flight request.html" class="w-full h-full border-none absolute inset-0 pt-14"></iframe>
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto space-y-10 relative z-10">
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
-                <h1 class="monument text-3xl mb-1 text-slate-50">15D WINGS</h1>
-                <p class="text-[0.65rem] tracking-[0.5em] text-slate-50 font-black">EXCLUSIVE PRIVATE JET BOOKING v8.0.2</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="flex gap-4">
-                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 text-slate-50 font-black hover:scale-105">Download Estimate PDF</button>
-                    <span class="glass-panel px-6 py-3 text-[0.6rem] monument text-slate-400 font-black cursor-default selection:bg-transparent">VIP PORTAL STANDARD</span>
+    <!-- AI Concierge -->
+    <div id="chatbot-container" class="vigilance-bounce hidden md:block">
+        <div id="chat-window" class="tech-grid">
+            <div class="bg-nearblack p-5 text-white flex flex-col space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="ui-sync text-[9px] text-fbblue">15D CONCIERGE</span>
+                    <button onclick="toggleChat()" class="text-white/40 hover:text-white transition">[—]</button>
                 </div>
-                <span id="export-error-msg" class="error-msg text-center !mt-4 font-bold" style="display:none;">Action required: Please request flight to unlock PDF</span>
+                <div class="flex items-center text-[8px] ui-sync text-white/60" id="sync-status">
+                    <span class="sync-dot"></span> DECISION ENGINE IS SYNCING
+                </div>
+            </div>
+            <div id="chat-messages" class="flex-1 p-5 overflow-y-auto text-[10px] flex flex-col space-y-4 bg-gray-50/50">
+                <div class="msg-bot">
+                    Protocol engaged. Our <strong>Decision Engine</strong> is monitoring global airspace variables. Identify your requirements.
+                </div>
+            </div>
+            <div class="px-5 pb-2">
+                <button onclick="toggleIntake()" class="w-full py-3 bg-fbblue text-white ui-sync text-[8px] rounded-xl shadow-lg hover:scale-[1.02] transition-transform">
+                    BOOK FLIGHT
+                </button>
+            </div>
+            <div class="p-4 border-t flex items-center bg-white">
+                <input id="chat-input" type="text" onfocus="stopBouncing()" placeholder="Command..." class="flex-1 text-xs outline-none font-lexend px-2 bg-transparent">
+                <button onclick="sendMessage()" class="text-fbblue font-bold text-xs px-2 uppercase tracking-tighter">SEND</button>
+            </div>
+        </div>
+        <div id="chat-bubble" onclick="toggleChat()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+    </div>
+
+    <main id="app-content" class="opacity-0 transition-opacity duration-1000 pt-16">
+        <div class="scanline"></div>
+
+        <header class="relative h-[95vh] flex items-center px-6 md:px-24 overflow-hidden tech-grid bg-black">
+            <!-- Infinitely playing hero video -->
+            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.68] ios-video">
+                <source src="https://res.cloudinary.com/dfbweqelf/video/upload/v1777901872/VID-20260428-WA0004_xuyz4u.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay"></div>
+            
+            <div class="z-20 w-full mt-10">
+                <h1 class="title-monument reveal mb-8 text-white leading-tight">PRIVATE <br> JET <br> FLIGHTS</h1>
+                <p class="font-sync text-white text-[10px] md:text-[12px] reveal uppercase tracking-[0.2em] max-w-xl leading-relaxed">
+                    REQUEST A PRIVATE FLIGHT ACROSS NIGERIA AND RECEIVE A <strong class="text-fbblue">RAPID OPERATIONAL RESPONSE FROM OUR DECISION ENGINE IN SECONDS</strong>.
+                </p>
+                <button onclick="toggleIntake()" class="btn-shimmer ui-sync reveal mt-10">BOOK FLIGHT</button>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div class="lg:col-span-7 space-y-8">
-                <div class="glass-panel p-6 md:p-10 space-y-10">
+        <!-- SECTION 1: OPERATIONAL READINESS -->
+        <section class="py-24 bg-white px-6 border-b border-gray-100" id="operational">
+            <div class="max-w-6xl mx-auto reveal">
+                <h2 class="ui-sync text-fbblue text-[10px] mb-12">KNOW WHERE YOU STAND BEFORE YOU PLAN THE FLIGHT</h2>
+                <div class="grid md:grid-cols-2 gap-12 font-lexend items-center">
                     <div>
-                        <span class="monument text-[0.7rem] text-slate-50 block mb-6 font-black tracking-widest">/ Executive Details</span>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="relative">
-                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2">Full name</label>
-                                <input type="text" id="name" placeholder="Executive name" class="input-pill" oninput="clearError(this)" required>
-                                <span class="error-msg">Add the missing details</span>
-                            </div>
-                            <div class="relative">
-                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2">Email address</label>
-                                <input type="email" id="email" placeholder="executive@domain.com" class="input-pill" oninput="clearError(this)" required>
-                                <span class="error-msg">Add the missing details</span>
-                            </div>
-                            <div class="relative">
-                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2">Phone number</label>
-                                <input type="tel" id="phone" placeholder="+1 (555) 000-0000" class="input-pill" oninput="clearError(this)" required>
-                                <span class="error-msg">Add the missing details</span>
-                            </div>
-                        </div>
+                        <h3 class="title-monument text-2xl mb-6 text-nearblack" style="color:black">Know if your flight is possible — quickly</h3>
+                        <p class="text-gray-600 mb-6">Most charter requests take days to receive a response. Our platform uses decision engines to evaluate operational feasibility quickly.</p>
+                        <ul class="space-y-3 text-[11px] font-sync text-fbblue mb-8">
+                            <li>[✓] AIRCRAFT AVAILABILITY</li>
+                            <li>[✓] CREW READINESS</li>
+                            <li>[✓] AIRPORT OPERATIONS</li>
+                            <li>[✓] FLIGHT TIMELINES</li>
+                        </ul>
                     </div>
-
-                    <div class="pt-10 border-t border-slate-800">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
-                            <span class="monument text-[0.7rem] text-slate-50 block font-black tracking-widest">/ Your Travel Route</span>
-                            
-                            <!-- Trip Type Selector -->
-                            <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-full border-2 border-slate-800 backdrop-blur-md">
-                                <button id="btn-oneway" onclick="setTripType('ONEWAY')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-black">✈️ ONE WAY TRIP</button>
-                                <button id="btn-round" onclick="setTripType('ROUND')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-black">🔄 ROUND TRIP</button>
-                            </div>
-                        </div>
-                        
-                        <div id="legs-container" class="space-y-4"></div>
-                        
-                        <!-- HIGH ACCESSIBILITY CONTRAST BUTTON -->
-                        <button id="add-leg-btn" onclick="addLeg()" class="flex items-center gap-2 text-[0.65rem] monument text-slate-950 bg-white hover:opacity-90 shadow-lg px-6 py-4 rounded-full border-2 border-slate-300 transition-all font-black tracking-widest">
-                            [ + Add Another Stop ]
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-slate-800">
-                        <div>
-                            <span class="monument text-[0.7rem] text-slate-50 block mb-4 font-black tracking-widest">/ Choose Your Jet</span>
-                            <select id="ac-class" class="input-pill font-bold" onchange="syncPaxLogic()">
-                                <option value="LIGHT">Light Jet | 4-6 Seats (Short Trips)</option>
-                                <option value="MID">Midsize Jet | 7-9 Seats (Extended Range)</option>
-                                <option value="HEAVY" selected>Heavy Jet | 10-14 Seats (VIP Group)</option>
-                                <option value="ULTRA">Ultra/Regional | 15-50 Seats (Corporate)</option>
-                            </select>
-                            <div id="ac-specs" class="text-xs bg-slate-950/80 border border-slate-800 p-4 rounded-xl mt-4 text-slate-100 italic font-medium backdrop-blur-md leading-relaxed">
-                                Loading fleet profile...
-                            </div>
-                        </div>
-                        <div>
-                            <span class="monument text-[0.7rem] text-slate-50 block mb-4 font-black tracking-widest">/ Number of Passengers</span>
-                            <input type="number" id="pax" value="1" min="1" class="input-pill font-bold text-slate-50" oninput="runAnalysis()">
-                            <p id="pax-warning" class="text-xs text-red-400 mt-2 font-bold hidden">Too many passengers for this jet: please upgrade</p>
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537519/1772530159805_xphiix.jpg" alt="Clear Flight Feasibility Dashboard UI" class="w-full h-[400px] object-cover img-card">
+                        <div class="absolute bottom-0 right-0 p-8 bg-nearblack text-white max-w-xs rounded-tl-3xl">
+                            <p class="text-2xl font-light leading-tight mb-2">"Clear response. Clear status."</p>
+                            <span class="ui-sync text-[8px] text-fbblue">FEASIBILITY UNDER 180s</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="lg:col-span-5 space-y-8">
-                <div class="glass-panel p-10 text-center relative overflow-hidden">
-                    <span class="monument text-[0.65rem] text-slate-50 mb-6 block font-black tracking-widest">Estimated Flight Cost (USD)</span>
-                    <div id="price-val" class="price-text">$0</div>
-                    <div id="confidence-tag" class="text-[0.55rem] monument text-slate-50 mt-2 uppercase font-black tracking-wider">Subject to final market confirmation</div>
-                </div>
-
-                <div class="glass-panel p-6">
-                    <div id="map"></div>
-                </div>
-
-                <div class="glass-panel p-10">
-                    <span class="monument text-[0.65rem] text-slate-50 mb-8 block font-black tracking-widest">Flight Logistics & Status</span>
-                    <div id="intel-log" class="space-y-2">
-                        <div class="log-line" id="l-dist"><div class="dot"></div> Flight route confirmed</div>
-                        <div class="log-line" id="l-min"><div class="dot"></div> Standard flight time applied</div>
-                        <div class="log-line" id="l-env"><div class="dot"></div> Jet range is capable</div>
-                        <div class="log-line" id="l-intl"><div class="dot"></div> International permits included</div>
-                        <div class="log-line" id="l-urg"><div class="dot"></div> Standard 72-hour notice</div>
-                    </div>
-                </div>
-
-                <div class="disclaimer-box">
-                    <span class="monument text-[0.65rem] text-slate-50 mb-4 block font-black tracking-widest border-b-2 border-slate-800 pb-2">Important VIP Flight Advisory</span>
-                    <p class="text-xs opacity-95 mb-4 text-slate-100 font-semibold leading-relaxed">
-                        <span class="text-slate-50 font-black uppercase block mb-1 text-[0.65rem] tracking-wider">72-Hour Advance Booking:</span>
-                        To guarantee the highest standard of service and ensure the jet is perfectly prepared, we require at least 3 days notice. For emergency flights, please chat with our Chief Concierge immediately.
-                    </p>
-                    <p class="text-xs opacity-95 text-slate-100 font-semibold leading-relaxed">
-                        <span class="text-slate-50 font-black uppercase block mb-1 text-[0.65rem] tracking-wider">Pricing Notice:</span>
-                        The price shown above is a very close estimate. Your final cost might be slightly less or more depending on exact jet availability when you book.
+        <!-- NEW SECTION: FLIGHT BOOKING PROTOCOL (EARLY EXPLANATION FOR BOOKING & REQUEST IDS) -->
+        <section class="py-24 bg-offwhite px-6 border-b border-gray-100" id="booking-protocol">
+            <div class="max-w-6xl mx-auto reveal">
+                <div class="text-center md:text-left mb-16">
+                    <h2 class="ui-sync text-fbblue text-[10px] mb-4">THE PROTOCOL OF CERTAINTY</h2>
+                    <h3 class="title-monument text-3xl md:text-5xl text-nearblack mb-6" style="color:black">HOW TO BOOK A FLIGHT</h3>
+                    <p class="text-gray-600 max-w-3xl leading-relaxed text-sm md:text-base">
+                        Our platform bypasses broker delays. In under three minutes, secure your premium layout blueprint and receive direct physical pricing configurations. Here is the operational framework.
                     </p>
                 </div>
-            </div>
-        </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Step 1 Card -->
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[300px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[10px] font-black block mb-4">STEP 01</span>
+                            <h4 class="font-extrabold text-xl text-nearblack mb-3">Trigger Portal</h4>
+                            <p class="text-gray-500 text-xs leading-relaxed">
+                                Click the "BOOK FLIGHT" control located globally in the menu interface. This opens the real-time flight configuration workspace immediately.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <button onclick="toggleIntake()" class="text-xs text-fbblue font-bold hover:underline uppercase tracking-wider block">LAUNCH BOOKING ENGINE NOW →</button>
+                        </div>
+                    </div>
 
-        <div class="max-w-2xl mx-auto mt-20 mb-10 space-y-5">
-            <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury py-5 text-[0.8rem] font-black tracking-widest uppercase">Request VIP Flight Now</button>
-            <a href="https://wa.me/+2349167621703" target="_blank" class="glass-panel w-full block text-center py-5 font-black monument text-[0.7rem] text-slate-50 hover:bg-slate-800/50 transition-colors border-2 border-transparent hover:border-slate-700">
-                Chat with Chief Concierge
-            </a>
-            
-            <div class="flex flex-col items-center pt-4">
-                <button onclick="toggleSupport()" class="text-xs text-slate-50 hover:opacity-80 transition-opacity flex items-center gap-2 font-semibold">
-                    <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span> 24/7 Executive support
-                </button>
-                <div id="support-msg" class="text-xs text-slate-50 italic mt-0 opacity-0 h-0 overflow-hidden transition-all duration-500 ease-in-out text-center max-w-sm font-semibold">
-                    Our luxury concierge team is working diligently to assist you. Responses are usually within 15 minutes.
+                    <!-- Step 2 Card -->
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[300px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[10px] font-black block mb-4">STEP 02</span>
+                            <h4 class="font-extrabold text-xl text-nearblack mb-3">Route & Price</h4>
+                            <p class="text-gray-500 text-xs leading-relaxed">
+                                Define departure airports, dates, passenger numbers, and luxury fleet category (Light, Midsize, Heavy, or Regional jets). The decision engine will calculate your cost estimate instantly.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <span class="text-[9px] ui-sync text-slate-400 block">[ REALTIME ESTIMATION ACTIVE ]</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 Card -->
+                    <div class="dash-border p-8 bg-slate-900 text-white flex flex-col justify-between min-h-[300px] border border-fbblue/30">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[10px] font-black block mb-4">STEP 03</span>
+                            <h4 class="font-extrabold text-xl text-white mb-3">Secure Your Password</h4>
+                            <p class="text-gray-300 text-xs leading-relaxed">
+                                Once submitted, the system instantly initiates coordination and issues your <strong>Flight Request ID</strong> (e.g., 15D-7F9E). This string is your secure login key to log into Sovereign 15D Portal where you can unlock luxury experiences.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <span class="text-[9px] ui-sync text-fbblue block">[ DESIGNED FOR SECURITY ]</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <footer class="text-center pt-10 pb-16 border-t-2 border-slate-800">
-            <div class="max-w-2xl mx-auto space-y-4 font-bold">
-                <p class="text-[0.7rem] monument text-slate-50">15D Wings | Sky Party LTD (RC 8997727)</p>
-                <p class="text-xs text-slate-50 leading-relaxed font-semibold px-4">
-                    21 Lugard Avenue, Ikoyi Lagos, Nigeria.
+        <!-- SECTION 2: INTERACTIVE ACCESS (360° CABIN TOUR - LIFTED UP) -->
+        <section class="py-32 bg-nearblack px-6 tech-grid text-center" id="experience">
+            <div class="max-w-5xl mx-auto reveal">
+                <span class="ui-sync text-fbblue text-[10px] block mb-8">INTERACTIVE ACCESS</span>
+                <h2 class="title-monument text-2xl md:text-5xl mb-8 text-white uppercase">DON'T JUST LOOK. <br><span class="text-fbblue">ENTER THE CABIN.</span></h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-gray-400">
+                    This is not a static photo gallery. Tap the aircraft door below to enter a full 360° interactive cabin environment. Walk the cabin. Check the galley. Verify the certainty.
                 </p>
-                <a href="mailto:ops@15dwings.com.ng" class="text-xs text-slate-50 underline opacity-90 hover:opacity-100 font-medium">ops@15dwings.com.ng</a>
+                <div class="relative group cursor-pointer inline-block overflow-hidden rounded-3xl border-4 border-white/10" onclick="this.querySelector('iframe').classList.remove('hidden'); this.querySelector('.overlay-trigger').classList.add('hidden');">
+                    <div class="overlay-trigger relative">
+                        <div class="absolute -inset-4 border border-fbblue/40 enter-glow pointer-events-none z-20"></div>
+                        <img src="https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537192/1772530337581_qq5wv3.jpg" alt="Interactive 360 Cabin View Gateway" class="w-full h-[60vh] object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center z-10">
+                            <div class="bg-fbblue text-white ui-sync px-12 py-6 text-xs shadow-2xl tracking-[0.4em]">TAP TO ENTER 360° TOUR</div>
+                        </div>
+                    </div>
+                    <iframe src="https://tours.360virtualtours.co.uk/legacy-aircraft-tour/" title="Legacy Aircraft 360 Tour" class="hidden w-full h-[75vh] md:w-[80vw] border-none bg-black" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXPERIENTIAL FLIGHTS (NEW REPLACEMENT FOR DOMESTIC NETWORK COVERAGE) -->
+        <section class="py-24 bg-white px-6 border-b border-gray-100" id="experiential-flights">
+            <div class="max-w-6xl mx-auto reveal">
+                <div class="mb-16 text-center md:text-left">
+                    <h2 class="ui-sync text-fbblue text-[10px] mb-4">THE HIGHEST PARADIGM OF FLIGHT</h2>
+                    <h3 class="title-monument text-3xl md:text-5xl text-nearblack mb-6" style="color:black">EXPERIENTIAL FLIGHTS</h3>
+                    <p class="text-gray-600 max-w-3xl leading-relaxed text-sm md:text-base">
+                        15D Wings is the pioneer of **Flights-As-An-Experience**. We believe transit shouldn't just be operational—it should be unforgettable. Our engineered outcomes allow you to curate the physical space inside the sky.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12 font-lexend items-center mb-16">
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-fbblue pl-6 py-2">
+                            <span class="ui-sync text-fbblue text-[9px] block mb-1">UNLOCKED BY ID</span>
+                            <h4 class="font-extrabold text-xl mb-2 text-nearblack">Select Experiences on Your Dashboard</h4>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">
+                                When you secure your private charter, you receive an official **Flight Booking ID**. Use this unique key to log into your custom VIP Dashboard and directly select from our suite of curated cabin atmosphere packages.
+                            </p>
+                        </div>
+                        <div class="border-l-4 border-gray-200 pl-6 py-2">
+                            <span class="ui-sync text-gray-500 text-[9px] block mb-1">CUSTOMIZATION LAYERS</span>
+                            <h4 class="font-extrabold text-xl mb-2 text-nearblack">Atmosphere & Service Profiles</h4>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">
+                                Tailor cabin scent branding, culinary journeys, professional soundscapes, and flight watch schedules. Our operations team prepares the jet according to your dashboard blueprint.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <!-- EXPERIENTIAL FLIGHTS HERO CARD (VIDEO INTEGRATION) -->
+                        <div class="group relative rounded-3xl overflow-hidden p-8 border border-gray-200 shadow-xl h-[450px] flex flex-col justify-end">
+                            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0 opacity-90 mix-blend-multiply transition-opacity duration-700 ios-video">
+                                <source src="https://res.cloudinary.com/dfbweqelf/video/upload/q_auto/f_auto/v1776286745/Private_Jet_Cinema_Experience_qzlexa.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
+                            
+                            <div class="relative z-20 text-white">
+                                <span class="ui-sync text-fbblue text-[9px] block mb-2">LIVE DEMO</span>
+                                <h4 class="title-monument text-lg mb-2">Experiential Mastery</h4>
+                                <p class="text-gray-300 text-xs leading-relaxed">Secure your booking to select event architectures directly on your executive timeline.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERIENTIAL SELECTION GRID -->
+                <div class="grid md:grid-cols-3 gap-6 pt-10 border-t border-gray-100">
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[250px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">THE SIGNATURE SKY EVENT</span>
+                            <h4 class="font-bold text-lg mb-2">Sky Party™</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">Celebrate premium events, corporate milestones, and customized gatherings in high altitudes with curated catering and production.</p>
+                        </div>
+                        <div class="mt-6">
+                            <a href="https://www.skyparty.name.ng/experience" target="_blank" class="text-xs text-fbblue font-bold hover:underline uppercase tracking-wider block">LAUNCH SKY PARTY OUTLET →</a>
+                        </div>
+                    </div>
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[250px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">THERAPY & SILENCE</span>
+                            <h4 class="font-bold text-lg mb-2">BlueHour™</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">Atmospheric sensory therapy flights featuring noise-isolated cabins, custom calming blue lighting arrays, and tailored wellness culinary menus.</p>
+                        </div>
+                        <div class="mt-6">
+                            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block">[ AVAILABLE ON DASHBOARD ]</span>
+                        </div>
+                    </div>
+                    <div class="dash-border p-8 bg-white flex flex-col justify-between min-h-[250px]">
+                        <div>
+                            <span class="ui-sync text-fbblue text-[8px] block mb-4 tracking-[0.3em]">PREMIUM ROMANCE</span>
+                            <h4 class="font-bold text-lg mb-2">Sky Date™</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">Intimate custom dining layout in private cabins, floral enhancements, live performance acoustic recordings, and exclusive ground escorts.</p>
+                        </div>
+                        <div class="mt-6">
+                            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block">[ AVAILABLE ON DASHBOARD ]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SOVEREIGN FLIGHT CREDITS -->
+        <section class="py-24 bg-nearblack px-6 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto reveal flex flex-col md:flex-row items-center gap-16">
+                <div class="flex-1 z-10 relative">
+                    <h2 class="ui-sync text-fbblue text-[10px] mb-6">LIQUIDITY IN THE SKY</h2>
+                    <h3 class="title-monument text-3xl md:text-4xl text-white mb-8">SOVEREIGN <br> FLIGHT CREDITS</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        At 15D Wings, unused airfare isn't lost—it's converted. Flight Credits are sovereign assets used to secure your next arrival. We issue them as high-tier loyalty incentives and carryover fare protections.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="border border-white/10 p-4 rounded-xl">
+                            <span class="ui-sync text-fbblue text-[8px] block mb-2">PROTECTION</span>
+                            <span class="text-white text-xs font-bold">Unused Fare Recovery</span>
+                        </div>
+                        <div class="border border-white/10 p-4 rounded-xl">
+                            <span class="ui-sync text-fbblue text-[8px] block mb-2">PRIVILEGE</span>
+                            <span class="text-white text-xs font-bold">Complimentary Grants</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 w-full z-10">
+                    <div class="credit-card p-10 rounded-[2rem] shadow-2xl">
+                        <div class="flex justify-between items-start mb-16">
+                            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Insignia" class="h-6 brightness-0 invert">
+                            <span class="ui-sync text-[8px] text-white/40 tracking-[0.5em]">CREDIT ID: 15D-00X</span>
+                        </div>
+                        <div class="mb-10">
+                            <p class="ui-sync text-fbblue text-[9px] mb-1">AVAILABLE CREDIT VALUE</p>
+                            <p class="text-white font-monument text-3xl">OPERATIONAL</p>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="text-[10px] text-white/60 ui-sync">
+                                SOVEREIGN PASS HOLDER
+                            </div>
+                            <div class="w-12 h-8 bg-fbblue/20 rounded-md border border-fbblue/30"></div>
+                        </div>
+                    </div>
+                    <p class="text-center mt-6 text-[9px] ui-sync text-gray-600">REDEEMABLE VIA THE DECISION ENGINE</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PARALLAX TRANSITION SECTION -->
+        <section class="h-[60vh] slide-parallax flex items-center justify-center text-center px-6" style="background-image: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537520/1772530224629_kl7gdt.jpg');" aria-label="A private jet cruising over clouds">
+            <div class="z-10">
+                <h2 class="title-monument text-white text-4xl mb-4">TACTICAL PRECISION</h2>
+                <p class="ui-sync text-fbblue text-xs">Unmatched operational depth</p>
+            </div>
+            <div class="absolute inset-0 bg-black/60"></div>
+        </section>
+
+        <!-- SECTION 5: FLEET OVERVIEW & ESCORT LEADING DIRECTLY TO THE LIFTED VIRTUAL TOUR -->
+        <section class="py-24 bg-white px-6 border-b" id="fleet">
+            <div class="max-w-6xl mx-auto reveal">
+                <div class="grid md:grid-cols-2 gap-16">
+                    <div>
+                        <h2 class="ui-sync text-fbblue text-[10px] mb-6">FLEET OVERVIEW</h2>
+                        <h3 class="title-monument text-3xl mb-12" style="color:black">AIRCRAFT TYPES</h3>
+                        <div class="space-y-10">
+                            <div class="border-l-2 border-fbblue pl-6">
+                                <h4 class="ui-sync text-[11px] mb-2">Light Jets</h4>
+                                <p class="text-gray-600 text-sm">Efficient for short flights within Nigeria.</p>
+                            </div>
+                            <div class="border-l-2 border-fbblue pl-6">
+                                <h4 class="ui-sync text-[11px] mb-2">Midsize Jets</h4>
+                                <p class="text-gray-600 text-sm">More space and range for executive travel.</p>
+                            </div>
+                            <div class="border-l-2 border-fbblue pl-6">
+                                <h4 class="ui-sync text-[11px] mb-2">Heavy Jets</h4>
+                                <p class="text-gray-600 text-sm">Larger aircraft for group travel and VIP journeys.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- HIGH-CONTRAST INTERACTION POINT DIRECTLY LINKED TO VIRTUAL TOUR -->
+                    <div class="bg-nearblack p-10 rounded-3xl text-white shadow-2xl flex flex-col justify-between relative overflow-hidden min-h-[400px]">
+                        <div class="relative z-10">
+                            <h2 class="ui-sync text-fbblue text-[10px] mb-6">CABIN READINESS</h2>
+                            <h3 class="title-monument text-2xl md:text-3xl mb-8">INSPECT THE CABIN LAYOUT</h3>
+                            <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-8">
+                                To support absolute certainty before you initiate booking procedures, we provide direct structural transparency. Walk the interior configurations, evaluate seat spacing, and inspect the cabin environments.
+                            </p>
+                        </div>
+                        <div class="relative z-10">
+                            <a href="#experience" class="w-full inline-block text-center py-4 bg-fbblue hover:bg-fbblue/90 text-white ui-sync text-[10px] tracking-[0.2em] rounded-xl shadow-lg transition-transform hover:scale-[1.02] uppercase">
+                                LAUNCH 360° CABIN EXPERIENCE ↑
+                            </a>
+                        </div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-fbblue/10 blur-3xl"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: SERVICES -->
+        <section class="py-24 bg-white px-6" id="services">
+            <div class="max-w-6xl mx-auto reveal">
+                <h2 class="ui-sync text-fbblue text-[10px] mb-4">SERVICES</h2>
+                <h3 class="title-monument text-3xl mb-16" style="color:black">Private Aviation Services</h3>
+                
+                <div class="grid md:grid-cols-2 gap-20">
+                    <div class="space-y-16">
+                        <div class="group">
+                            <h4 class="title-monument text-xl mb-4 group-hover:text-fbblue transition-colors" style="color:black">Executive Travel</h4>
+                            <p class="text-gray-600 leading-relaxed">Private flights for executives, corporate teams, and business leaders.</p>
+                        </div>
+                        <div class="group">
+                            <h4 class="title-monument text-xl mb-4 group-hover:text-fbblue transition-colors" style="color:black">The Aviation Feasibility Principle</h4>
+                            <p class="text-gray-600 leading-relaxed">Using proprietary technology parameters to guarantee absolute coordination and security across key destinations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-nearblack p-10 rounded-3xl text-white shadow-2xl relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h4 class="title-monument text-xl mb-4">VIP Airport Coordination</h4>
+                            <p class="text-gray-400 text-sm mb-6">Ground coordination to simplify airport arrivals and departures.</p>
+                            <p class="text-gray-300 text-xs leading-relaxed mb-8">
+                                Every client itinerary includes direct concierge alignment, VIP terminal coordinates, customs fast-tracking protocols, and baggage security integration.
+                            </p>
+                            
+                            <div class="p-6 border border-white/10 bg-white/5 rounded-2xl">
+                                <span class="ui-sync text-fbblue text-[8px] block mb-2">SYSTEM PROTOCOL</span>
+                                <span class="text-white text-xs font-bold leading-normal block">Pre-Cleared Flight Logistics Activated on All Bookings</span>
+                            </div>
+                        </div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-fbblue/10 blur-3xl"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOCTRINE SECTION -->
+        <section class="py-24 bg-nearblack text-white px-6 tech-grid relative overflow-hidden border-b border-white/5">
+            <div class="absolute inset-0 opacity-20 grayscale hover:grayscale-0 transition-all duration-1000" style="background: url('https://res.cloudinary.com/dw9m06rgf/image/upload/v1772537141/1772530842988_ymqcil.jpg') center/cover;"></div>
+            <div class="max-w-4xl mx-auto reveal relative z-10">
+                <h2 class="title-monument text-3xl mb-8" style="color:white">Operational Certainty Doctrine</h2>
+                <div class="space-y-6 text-gray-300 text-lg">
+                    <p class="font-sync text-fbblue text-xs tracking-widest">PRIVATE AVIATION SHOULD NEVER DEPEND ON LUCK.</p>
+                    <p>At 15D Wings, every flight is coordinated through a structured operational system designed to eliminate uncertainty before departure.</p>
+                    <p class="text-white font-bold border-l-4 border-fbblue pl-6 italic">We do not simply arrange flights. We verify operational readiness before confirmation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEEDBACK SECTION -->
+        <section class="py-24 bg-white px-6">
+            <div class="max-w-6xl mx-auto reveal">
+                <div class="grid md:grid-cols-2 gap-16">
+                    <div>
+                        <h2 class="title-monument text-2xl mb-12" style="color:black">WHY CLIENTS CHOOSE US</h2>
+                        <div class="space-y-12">
+                            <div>
+                                <h4 class="ui-sync text-fbblue text-[10px] mb-2">CLARITY FIRST</h4>
+                                <p class="text-gray-600">Instead of long waiting periods, our platform provides quick operational evaluation.</p>
+                            </div>
+                            <div>
+                                <h4 class="ui-sync text-fbblue text-[10px] mb-2">STRUCTURED PREPARATION</h4>
+                                <p class="text-gray-600">Flights are coordinated only after operational requirements are verified.</p>
+                            </div>
+                            <div>
+                                <h4 class="ui-sync text-fbblue text-[10px] mb-2">RELIABLE COORDINATION</h4>
+                                <p class="text-gray-600">Alternative operators can be activated if conditions change.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="feedback-bg p-8 md:p-12 rounded-3xl relative overflow-hidden flex flex-col justify-center min-h-[500px]" aria-label="Aviation operations center background">
+                        <div class="absolute inset-0 bg-black/50 z-0"></div>
+                        <div class="relative z-10">
+                            <h2 class="title-monument text-2xl mb-12 text-white border-b border-white/20 pb-4">CLIENT FEEDBACK</h2>
+                            <div class="space-y-8 overflow-hidden py-4">
+                                <blockquote class="review-pop bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 text-white">
+                                    <p class="text-lg italic mb-2">“Clear communication and quick responses.”</p>
+                                    <cite class="ui-sync text-[9px] text-fbblue">— Corporate Client</cite>
+                                </blockquote>
+                                <blockquote class="review-pop bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 text-white">
+                                    <p class="text-lg italic mb-2">“Professional coordination and smooth process.”</p>
+                                    <cite class="ui-sync text-[9px] text-fbblue">— Private Client</cite>
+                                </blockquote>
+                                <blockquote class="review-pop bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 text-white">
+                                    <p class="text-lg italic mb-2">“Everything was prepared before departure.”</p>
+                                    <cite class="ui-sync text-[9px] text-fbblue">— Executive Traveler</cite>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTOR MARQUEE SCROLLER -->
+        <section class="py-16 bg-white overflow-hidden border-y">
+            <div id="logo-scroller" class="animate-scroll items-center">
+                <div class="flex space-x-20 px-10 items-center">
+                    <span class="title-monument text-lg text-gray-200">ENERGY</span>
+                    <span class="title-monument text-lg text-gray-200">FINANCE</span>
+                    <span class="title-monument text-lg text-gray-200">CONSTRUCTION</span>
+                    <span class="title-monument text-lg text-gray-200">TECHNOLOGY</span>
+                </div>
+                <div class="flex space-x-20 px-10 items-center">
+                    <span class="title-monument text-lg text-gray-200">ENERGY</span>
+                    <span class="title-monument text-lg text-gray-200">FINANCE</span>
+                    <span class="title-monument text-lg text-gray-200">CONSTRUCTION</span>
+                    <span class="title-monument text-lg text-gray-200">TECHNOLOGY</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSTANTIAL HIGH-CONTRAST FOOTER -->
+        <footer class="py-16 px-6 text-center bg-white border-t">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D Wings Footer Logo" class="h-10 mx-auto mb-6">
+            <p class="text-[9px] ui-sync text-fbblue font-black tracking-widest mb-8">ARCHITECTS OF CERTAINTY</p>
+            
+            <!-- THICKER, MORE CLICKABLE FOOTER LINKS -->
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10 text-[10px] uppercase font-extrabold tracking-wider text-slate-800">
+                <a href="faqs.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">FAQ</a>
+                <a href="flight request.html" onclick="toggleIntake(); return false;" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Flight Request</a>
+                <a href="about us.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">About Us</a>
+                <a href="contact us.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Contact</a>
+                <a href="legal.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Legal</a>
+                <a href="tos.html" class="hover:text-fbblue hover:underline transition-all py-1 px-2 border border-transparent hover:border-fbblue/20 rounded-md">Terms of Service</a>
+            </div>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <p class="text-[9px] text-slate-900 font-extrabold uppercase tracking-widest border-y border-gray-100 py-6 leading-loose">
+                    15D Wings is a charter coordination platform. All flights are operated by appropriately licensed part 135 air carriers.
+                </p>
+                <p class="text-[8px] text-gray-400 uppercase tracking-[0.2em] font-medium">A Brand Product of sky party ltd (rc 8997727)</p>
             </div>
         </footer>
     </main>
 
-    <!-- SUCCESS MODAL (OPTIMIZED WITH DOWNLOADS AT THE TOP AND MOBILE SCROLLABLE CAPABILITIES) -->
-    <div id="modal-success" class="fixed inset-0 backdrop-blur-2xl z-[2000] hidden flex-col items-center justify-start p-6 text-center overflow-y-auto">
-        <div class="max-w-xl space-y-8 my-auto py-10">
-            <div class="price-text text-4xl uppercase font-black text-slate-50">Request Successfully Sent</div>
-            
-            <!-- CONTROLS POSITIONED CONVENIENTLY AT THE TOP FOR SHORTER VIEWPORTS -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center bg-slate-900/40 p-4 rounded-3xl border border-slate-800 backdrop-blur">
-                <button onclick="generatePDF()" class="monument text-[0.65rem] px-8 py-4 bg-white text-slate-950 rounded-full hover:scale-105 transition-transform shadow-lg font-black tracking-wider border-2 border-transparent">Download Cost Estimate (PDF)</button>
-                <button onclick="location.reload()" class="monument text-[0.65rem] px-8 py-4 text-slate-200 border-2 border-slate-700 rounded-full hover:bg-slate-800 transition-colors font-black tracking-wider">Book Another Flight</button>
-            </div>
-
-            <p id="ref-id" class="monument text-sm text-slate-50 font-black tracking-widest">YOUR FLIGHT REQUEST IS PROCESSING</p>
-            <div class="glass-panel p-8 md:p-10 text-xs text-slate-50 leading-relaxed text-left font-semibold">
-                <b class="text-slate-50 monument text-[0.7rem] block mb-2 underline font-black tracking-widest">NEXT STEPS:</b>
-                We have safely received your details. Please check your email immediately at <span id="conf-email" class="text-slate-50 font-bold underline"></span> for your official flight estimate and next steps from our team.<br><br>
-                <div class="bg-slate-900/60 p-6 rounded-xl border-2 border-slate-800 text-center shadow-lg">
-                    <span class="block text-xs text-slate-200 mb-2 font-bold">Your dashboard password</span>
-                    
-                    <div class="flex items-center justify-center gap-3">
-                        <span class="font-bold text-3xl text-slate-50 tracking-widest block py-2" id="ref-id-inline"></span>
-                        <button id="copy-id-btn" onclick="copyMissionId()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-600 transition-colors font-bold text-slate-300">Copy</button>
-                    </div>
-
-                    <p class="text-xs mt-3 mb-5 text-slate-200 opacity-100 leading-relaxed font-semibold">Use this Request ID to log into the VIP dashboard to unlock your final quote and engineered outcomes.</p>
-                    
-                    <!-- DIRECT INTEGRATION BUTTON FOR VIP PORTAL -->
-                    <button onclick="openVipPortal()" class="w-full py-4 bg-[#38bdf8] hover:bg-[#0284c7] text-slate-950 font-bold text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)] border-2 border-[#38bdf8]">Log Into VIP Portal Now</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3-STEP TOUR OVERLAY -->
-    <div id="tour-overlay">
-        <div class="tour-card animate-fade-in">
-            <span class="step-indicator monument font-black" id="tour-step-num">Step 1 of 3</span>
-            <h2 class="monument text-xl mb-4 text-white font-black" id="tour-title">Instant Pricing</h2>
-            <p class="text-sm text-white opacity-95 mb-8 leading-relaxed font-semibold" id="tour-desc">
-                No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.
-            </p>
-            <button onclick="nextTourStep()" class="btn-luxury py-3 px-10 w-auto inline-block border border-white/20">Next Step</button>
-        </div>
-    </div>
-
     <script>
-        const INTAKE_WORKER_URL = 'https://intake.15d.name.ng';
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwhhmVYLdMHeqBvb5mETjWhBJdPi3rMdoHsWBTxdEOWRy_uchTV43f63fU6Mi3_ncrf/exec';
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        let lastScrollTop = 0;
+        const scroller = document.getElementById('logo-scroller');
 
-        const AIRCRAFT = {
-            LIGHT: { speed: 700, rate: 2800, minHrs: 1.0, label: "Light Jet", range: 2500, maxPax: 6, models: "Phenom 300, Citation CJ4, Hawker 400XP", image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=800&q=80" },
-            MID:   { speed: 780, rate: 4000, minHrs: 1.0, label: "Midsize Jet", range: 3800, maxPax: 9, models: "Hawker 800/900XP, Learjet 60XR, Praetor 500", image: "https://res.cloudinary.com/dw9m06rgf/image/upload/v1778682411/Website-midsize-JEt-1024x499_exojji.jpg" },
-            HEAVY: { speed: 850, rate: 6000, minHrs: 1.0, label: "Heavy Jet", range: 6500, maxPax: 14, models: "Challenger 604/605, Legacy 600/650, Falcon 900", image: "https://res.cloudinary.com/dw9m06rgf/image/upload/v1778682756/65bd26a6a22e0c57f5eb0fc8_65134bb72c32636b787adb9d_large-private-jet_icgtng.webp" },
-            ULTRA: { speed: 920, rate: 9000, minHrs: 1.0, label: "Ultra/Regional", range: 12500, maxPax: 50, models: "ERJ-135/145, Global 6000/7500, G550/G650", image: "https://res.cloudinary.com/dw9m06rgf/image/upload/v1778682889/Bombardier_Global_6000_LX-NST_Exterior_4_1600x1200_fnstut.jpg" }
+        function updateSlider() {
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+            let direction = st > lastScrollTop ? -1 : 1;
+            let currentTransform = new WebKitCSSMatrix(window.getComputedStyle(scroller).transform).m41;
+            let velocity = Math.abs(st - lastScrollTop);
+            let move = (direction * (1 + velocity * 0.1));
+            scroller.style.transform = `translateX(${currentTransform + move}px)`;
+            if (Math.abs(currentTransform) >= scroller.offsetWidth / 2) scroller.style.transform = `translateX(0px)`;
+            lastScrollTop = st <= 0 ? 0 : st;
+            requestAnimationFrame(updateSlider);
+        }
+
+        window.onload = () => {
+            runCorridor();
+            requestAnimationFrame(updateSlider);
+            
+            document.getElementById('chat-input').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // iOS Force Autoplay Hack
+            const videos = document.querySelectorAll('.ios-video');
+            videos.forEach(video => {
+                video.muted = true;
+                video.play().catch(e => console.log('Autoplay prevented:', e));
+            });
+            
+            // Re-trigger play on first user interaction for stubborn iOS versions/Low Power Mode
+            document.body.addEventListener('touchstart', function() {
+                videos.forEach(video => {
+                    if(video.paused) { video.muted = true; video.play(); }
+                });
+            }, { once: true });
+            
+            document.body.addEventListener('click', function() {
+                videos.forEach(video => {
+                    if(video.paused) { video.muted = true; video.play(); }
+                });
+            }, { once: true });
         };
 
-        let DB = {}, map, routeLines = [], currentTargetPrice = 0, currentTargetPriceHigh = 0, displayedPrice = 0, displayedPriceHigh = 0;
-        let activeLegsData = [], serverMissionID = null;
-        let isRoundTrip = false;
-
-        // EDGE API ROUTING VARIABLES
-        let searchTimeout = null;
-        const WORKER_URL = "https://airfields.15d.name.ng";
-
-        // Force a physical locked 72-Hour ISO Minimum Limit
-        function getMinDateTime() {
-            const tzoffset = (new Date()).getTimezoneOffset() * 60000;
-            const minTime = new Date(Date.now() + (72 * 3600000) - tzoffset);
-            return minTime.toISOString().slice(0, 16);
+        // UI Interaction Functions
+        function toggleIntake() { 
+            document.getElementById('intake-drawer').classList.toggle('open'); 
+            document.getElementById('overlay').classList.toggle('active'); 
         }
-
-        // Continually updates and enforces constraints on Date fields physically
-        function enforceDatePickerLimits() {
-            const minStr = getMinDateTime();
-            document.querySelectorAll('.date-in').forEach(input => {
-                input.setAttribute('min', minStr);
-                // Physical control filter on entry
-                input.addEventListener('input', function() {
-                    if (this.value && this.value < minStr) {
-                        this.value = minStr;
-                        alert("For operational perfection, flights require 72 hours notice. The system has automatically reset the departure to our earliest available slot.");
-                    }
-                });
-            });
-        }
-
-        async function loadDB() {
-            console.log("15D Wings: Migrated to Edge API Data Routing");
-        }
-
-        function initMap() {
-            map = L.map('map', { zoomControl: false, attributionControl: false }).setView([9.08, 7.39], 5);
-            // Switched back to Light Mode tiles for clean dynamic contrast
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
-        }
-
-        // Left empty as theme switcher is deprecated, keeping structural signature verbatim
-        function toggleTheme() {}
         
-        // Fix for toggling Support message
-        function toggleSupport() {
-            const msg = document.getElementById('support-msg');
-            if (msg.classList.contains('opacity-0')) {
-                msg.classList.remove('opacity-0', 'h-0');
-                msg.classList.add('opacity-100', 'h-auto', 'mt-4');
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
             } else {
-                msg.classList.add('opacity-0', 'h-0');
-                msg.classList.remove('opacity-100', 'h-auto', 'mt-4');
+                menu.classList.add('translate-x-full');
+                hamburger.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
             }
         }
 
-        function clearError(el) {
-            el.classList.remove('input-error');
-            if (el.classList.contains('airport-in')) suggest(el);
+        function toggleChat() { 
+            const win = document.getElementById('chat-window'); 
+            win.style.display = win.style.display === 'flex' ? 'none' : 'flex'; 
+            stopBouncing(); 
+        }
+        
+        function stopBouncing() { 
+            document.getElementById('chatbot-container').classList.add('stop-animation'); 
+        }
+        
+        function forceSkip() { 
+            const corridor = document.getElementById('corridor'); 
+            const mainContent = document.getElementById('app-content'); 
+            corridor.style.opacity = '0'; 
+            sessionStorage.setItem('15d_protocol_vFull', 'true'); 
+            setTimeout(() => { 
+                corridor.style.display = 'none'; 
+                mainContent.style.opacity = '1'; 
+                initReveal(); 
+            }, 800); 
+        }
+        
+        async function runCorridor() { 
+            if (sessionStorage.getItem('15d_protocol_vFull')) { forceSkip(); return; } 
+            const msgs = ['msg1', 'msg2', 'msg3', 'msg4']; 
+            for(let i = 0; i < msgs.length; i++) { 
+                const el = document.getElementById(msgs[i]); 
+                if(el) { 
+                    el.style.opacity = '1'; 
+                    await new Promise(r => setTimeout(r, 1800)); 
+                    el.style.opacity = '0'; 
+                    await new Promise(r => setTimeout(r, 400)); 
+                } 
+            } 
+            forceSkip(); 
+        }
+        
+        function initReveal() { 
+            const observer = new IntersectionObserver((entries) => { 
+                entries.forEach(entry => { 
+                    if(entry.isIntersecting) entry.target.classList.add('reveal-active'); 
+                }); 
+            }, { threshold: 0.1 }); 
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); 
         }
 
-        function setTripType(type) {
-            isRoundTrip = (type === 'ROUND');
-            
-            // Toggle Active Button Styles
-            const activeClass = "flex items-center gap-2 text-[0.6rem] monument text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-black";
-            const inactiveClass = "flex items-center gap-2 text-[0.6rem] monument text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-black";
+        // Chatbot Integration
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const messages = document.getElementById('chat-messages');
+            const text = input.value.trim();
+            if (!text) return;
 
-            document.getElementById('btn-oneway').className = isRoundTrip ? inactiveClass : activeClass;
-            document.getElementById('btn-round').className = isRoundTrip ? activeClass : inactiveClass;
-
-            // If switching to Round Trip, simplify routing to just one standard leg row (A to B)
-            if (isRoundTrip) {
-                const legs = document.querySelectorAll('.leg-row');
-                for(let i = 1; i < legs.length; i++) legs[i].remove();
-                document.getElementById('add-leg-btn').style.display = 'none';
-            } else {
-                document.getElementById('add-leg-btn').style.display = 'flex';
-            }
-
-            // Show/Hide the return date inputs across existing legs
-            document.querySelectorAll('.return-date-block').forEach(el => {
-                el.style.display = isRoundTrip ? 'block' : 'none';
-            });
-
-            runAnalysis();
-        }
-
-        function syncPaxLogic() {
-            const cls = document.getElementById('ac-class').value;
-            const spec = AIRCRAFT[cls];
-            document.getElementById('ac-specs').innerHTML = `
-                <div class="w-full h-32 rounded-xl mb-3 overflow-hidden relative shadow-inner">
-                    <img src="${spec.image}" alt="${spec.label}" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <span class="absolute bottom-3 left-4 text-white font-bold tracking-widest text-[0.6rem] uppercase drop-shadow-md">${spec.label}</span>
-                </div>
-                <span class="block font-black text-slate-50 uppercase mb-1">Fleet Profile: ${spec.models}</span>
-                <span class="block text-slate-300 font-medium">Range: ~${spec.range}km | Speed: ${spec.speed}km/h | Capacity: Up to ${spec.maxPax} Seats</span>
-            `;
-            runAnalysis();
-        }
-
-        function addLeg() {
-            const c = document.getElementById('legs-container');
-            const legId = Date.now();
-            const d = document.createElement('div');
-            d.className = "leg-row";
-            d.id = `leg-${legId}`;
-            
-            const isFirstLeg = c.children.length === 0;
-            const delBtnHtml = isFirstLeg ? '' : `<button onclick="removeLeg('${legId}')" class="text-[0.55rem] monument text-slate-50 hover:bg-red-500/10 px-4 py-2.5 rounded-full border-2 border-slate-50 transition-colors ml-4 uppercase font-black">Delete Stop</button>`;
-
-            d.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                    <div class="relative">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">From where</span>
-                        <input type="text" placeholder="LOS - Murtala Muhammed Int'l" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 placeholder-slate-400 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-bold" oninput="clearError(this)" required>
-                        <div class="suggestion-box"></div>
-                        <span class="error-msg font-bold">Add the missing details</span>
-                    </div>
-                    <div class="relative">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">To where</span>
-                        <input type="text" placeholder="ABV - Nnamdi Azikiwe Int'l" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 placeholder-slate-400 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-bold" oninput="clearError(this)" required>
-                        <div class="suggestion-box"></div>
-                        <span class="error-msg font-bold">Add the missing details</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
-                    <div class="relative w-full">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">Flight Date and Time</span>
-                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all date-in forward-date font-bold" onchange="clearError(this); runAnalysis()" required>
-                        <span class="error-msg font-bold">Add the missing details</span>
-                    </div>
-                    <div class="relative w-full return-date-block" style="display: ${isRoundTrip ? 'block' : 'none'};">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">Return Date and Time</span>
-                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all date-in return-date font-bold" onchange="clearError(this); runAnalysis()">
-                        <span class="error-msg font-bold">Add the missing details</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center mt-5 ${!isFirstLeg ? 'border-t-2 border-slate-800 pt-5' : ''}">
-                    <span class="leg-price-badge font-bold" id="badge-${legId}">$0.00</span>
-                    ${delBtnHtml}
-                </div>
-            `;
-            c.appendChild(d);
-            enforceDatePickerLimits();
-        }
-
-        // Keep removeLeg standard
-        function removeLeg(id) {
-            if(document.querySelectorAll('.leg-row').length > 1) {
-                document.getElementById(`leg-${id}`).remove();
-                runAnalysis();
-            }
-        }
-
-        async function suggest(el) {
-            const v = el.value.trim().toUpperCase();
-            const box = el.nextElementSibling;
-            
-            if(v.length < 2) { 
-                box.innerHTML = '';
-                box.style.display = 'none'; 
-                return; 
-            }
-
-            // Enterprise UI/UX: Indicate loading state for the executive
-            box.innerHTML = '<div class="p-4 text-xs font-bold text-slate-400 animate-pulse">Securing airspace data...</div>';
-            box.style.display = 'block';
-
-            // Debounce the input to prevent spamming the edge worker while typing
-            clearTimeout(searchTimeout);
-            
-            searchTimeout = setTimeout(async () => {
-                try {
-                    const response = await fetch(`${WORKER_URL}/?q=${encodeURIComponent(v)}`);
-                    if (!response.ok) throw new Error("API Failure");
-                    
-                    const results = await response.json();
-                    
-                    // Critical: Cache the results into our global DB object. 
-                    // This ensures when runAnalysis() calculates the haversine distance, the lat/lon is available.
-                    Object.assign(DB, results);
-                    
-                    box.innerHTML = '';
-                    const keys = Object.keys(results);
-
-                    if (keys.length > 0) {
-                        keys.forEach(k => {
-                            const d = results[k];
-                            const i = document.createElement('div');
-                            i.className = "p-4 hover:bg-slate-800 hover:text-blue-400 cursor-pointer text-xs border-b border-slate-800 font-semibold text-slate-100";
-                            i.innerHTML = `<b class="text-blue-400">${k}</b> — ${d.name} (${d.city}, ${d.country})`;
-                            
-                            // Interaction binding
-                            i.onclick = () => { 
-                                el.value = `${k} | ${d.name}`; 
-                                el.dataset.code = k; 
-                                el.dataset.fullName = d.name;
-                                el.dataset.country = d.country;
-                                box.style.display = 'none'; 
-                                runAnalysis(); 
-                            };
-                            box.appendChild(i);
-                        });
-                    } else {
-                        box.innerHTML = '<div class="p-4 text-xs font-bold text-red-400">No classified airfields found</div>';
-                    }
-                } catch (error) {
-                    console.error("Flight systems mapping error:", error);
-                    box.innerHTML = '<div class="p-4 text-xs font-bold text-red-500">Radar offline. Retrying...</div>';
-                }
-            }, 300); // 300ms debounce
-        }
-
-        function runAnalysis() {
-            const cls = document.getElementById('ac-class').value;
-            const spec = AIRCRAFT[cls];
-            const paxCount = parseInt(document.getElementById('pax').value) || 0;
-            const warning = document.getElementById('pax-warning');
-            const dispatchBtn = document.getElementById('dispatch-btn');
-            
-            let total = 0, allPoints = [], intl = false, urg = false, minHrs = false;
-            let isVolatile = false;
-            
-            if (paxCount > spec.maxPax) {
-                warning.classList.remove('hidden');
-                dispatchBtn.disabled = true;
-                currentTargetPrice = 0;
-                animatePrice();
-                document.querySelectorAll('.leg-price-badge').forEach(b => b.innerText = '$0.00');
-                return;
-            } else {
-                warning.classList.add('hidden');
-                dispatchBtn.disabled = false;
-            }
-
-            routeLines.forEach(l => map.removeLayer(l));
-            routeLines = [];
-            activeLegsData = [];
-
-            document.querySelectorAll('.leg-row').forEach(l => {
-                const inputs = l.querySelectorAll('.airport-in');
-                const oCode = inputs[0].dataset.code, dCode = inputs[1].dataset.code;
-                const fDateIn = l.querySelector('.forward-date');
-                const rDateIn = l.querySelector('.return-date');
-                const badge = l.querySelector('.leg-price-badge');
-
-                if(oCode && dCode && DB[oCode] && DB[dCode]) {
-                    const rad = Math.PI/180;
-                    const dLat = (DB[dCode].lat - DB[oCode].lat) * rad;
-                    const dLon = (DB[dCode].lon - DB[oCode].lon) * rad;
-                    const a = Math.sin(dLat/2)**2 + Math.cos(DB[oCode].lat*rad)*Math.cos(DB[dCode].lat*rad)*Math.sin(dLon/2)**2;
-                    const dist = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                    
-                    const actualHours = dist/spec.speed;
-                    const hours = Math.max(actualHours, spec.minHrs);
-                    if(actualHours < spec.minHrs) minHrs = true;
-
-                    let baseCost = hours * spec.rate;
-                    let adjustedBase = baseCost * (1 + (paxCount * 0.01));
-                    
-                    const isIntl = inputs[0].dataset.country !== inputs[1].dataset.country;
-                    const logisticsFee = isIntl ? 3500 : 1500;
-                    if(isIntl) intl = true;
-
-                    let legTotal = adjustedBase + logisticsFee;
-                    
-                    // Add Forward Leg
-                    total += legTotal;
-                    activeLegsData.push({ 
-                        from: oCode, to: dCode, cost: legTotal, 
-                        date: fDateIn.value ? new Date(fDateIn.value).toLocaleDateString() : 'TBD',
-                        time: fDateIn.value ? new Date(fDateIn.value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'TBD',
-                        fromFull: inputs[0].dataset.fullName, toFull: inputs[1].dataset.fullName 
-                    });
-                    allPoints.push([DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]);
-                    routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#38bdf8", weight: 3, dashArray: '5, 10' }).addTo(map));
-
-                    // Add Return Leg if active and valid
-                    if (isRoundTrip && rDateIn && rDateIn.value) {
-                        total += legTotal; 
-                        activeLegsData.push({ 
-                            from: dCode, to: oCode, cost: legTotal, 
-                            date: new Date(rDateIn.value).toLocaleDateString(),
-                            time: new Date(rDateIn.value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                            fromFull: inputs[1].dataset.fullName, toFull: inputs[0].dataset.fullName 
-                        });
-                        allPoints.push([DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]);
-                        routeLines.push(L.polyline([[DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]], { color: "#0284c7", weight: 3, dashArray: '5, 10' }).addTo(map));
-                    }
-                    
-                    badge.innerText = `$${Math.round(isRoundTrip && rDateIn.value ? legTotal * 2 : legTotal).toLocaleString()}`;
-
-                    if(fDateIn.value) {
-                        const diff = (new Date(fDateIn.value) - new Date()) / 3600000;
-                        if(diff > 0 && diff < 72) { urg = true; isVolatile = true; }
-                    }
-                }
-            });
-
-            currentTargetPrice = total;
-            currentTargetPriceHigh = total > 0 ? total + 4566 : 0; 
-            animatePrice();
-            
-            if(allPoints.length) map.fitBounds(L.latLngBounds(allPoints), { padding: [50, 50] });
-
-            document.querySelectorAll('.log-line').forEach(l => l.classList.remove('active'));
-            if(total > 0) document.getElementById('l-dist').classList.add('active');
-            if(minHrs) document.getElementById('l-min').classList.add('active');
-            if(intl) document.getElementById('l-intl').classList.add('active');
-            
-            const logUrg = document.getElementById('l-urg');
-            if(isVolatile) {
-                logUrg.classList.add('active');
-                logUrg.innerHTML = `<div class="dot"></div> NOTICE: EMERGENCY FLIGHT REQUIRES CONCIERGE`;
-                logUrg.style.color = '#dc2626';
-            } else if (urg) {
-                logUrg.classList.add('active');
-                logUrg.innerHTML = `<div class="dot"></div> Standard 72-hour notice applied`;
-                logUrg.style.color = '';
-            } else {
-                logUrg.innerHTML = `<div class="dot"></div> Standard 72-hour notice applied`;
-                logUrg.style.color = '';
-            }
-        }
-
-        function animatePrice() {
-            let animating = false;
-            if (Math.abs(currentTargetPrice - displayedPrice) > 1) {
-                displayedPrice += (currentTargetPrice - displayedPrice) * 0.1;
-                animating = true;
-            } else {
-                displayedPrice = currentTargetPrice;
-            }
-
-            if (Math.abs(currentTargetPriceHigh - displayedPriceHigh) > 1) {
-                displayedPriceHigh += (currentTargetPriceHigh - displayedPriceHigh) * 0.1;
-                animating = true;
-            } else {
-                displayedPriceHigh = currentTargetPriceHigh;
-            }
-
-            const priceEl = document.getElementById('price-val');
-            if (displayedPrice > 0) {
-                priceEl.innerHTML = `<span class="text-[2rem] md:text-[2.2rem] font-bold">$${Math.round(displayedPrice).toLocaleString()}</span> <span class="text-[2rem] mx-1">-</span> <span class="text-[2rem] md:text-[2.2rem] font-bold">$${Math.round(displayedPriceHigh).toLocaleString()}</span>`;
-            } else {
-                priceEl.innerText = '$0';
-            }
-
-            if (animating) requestAnimationFrame(animatePrice);
-        }
-
-        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-        let glow1X = mouseX, glow1Y = mouseY;
-        let glow2X = mouseX, glow2Y = mouseY;
-
-        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-
-        function animateSwirl() {
-            glow1X += (mouseX - glow1X) * 0.08; glow1Y += (mouseY - glow1Y) * 0.08;
-            glow2X += (mouseX - glow2X) * 0.03; glow2Y += (mouseY - glow2Y) * 0.03;
-
-            const g1 = document.getElementById('glow-1'), g2 = document.getElementById('glow-2');
-            if(g1) { g1.style.left = glow1X + 'px'; g1.style.top = glow1Y + 'px'; }
-            if(g2) { g2.style.left = glow2X + 'px'; g2.style.top = glow2Y + 'px'; }
-            requestAnimationFrame(animateSwirl);
-        }
-
-        async function startDispatch() {
-            let isValid = true;
-            
-            const nameInput = document.getElementById("name");
-            const emailInput = document.getElementById("email");
-            const phoneInput = document.getElementById("phone");
-            
-            function markInvalid(el) { el.classList.add('input-error'); isValid = false; }
-
-            if(!nameInput.value) markInvalid(nameInput);
-            if(!emailInput.value || !emailInput.value.includes('@')) markInvalid(emailInput);
-            if(!phoneInput.value) markInvalid(phoneInput);
-            
-            document.querySelectorAll('.leg-row').forEach(l => {
-                const inputs = l.querySelectorAll('.airport-in');
-                const fDateIn = l.querySelector('.forward-date');
-                const rDateIn = l.querySelector('.return-date');
-                
-                inputs.forEach(inp => { if(!inp.dataset.code) markInvalid(inp); });
-                
-                if(!fDateIn.value) { 
-                    markInvalid(fDateIn); 
-                } else {
-                    const diff = (new Date(fDateIn.value) - new Date()) / 3600000;
-                    if(diff < 71.9) { 
-                        markInvalid(fDateIn);
-                        alert("For operational perfection, flights require 72 hours notice. Please select a valid date or contact our Concierge directly on WhatsApp for an emergency jet booking.");
-                    }
-                }
-
-                if (isRoundTrip) {
-                    if(!rDateIn.value) markInvalid(rDateIn);
-                    else if (fDateIn.value && new Date(rDateIn.value) <= new Date(fDateIn.value)) {
-                        markInvalid(rDateIn);
-                        alert("Return date and time must be after the forward flight date and time.");
-                    }
-                }
-            });
-
-            if(!isValid || currentTargetPrice === 0) {
-                const btn = document.getElementById('dispatch-btn');
-                btn.classList.add('btn-error');
-                setTimeout(() => btn.classList.remove('btn-error'), 400);
-                return;
-            }
-            
-            const name = nameInput.value, email = emailInput.value, phone = phoneInput.value;
-            
-            const ov = document.getElementById('processing-overlay'), bar = document.getElementById('p-bar'), step = document.getElementById('p-step');
-            ov.style.display = 'flex';
-            
-            const requestID = `15D-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
-            const payload = { 
-                name, email, phone,
-                request_id: requestID, ref_id: requestID,
-                total_estimate: Math.round(currentTargetPrice),
-                estimate_lower: Math.round(currentTargetPrice),
-                estimate_upper: Math.round(currentTargetPriceHigh),
-                aircraft: AIRCRAFT[document.getElementById('ac-class').value].label,
-                legs: activeLegsData,
-                timestamp: new Date().toISOString()
-            };
-
-            const steps = ["Validating Routing", "Preparing Executive Estimate", "Sending Details to Concierge"];
-            for(let i=0; i<steps.length; i++) {
-                step.innerText = steps[i]; bar.style.width = `${(i+1)*33}%`;
-                await new Promise(r => setTimeout(r, 600));
-            }
+            const userDiv = document.createElement('div');
+            userDiv.className = 'msg-user';
+            userDiv.textContent = text;
+            messages.appendChild(userDiv);
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
 
             try {
-                await fetch(INTAKE_WORKER_URL, { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) });
-                fetch(GAS_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+                const response = await fetch('https://voice.15d.name.ng/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+                const data = await response.json();
                 
-                if(SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-                    fetch(`${SUPABASE_URL}/rest/v1/missions`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
-                        body: JSON.stringify(payload)
-                    }).catch(e => console.error("Supabase sync failed silently.", e));
-                }
-            } catch (e) {}
-
-            serverMissionID = requestID;
-            document.getElementById('export-btn').classList.remove('opacity-50');
-            document.getElementById('conf-email').innerText = email;
-            document.getElementById('ref-id').innerText = `REQUEST ID: ${serverMissionID}`;
-            document.getElementById('ref-id-inline').innerText = serverMissionID;
-            document.getElementById('modal-success').style.display = 'flex';
-            ov.style.display = 'none';
-
-            // AUTOMATICALLY TRIGGER DOWNLOAD
-            generatePDF();
+                const botDiv = document.createElement('div');
+                botDiv.className = 'msg-bot';
+                botDiv.innerHTML = data.reply || "Communication relay successful. Decision pending.";
+                messages.appendChild(botDiv);
+                messages.scrollTop = messages.scrollHeight;
+            } catch (e) { console.error("Link error", e); }
         }
-
-        // I-FRAME SAFE COPY FUNCTION
-        function copyMissionId() {
-            if (!serverMissionID) return;
-            const textArea = document.createElement("textarea");
-            textArea.value = serverMissionID;
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                const btn = document.getElementById('copy-id-btn');
-                const orig = btn.innerText;
-                btn.innerText = "COPIED!";
-                btn.classList.add("text-green-400", "border-green-400");
-                setTimeout(() => {
-                    btn.innerText = orig;
-                    btn.classList.remove("text-green-400", "border-green-400");
-                }, 2000);
-            } catch (err) {
-                console.error('Copy failed', err);
-            }
-            document.body.removeChild(textArea);
-        }
-
-        // DIRECT VIP PORTAL INTEGRATION
-        function openVipPortal() {
-            if (!serverMissionID) return;
-            window.open(`https://portal.15dwings.com.ng/?ref_id=${serverMissionID}`, '_blank');
-        }
-
-        function generatePDF() {
-            const { jsPDF } = window.jspdf; const doc = new jsPDF();
-            const pageWidth = doc.internal.pageSize.getWidth(); const pageHeight = doc.internal.pageSize.getHeight();
-            const clientName = document.getElementById('name').value, clientEmail = document.getElementById('email').value;
-            const clientPhone = document.getElementById('phone').value, aircraftLabel = AIRCRAFT[document.getElementById('ac-class').value].label;
-            const issuanceDate = new Date().toLocaleString();
-
-            doc.saveGraphicsState(); doc.setGState(new doc.GState({ opacity: 0.1 }));
-            doc.setFontSize(60); doc.setTextColor(200);
-            doc.text("15D WINGS", pageWidth / 2, pageHeight / 2, { align: "center", angle: 45 });
-            doc.restoreGraphicsState();
-
-            doc.setFillColor(0, 0, 0); doc.rect(0, 0, pageWidth, 20, 'F');
-            doc.setTextColor(255); doc.setFontSize(10);
-            doc.text(`VIP FLIGHT ESTIMATE: ${serverMissionID}`, 15, 13);
-            doc.text(`ISSUED: ${issuanceDate}`, pageWidth - 15, 13, { align: 'right' });
-
-            doc.setTextColor(0); doc.setFontSize(24); doc.text("15D WINGS", 15, 40);
-            doc.setFontSize(9); doc.text("Premium Private Jet Services", 15, 47);
-            
-            doc.setFontSize(10); doc.text(`EXECUTIVE: ${clientName.toUpperCase()}`, 15, 60);
-            doc.setFontSize(8); doc.setTextColor(100);
-            doc.text(`EMAIL: ${clientEmail}`, 15, 65); doc.text(`PHONE: ${clientPhone}`, 15, 70);
-            doc.setTextColor(0, 0, 0); doc.setFont(undefined, 'bold');
-            doc.text(`AIRCRAFT: ${aircraftLabel.toUpperCase()}`, 15, 75);
-            doc.setFont(undefined, 'normal'); doc.setTextColor(100);
-            doc.text("21 Lugard Avenue, Ikoyi Lagos, Nigeria", 15, 80);
-
-            doc.autoTable({
-                startY: 90,
-                head: [['Flight Route', 'Date', 'Time', 'Estimated Cost (USD)']],
-                body: activeLegsData.map(l => [`${l.from} > ${l.to}`, l.date, l.time, `$${Math.round(l.cost).toLocaleString()}`]),
-                headStyles: { fillColor: [0, 0, 0] }, theme: 'striped'
-            });
-
-            const finalY = doc.lastAutoTable.finalY;
-            doc.setFontSize(14); doc.setTextColor(24, 119, 242);
-            doc.text(`ESTIMATED RANGE: $${Math.round(currentTargetPrice).toLocaleString()} - $${Math.round(currentTargetPriceHigh).toLocaleString()}`, 15, finalY + 15);
-
-            doc.setFontSize(9); doc.setTextColor(0); doc.setFont(undefined, 'bold');
-            doc.text('"Architects of Certainty in Private Aviation"', pageWidth / 2, finalY + 32, { align: 'center' });
-            
-            doc.setFont(undefined, 'italic'); doc.setFontSize(8); doc.setTextColor(80);
-            doc.text('"Certainty is not Hope, it is Engineered Readiness"', pageWidth / 2, finalY + 40, { align: 'center' });
-            
-            doc.setFont(undefined, 'normal'); doc.setFontSize(8); doc.setTextColor(100);
-            const encouragement = [
-                "This document provides a highly accurate market estimate for your requested route.",
-                "Please use your Request ID to log into the VIP portal at portal.15dwings.com.ng",
-                "to access your final quote and engineered outcomes.",
-                "Our Concierge team will contact you shortly to confirm and secure your booking."
-            ];
-            doc.text(encouragement, 15, finalY + 52);
-
-            doc.setFontSize(7); doc.setTextColor(150);
-            doc.text("24/7 SUPPORT: ops@15dwings.com.ng", 15, pageHeight - 15);
-            doc.text("15dwings.com.ng | 15D Wings | Sky Party LTD (RC 8997727)", pageWidth - 15, pageHeight - 15, { align: 'right' });
-            doc.text("TIN: 33695910-0001", pageWidth - 15, pageHeight - 11, { align: 'right' });
-
-            doc.save(`15D-WINGS-EXECUTIVE-ESTIMATE-${serverMissionID}.pdf`);
-        }
-
-        function handleExportClick() { if(serverMissionID) generatePDF(); else document.getElementById('export-error-msg').style.display = 'block'; }
-
-        let tourStep = 0;
-        const tourData = [
-            { title: "Instant VIP Estimates", desc: "No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.", target: "price-val" },
-            { title: "Jet Selection & Protocol", desc: "Your price updates automatically based on the jet selected. Please note we strictly require a 72-hour notice to perfectly prepare your jet for departure.", target: "ac-class" },
-            { title: "Dashboard Passcode", desc: "Upon submitting, your Flight Request ID (e.g., 15D-XXXXX) serves as your password key to log into portal.15dwings.com.ng. There, you can directly select premium Experiential Flights.", target: "dispatch-btn" }
-        ];
-
-        function checkFirstVisit() {
-            if (!sessionStorage.getItem('15d_tour_v2_completed')) {
-                document.getElementById('tour-overlay').style.display = 'flex';
-                updateTourUI();
-            }
-        }
-
-        updateTourUI = function() {
-            document.getElementById('tour-step-num').innerText = `Step ${tourStep + 1} of ${tourData.length}`;
-            document.getElementById('tour-title').innerText = tourData[tourStep].title;
-            document.getElementById('tour-desc').innerText = tourData[tourStep].desc;
-        }
-
-        function nextTourStep() {
-            tourStep++;
-            if (tourStep >= tourData.length) {
-                document.getElementById('tour-overlay').style.display = 'none';
-                sessionStorage.setItem('15d_tour_v2_completed', 'true');
-                return;
-            }
-            updateTourUI();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => { checkFirstVisit(); });
-        window.onload = () => { loadDB(); addLeg(); initMap(); syncPaxLogic(); animateSwirl(); };
     </script>
 </body>
 </html>
