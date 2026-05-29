@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>15D WINGS | COVENANT & PROTOCOL</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        fbblue: '#1877F2', 
+                        nearblack: '#030507', 
+                        luxurygray: '#F9FAFB',
+                        legalblue: '#0E59C2'
+                    },
+                    fontFamily: { 
+                        sync: ['Syncopate', 'sans-serif'], 
+                        monument: ['Monument Extended', 'sans-serif'], 
+                        lexend: ['Lexend', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body, html { margin: 0; padding: 0; background: #F9FAFB; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+        
+        /* TECH GRID WITH RADAR LINE */
+        .tech-grid {
+            background-image: linear-gradient(rgba(24, 119, 242, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 119, 242, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .radar-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(24, 119, 242, 0.25);
+            box-shadow: 0 0 15px rgba(24, 119, 242, 0.4);
+            z-index: 1000;
+            pointer-events: none;
+            animation: radar-sweep 8s linear infinite;
+        }
+
+        @keyframes radar-sweep {
+            0% { top: -5%; }
+            100% { top: 105%; }
+        }
+
+        /* LIGHTER, MORE SOPHISTICATED TYPOGRAPHY AS REQUESTED */
+        .title-monument { 
+            font-family: 'Monument Extended', sans-serif; 
+            font-weight: 500; /* Lighter weight for premium elegance */
+            line-height: 1.2; 
+            text-transform: uppercase; 
+            color: #030507; 
+            letter-spacing: 0.02em; 
+        }
+        
+        .ui-sync { 
+            font-family: 'Syncopate', sans-serif; 
+            text-transform: uppercase !important; 
+            letter-spacing: 0.18em; 
+            font-weight: 600; 
+        }
+
+        .body-lexend { 
+            font-family: 'Lexend', sans-serif; 
+            color: #374151; 
+            font-weight: 300; 
+            line-height: 1.7; 
+        }
+
+        .scrollbar-hidden::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hidden {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glow-border {
+            box-shadow: 0 0 0 1px rgba(24, 119, 242, 0.08);
+            transition: all 0.3s ease;
+        }
+        .glow-border:hover {
+            box-shadow: 0 0 12px rgba(24, 119, 242, 0.15);
+            border-color: rgba(24, 119, 242, 0.3);
+        }
+        
+        /* Custom Smooth Transitions */
+        .transition-all-custom {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="bg-[#F9FAFB] text-nearblack body-lexend text-sm md:text-base selection:bg-fbblue/20">
+
+    <div class="radar-line"></div>
+
+    <!-- Sticky Navigation -->
+    <nav class="fixed top-0 w-full z-[100] py-4 px-6 md:px-10 flex justify-between items-center bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="flex items-center space-x-3">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-5 md:h-6" alt="15D Wings">
+            <span class="text-gray-300 hidden md:inline">|</span>
+            <span class="ui-sync text-[8px] text-gray-400 tracking-widest hidden md:inline">LEGAL FRAMEWORK</span>
+        </div>
+        
+        <!-- Toggle System Controls -->
+        <div class="flex bg-gray-100 p-1 rounded-none space-x-1 border border-gray-200">
+            <button onclick="switchTab('tos')" id="btn-tos" class="px-3 md:px-5 py-1.5 text-[9px] md:text-[10px] ui-sync transition-all-custom bg-white text-fbblue shadow-sm">
+                Terms of Service
+            </button>
+            <button onclick="switchTab('privacy')" id="btn-privacy" class="px-3 md:px-5 py-1.5 text-[9px] md:text-[10px] ui-sync transition-all-custom text-gray-500 hover:text-nearblack">
+                Privacy Policy
+            </button>
+        </div>
+
+        <a href="https://wings.15d.name.ng/flight-request" class="ui-sync text-[7px] md:text-[8px] bg-fbblue text-white px-3 md:px-5 py-2.5 hover:bg-nearblack transition duration-300">
+            REQUEST FLIGHT
+        </a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="tech-grid min-h-screen pt-24 md:pt-36 pb-20 px-4 md:px-10 max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Sidebar Navigation / Filter Pane -->
+        <div class="lg:col-span-3 lg:sticky lg:top-36 h-fit space-y-6">
+            
+            <!-- Context Header Card -->
+            <div class="bg-white p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-fbblue"></div>
+                <p class="ui-sync text-[9px] text-fbblue mb-2">SYSTEM OPERATOR</p>
+                <h3 class="title-monument text-lg tracking-wider">15D WINGS</h3>
+                <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                    Trading name of <strong>Sky Party LTD</strong> (RC 8997727). Registered aviation oversight & risk management infrastructure.
+                </p>
+                <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-400">
+                    <span>Revision: 2026.04</span>
+                    <span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                </div>
+            </div>
+
+            <!-- Stakeholder Filter Controls -->
+            <div class="bg-white p-6 border border-gray-100 shadow-sm">
+                <p class="ui-sync text-[9px] text-gray-400 mb-4 tracking-wider">FILTER BY STAKEHOLDER</p>
+                <div class="space-y-2" id="filter-controls">
+                    <button onclick="filterContent('all')" class="w-full text-left px-3 py-2 text-xs ui-sync flex justify-between items-center bg-gray-50 border-l-2 border-fbblue text-nearblack font-semibold" id="filter-all">
+                        <span>Show All Clauses</span>
+                        <span class="text-[9px] bg-gray-200 text-gray-600 px-1.5 py-0.5 rounded">All</span>
+                    </button>
+                    <button onclick="filterContent('client')" class="w-full text-left px-3 py-2 text-xs ui-sync flex justify-between items-center hover:bg-gray-50 border-l-2 border-transparent text-gray-500 hover:text-nearblack" id="filter-client">
+                        <span>Clients & PAs</span>
+                        <span class="text-[9px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">Client</span>
+                    </button>
+                    <button onclick="filterContent('operator')" class="w-full text-left px-3 py-2 text-xs ui-sync flex justify-between items-center hover:bg-gray-50 border-l-2 border-transparent text-gray-500 hover:text-nearblack" id="filter-operator">
+                        <span>Aircraft Operators</span>
+                        <span class="text-[9px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded font-mono">Carrier</span>
+                    </button>
+                    <button onclick="filterContent('broker')" class="w-full text-left px-3 py-2 text-xs ui-sync flex justify-between items-center hover:bg-gray-50 border-l-2 border-transparent text-gray-500 hover:text-nearblack" id="filter-broker">
+                        <span>Brokers & Agents</span>
+                        <span class="text-[9px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded">Agent</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Anchor Index (Populates dynamically/semi-dynamically) -->
+            <div class="bg-white p-6 border border-gray-100 shadow-sm">
+                <p class="ui-sync text-[9px] text-gray-400 mb-3 tracking-wider">SECTION ANCHORS</p>
+                <div class="space-y-2 text-xs text-gray-500" id="anchor-list">
+                    <!-- Dynamic anchors will show depending on selected document -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Document View Panel -->
+        <div class="lg:col-span-9 bg-white p-6 md:p-12 border border-gray-100 shadow-sm relative">
+            
+            <!-- Document 1: TERMS OF SERVICE -->
+            <article id="doc-tos" class="space-y-16">
+                
+                <header class="border-b border-gray-100 pb-8">
+                    <span class="text-xs ui-sync text-fbblue bg-blue-50 px-2.5 py-1 inline-block mb-4">LEGAL COVENANT</span>
+                    <h1 class="title-monument text-2xl md:text-4xl text-nearblack tracking-wide">Terms of Service</h1>
+                    <p class="text-xs text-gray-400 mt-2">EFFECTIVE DATE: MARCH 29, 2026 | CONTRACTUAL REVISION 26-B</p>
+                </header>
+
+                <!-- Preamble / Introduction -->
+                <section class="space-y-4 filter-target" data-stakeholders="all client operator broker">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">1.0 Preamble & Operating Capacity</h2>
+                    <p class="leading-relaxed text-gray-600 font-light text-base">
+                        This document constitutes a binding, binary operational agreement governing all users, charterers, personal assistants, brokers, and registered air carriers (the "Operators") interacting with the <strong>15D Wings</strong> dispatch oversight engine. 15D Wings is a proprietary mission control system and trading style owned and operated by <strong>Sky Party LTD</strong> (RC 8997727), registered under the laws of the Federal Republic of Nigeria.
+                    </p>
+                    <p class="leading-relaxed text-gray-600 font-light text-base">
+                        <strong>Important Clarification:</strong> 15D Wings is <strong>not a direct air carrier</strong>. It does not own, maintain, or operate aircraft. The platform acts as an architectural safety network and mission-management coordinator that validates, monitors, and optimizes private and commercial flight dispatch commands. All flights are physically performed by civil aviation-authorized direct air carriers holding valid Air Operator Certificates (AOC).
+                    </p>
+                </section>
+
+                <!-- Five-Pillar Operations Grid -->
+                <section class="space-y-6 filter-target" data-stakeholders="all client operator">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">2.0 The Five-Pillar Integrity Model</h2>
+                    <p class="leading-relaxed text-gray-600 font-light text-base">
+                        To maintain absolute flight integrity, our platform measures operational viability through five independent metrics. Failure in any single pillar triggers automated system alerts and potential dispatch holds.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-6">
+                        <div class="border border-gray-100 p-4 bg-gray-50/50">
+                            <span class="text-fbblue font-bold block mb-1">01. Permits</span>
+                            <p class="text-xs text-gray-500">Legal civil aviation clearances (overflights, slots, and landing permissions).</p>
+                        </div>
+                        <div class="border border-gray-100 p-4 bg-gray-50/50">
+                            <span class="text-fbblue font-bold block mb-1">02. Aircraft</span>
+                            <p class="text-xs text-gray-500">Physical positioning, mechanical flight release status, and technical log integrity.</p>
+                        </div>
+                        <div class="border border-gray-100 p-4 bg-gray-50/50">
+                            <span class="text-fbblue font-bold block mb-1">03. Crew</span>
+                            <p class="text-xs text-gray-500">Certified crew physical duty limitations, licenses, and verified on-site presence.</p>
+                        </div>
+                        <div class="border border-gray-100 p-4 bg-gray-50/50">
+                            <span class="text-fbblue font-bold block mb-1">04. Fuel</span>
+                            <p class="text-xs text-gray-500">Documentary verification of fuel commitment, Supplier Invoices, or Fuel Release Numbers (FRN).</p>
+                        </div>
+                        <div class="border border-gray-100 p-4 bg-gray-50/50">
+                            <span class="text-fbblue font-bold block mb-1">05. Payment</span>
+                            <p class="text-xs text-gray-500">Fully cleared, verified financial settlement residing within designated escrow/accounts.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Client-Side Rules & Manifest Data -->
+                <section class="space-y-6 filter-target" data-stakeholders="all client">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">3.0 Client & Personal Assistant Responsibilities</h2>
+                    <div class="space-y-4 text-gray-600 font-light text-base">
+                        <div class="border-b border-gray-100 pb-4">
+                            <h3 class="font-semibold text-nearblack mb-1">3.1 Strict Manifest Integrity & Document Validity</h3>
+                            <p>
+                                Clients and their authorized agents are legally bound to submit comprehensive, accurate manifest details for all passengers. Under NCAA and FAAN security protocols, names must match passport/ID data <strong>exactly</strong> as displayed on the Machine Readable Zone (MRZ). Any mismatches will result in boarding denial.
+                            </p>
+                            <p class="text-xs text-red-600 mt-2 font-mono">
+                                * The "6-Month Rule" is Absolute: Passport must be valid for 6 months beyond the arrival date. No exceptions are logged.
+                            </p>
+                        </div>
+                        <div class="border-b border-gray-100 pb-4">
+                            <h3 class="font-semibold text-nearblack mb-1">3.2 Passenger Roster Adjustments (No Last-Minute Swaps)</h3>
+                            <p>
+                                Unlike commercial ticket adjustments, private aviation manifests require formal airspace agency registration (NAMA in Nigeria). Any passenger roster change requested within <strong>24 hours</strong> of scheduled departure requires full refiling, exposing the mission to immediate 45- to 90-minute slot delays. The system reserves the right to deny last-minute additions to prevent cascading route delays.
+                            </p>
+                        </div>
+                        <div class="border-b border-gray-100 pb-4">
+                            <h3 class="font-semibold text-nearblack mb-1">3.3 Financial Settlement Timelines</h3>
+                            <p>
+                                Mission payment must be fully cleared and visible in our account by <strong>T-48 Hours</strong> before departure. "Proof of transfer" slips, pending bank drafts, or conversion notices are <strong>not</strong> accepted as cleared funds. Failure to settle balance gates at T-48 initiates an automated system-wide abort sequence or immediate fallback-allocation procedures.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-nearblack mb-1">3.4 Cancellation Policies & Flight Credits</h3>
+                            <p>
+                                Voluntary client-side cancellations result in standard asset fees being processed as <strong>Flight Credits</strong> inside our operator network. Planning and advisory administrative fees accrued during the mission initiation stage (typically 10-15% of flight logistics value) are deemed **fully earned** at T-48 and are non-refundable.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Operator Tiers, Triggers & Obligations -->
+                <section class="space-y-6 filter-target" data-stakeholders="all operator">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">4.0 Operator Code & Activation Tiers</h2>
+                    <div class="space-y-4 text-gray-600 font-light text-base">
+                        <p>
+                            Operators inside the 15D Wings ecosystem are categorized into three structured activation levels. Higher tiers carry binding performance duties:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs my-4">
+                            <div class="p-4 bg-gray-50 border border-gray-100">
+                                <span class="text-gray-500 font-bold block mb-1">TIER 1: SOFT HOLD</span>
+                                <span>No technical routing committed. Early stage mission planning and positioning mapping. No financial obligation.</span>
+                            </div>
+                            <div class="p-4 bg-gray-50 border border-gray-100">
+                                <span class="text-orange-500 font-bold block mb-1">TIER 2: WARM ACTIVATION</span>
+                                <span>Crew alerted, tail position noted. Permit submission queue initialized. Basic operator coordination overhead reimbursed if halted.</span>
+                            </div>
+                            <div class="p-4 bg-gray-50 border border-gray-100">
+                                <span class="text-red-500 font-bold block mb-1">TIER 3: FULL ACTIVATION</span>
+                                <span>Aircraft locked, crew duty hours ticking, physical landing permits assigned. Real funds fully committed under non-retractable guarantees.</span>
+                            </div>
+                        </div>
+
+                        <div class="border-b border-gray-100 pb-4">
+                            <h3 class="font-semibold text-nearblack mb-1">4.1 Mandatory Written-Only Communication</h3>
+                            <p>
+                                Verbal authorizations, phone declarations, or voice notes regarding fleet status, crew readiness, or maintenance compliance are contractually invalid. To maintain traceability, operators must issue explicit written status reports. Voice logs must be backed up by email or systemic textual declarations within 10 minutes.
+                            </p>
+                        </div>
+
+                        <div class="border-b border-gray-100 pb-4">
+                            <h3 class="font-semibold text-nearblack mb-1">4.2 Automated Pivot Triggers (Ecosystem Circuit Breakers)</h3>
+                            <p>
+                                The platform enforces automated operational "circuit breakers." A system-initiated **Pivot to Secondary Asset** occurs immediately, without exception, under the following circumstances:
+                            </p>
+                            <ul class="list-disc pl-5 space-y-2 mt-2 font-mono text-xs text-red-700 bg-red-50/50 p-4 border border-red-100">
+                                <li><strong>Permit Delay Trigger:</strong> Landing or overflight permits unreleased at T-72 for international missions.</li>
+                                <li><strong>Slot Trigger:</strong> NAMA slot domestic confirmation is unconfirmed or remains strictly verbal at T-48.</li>
+                                <li><strong>Crew Legality Lock (T-24):</strong> Crew return legs reliant on unauthorized duty extensions, manual crew discretion sheets, or unpositioned relief crew.</li>
+                                <li><strong>Crew Physical Presence (T-12):</strong> Pilot-in-Command (PIC) or First Officer (FO) are not in the departure city at T-12.</li>
+                                <li><strong>PIC Responsiveness:</strong> Flight crew / PIC fails to reply to direct platform operations query with binary "YES" or "NO" within 15 minutes.</li>
+                                <li><strong>Divergent Reporting:</strong> Technical operators and ground crews issue conflicting diagnostic or positional reports that remain unresolved for 10 minutes.</li>
+                                <li><strong>Fuel Release Gate:</strong> Failure to provide a verified Fuel Release Number (FRN) or valid receipt confirmations by T-6.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold text-nearblack mb-1">4.3 Strict Anti-Renegotiation Protections</h3>
+                            <p>
+                                Any attempt by an Operator to modify pricing models, insert fuel surcharges, adjust aircraft tail numbers without formal structural consent, or alter general terms after Tier 3 lock will result in immediate programmatic freeze of the mission, routing to the designated Shadow Asset, and systemic review of the Operator's regional certification standing.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Broker-Specific Provisions -->
+                <section class="space-y-6 filter-target" data-stakeholders="all broker">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">5.0 Broker & Intermediary Protocols</h2>
+                    <div class="space-y-4 text-gray-600 font-light text-base">
+                        <p>
+                            Third-party retail brokers, lifestyle agencies, and family office representatives must abide by these strict compliance rails:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>White-Label Communication:</strong> Brokers must declare passenger profiles and secure digital forms immediately. Hiding proxy identities from regional security lists (NAMA/FAAN/NCAA) is illegal.</li>
+                            <li><strong>Client-Side Escrow Integrity:</strong> Brokers must mirror our strict payment visibility gates. If the client funds do not clear the broker's platform in time to settle our T-48 threshold, the system triggers the automatic pivot protocol.</li>
+                            <li><strong>Accurate Agency Data Inputs:</strong> Brokers hold primary legal liability for any miskeyed alphanumeric passport details, expired visa details, or missing customs addresses (P.O. Boxes are strictly invalid for APIS systems).</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Fuel Assurance Protocols -->
+                <section class="space-y-6 filter-target" data-stakeholders="all operator broker">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">6.0 Fuel Assurance & Operational Verification</h2>
+                    <div class="space-y-4 text-gray-600 font-light text-base">
+                        <p>
+                            Jet A-1 fuel availability in Nigeria and specific international destination ramps is designated a core system risk. Our Ground Intelligence network evaluates fuel readiness in structured stages:
+                        </p>
+                        <div class="border-l-2 border-fbblue pl-4 py-2 font-mono text-xs space-y-2">
+                            <p><strong>T-12 Hours:</strong> Operational status is set to PENDING upon upload of valid supplier proforma/invoice.</p>
+                            <p><strong>T-6 Hours:</strong> Status rises to CONFIRMED when a unique Fuel Release Number (FRN) from accredited vendors (e.g., TotalEnergies, Ardova, Oando, Shell Aviation) is entered.</p>
+                            <p><strong>T-1 Hour:</strong> Status rises to VERIFIED upon digital confirmation of fuel truck dispatch.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- System Authority & Liability Limits -->
+                <section class="space-y-6 filter-target" data-stakeholders="all client operator broker">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">7.0 Limits of Liability & Absolute System Rule</h2>
+                    <div class="space-y-4 text-gray-600 font-light text-base">
+                        <div class="p-4 bg-gray-50 border border-gray-100 font-mono text-xs">
+                            <strong>THE SYSTEM RULE:</strong> "If any critical verification, dispute, or explanation requires more than 2 minutes to resolve physically or verbally, the mission command architecture automatically triggers a secondary pivot. Redundancy bypasses debate."
+                        </div>
+                        <p>
+                            <strong>Aviation Safety Indemnity:</strong> Under no circumstances shall Sky Party LTD, 15D Wings, or their respective directors, crew, or ground intelligence agents be held liable for third-party operator failures, meteorological delays, physical runway restrictions, regional slot shutdowns, or automated trigger activation events.
+                        </p>
+                    </div>
+                </section>
+
+            </article>
+
+            <!-- Document 2: PRIVACY POLICY -->
+            <article id="doc-privacy" class="space-y-16 hidden">
+                
+                <header class="border-b border-gray-100 pb-8">
+                    <span class="text-xs ui-sync text-fbblue bg-blue-50 px-2.5 py-1 inline-block mb-4">DATA PROTOCOL</span>
+                    <h1 class="title-monument text-2xl md:text-4xl text-nearblack tracking-wide">Privacy Policy & Secure Data Manifesto</h1>
+                    <p class="text-xs text-gray-400 mt-2">LAST UPDATED: MARCH 29, 2026 | NDPR & GDPR ENHANCED COMPLIANCE</p>
+                </header>
+
+                <!-- Data Protection Framework -->
+                <section class="space-y-4 filter-target" data-stakeholders="all client operator broker">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">1.0 Data Protection Framework & Jurisdiction</h2>
+                    <p class="leading-relaxed text-gray-600 font-light text-base">
+                        Because premium aviation manifests require highly sensitive Passenger Identifiable Information (PII), we maintain strict digital compliance frameworks aligned with the <strong>Nigeria Data Protection Regulation (NDPR)</strong>, the <strong>General Data Protection Regulation (GDPR)</strong> in Europe, and national security directives governing global <strong>Advance Passenger Information Systems (APIS)</strong>.
+                    </p>
+                </section>
+
+                <!-- Data Ingestion Pipelines & MRZ Scanning -->
+                <section class="space-y-6 filter-target" data-stakeholders="all client">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">2.0 Types of Data Captured & Use Contexts</h2>
+                    <p class="leading-relaxed text-gray-600 font-light text-base">
+                        To fulfill border control, FAA flight plans, and executive manifest requests, our systems securely capture and route the following elements:
+                    </p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600 font-light">
+                        <li><strong>Primary Identification Data:</strong> Full legal surname, given names, date of birth, gender, and nationality.</li>
+                        <li><strong>APIS Documents:</strong> High-resolution physical passport scans, passport number, expiration dates, visas, physical destination address, and legal country of permanent residence.</li>
+                        <li><strong>VVIP Health and Safety Declarations:</strong> Yellow Fever Vaccination statuses, active bio-security declarations, and direct dietary allergen metrics.</li>
+                        <li><strong>Luggage and Cargo Metrics:</strong> Physical weight, scale dimensions, and operational characteristics of accompanying pets or cargo packages.</li>
+                    </ul>
+                </section>
+
+                <!-- Transmission Rules & Encryption Guardrails -->
+                <section class="space-y-6 filter-target" data-stakeholders="all client broker">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">3.0 Strict Digital Security Mandates</h2>
+                    <div class="space-y-4 text-gray-600 font-light text-base">
+                        <div class="p-4 bg-red-50 border border-red-100 text-red-800 text-xs font-mono">
+                            <strong>ANTI-PLAINTEXT TRANSMISSION BAN:</strong> Passenger passport details, personal addresses, or payment parameters must *never* be sent via plain text SMS, normal iMessage, or unencrypted email chains.
+                        </div>
+                        <p>
+                            Our platform utilizes three secure, encrypted methodologies to gather passenger files safely:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
+                            <div class="border border-gray-100 p-5 bg-white shadow-sm">
+                                <span class="text-fbblue font-bold block mb-2">01. Secure Client Portal</span>
+                                <p class="text-xs text-gray-500">Encrypted transmission pipeline (SSL/TLS 1.3) utilizing optical-character reading engines to directly process passport scans into flight databases without raw persistent storage.</p>
+                            </div>
+                            <div class="border border-gray-100 p-5 bg-white shadow-sm">
+                                <span class="text-fbblue font-bold block mb-2">02. Locked Spreadsheets</span>
+                                <p class="text-xs text-gray-500">Password-protected templates requiring PAs or family offices to submit encrypted Excel files, with access passwords issued via independent communication lines.</p>
+                            </div>
+                            <div class="border border-gray-100 p-5 bg-white shadow-sm">
+                                <span class="text-fbblue font-bold block mb-2">03. Physical "Conci-Scan"</span>
+                                <p class="text-xs text-gray-500">In-person optical MRZ scanning via enterprise biometric tablets. Data is immediately populated into our CRM; no physical paper copies are kept.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Third Party Sharing Policies -->
+                <section class="space-y-6 filter-target" data-stakeholders="all operator broker">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">4.0 Third-Party Sharing Rules & Customs Clearances</h2>
+                    <p class="leading-relaxed text-gray-600 font-light text-base">
+                        Data is shared strictly on a **need-to-know, operational basis** with:
+                    </p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600 font-light">
+                        <li><strong>Civil Aviation Regulators:</strong> NAMA, NCAA, FAAN (Nigeria), and their international counterparts (e.g., FAA, US CBP, Transport Canada) for regulatory manifest checks.</li>
+                        <li><strong>Direct Aircraft Crew:</strong> The Captain/PIC receives the mandatory physical manifest grid as part of the weight and balance package.</li>
+                        <li><strong>FBO & VIP Protocol Teams:</strong> Ground handling agents receive passenger names and transport profiles to secure tarmac clearances.</li>
+                    </ul>
+                </section>
+
+                <!-- Data Retention & Deletion Laws -->
+                <section class="space-y-6 filter-target" data-stakeholders="all client">
+                    <h2 class="ui-sync text-xs text-fbblue border-l-2 border-fbblue pl-3">5.0 Storage Retention & Deletion Rights</h2>
+                    <p class="leading-relaxed text-gray-600 font-light text-base">
+                        All manifest data uploaded is automatically deleted or anonymized inside our core mission platform within <strong>30 days</strong> of post-flight logs, save for mandatory tax records or FAA structural archives. Passenger representatives may request complete database expungement at any point by reaching out to our Data Protection Officer at <strong class="text-nearblack font-semibold">concierge@15dwings.com.ng</strong>.
+                    </p>
+                </section>
+
+            </article>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-10 px-6 border-t border-gray-100 bg-white">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-xs text-gray-400">
+            <div class="flex items-center space-x-3">
+                <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-4" alt="15D Wings">
+                <span>© 2026 Sky Party LTD RC 8997727. All Rights Reserved.</span>
+            </div>
+            <div class="flex space-x-6 ui-sync text-[8px]">
+                <span class="text-fbblue">ARCHITECTS OF CERTAINTY</span>
+                <a href="mailto:concierge@15dwings.com.ng" class="hover:text-nearblack transition">CONTACT OPERATIONS</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Logic -->
+    <script>
+        const anchorsData = {
+            tos: [
+                { id: "1.0", label: "Operating Capacity", text: "1.0 Preamble" },
+                { id: "2.0", label: "Five-Pillar Model", text: "2.0 Pillars" },
+                { id: "3.0", label: "Client Requirements", text: "3.0 Clients" },
+                { id: "4.0", label: "Operator Triggers", text: "4.0 Operators" },
+                { id: "5.0", label: "Broker Protocols", text: "5.0 Brokers" },
+                { id: "6.0", label: "Fuel Assurance Rules", text: "6.0 Fuel" },
+                { id: "7.0", label: "Limits of Liability", text: "7.0 Indemnity" }
+            ],
+            privacy: [
+                { id: "1.0", label: "Data Jurisdiction", text: "1.0 Framework" },
+                { id: "2.0", label: "Captured Datatypes", text: "2.0 Information" },
+                { id: "3.0", label: "Security & Encryption", text: "3.0 Protection" },
+                { id: "4.0", label: "Regulatory Sharing", text: "4.0 Clearances" },
+                { id: "5.0", label: "Storage & Retention", text: "5.0 Retention" }
+            ]
+        };
+
+        let currentTab = 'tos';
+        let currentFilter = 'all';
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            const tosBtn = document.getElementById('btn-tos');
+            const privacyBtn = document.getElementById('btn-privacy');
+            const tosDoc = document.getElementById('doc-tos');
+            const privacyDoc = document.getElementById('doc-privacy');
+
+            // Toggle styling of control buttons
+            if (tabId === 'tos') {
+                tosBtn.className = "px-3 md:px-5 py-1.5 text-[9px] md:text-[10px] ui-sync transition-all-custom bg-white text-fbblue shadow-sm";
+                privacyBtn.className = "px-3 md:px-5 py-1.5 text-[9px] md:text-[10px] ui-sync transition-all-custom text-gray-500 hover:text-nearblack";
+                tosDoc.classList.remove('hidden');
+                privacyDoc.classList.add('hidden');
+            } else {
+                privacyBtn.className = "px-3 md:px-5 py-1.5 text-[9px] md:text-[10px] ui-sync transition-all-custom bg-white text-fbblue shadow-sm";
+                tosBtn.className = "px-3 md:px-5 py-1.5 text-[9px] md:text-[10px] ui-sync transition-all-custom text-gray-500 hover:text-nearblack";
+                privacyDoc.classList.remove('hidden');
+                tosDoc.classList.add('hidden');
+            }
+
+            renderAnchors();
+            filterContent(currentFilter); // Reapply current filter context
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderAnchors() {
+            const container = document.getElementById('anchor-list');
+            container.innerHTML = '';
+            
+            anchorsData[currentTab].forEach(anchor => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left py-1 hover:text-fbblue transition block border-b border-gray-50 pb-1.5 truncate";
+                btn.innerHTML = `<span class="font-mono text-fbblue mr-1">${anchor.id}</span> ${anchor.label}`;
+                
+                // Native smooth scrolling mechanism
+                btn.onclick = () => {
+                    const sections = document.querySelectorAll(`#doc-${currentTab} h2`);
+                    for (let s of sections) {
+                        if (s.textContent.includes(anchor.id)) {
+                            s.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            break;
+                        }
+                    }
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function filterContent(stakeholder) {
+            currentFilter = stakeholder;
+            
+            // Set active states on buttons
+            const buttons = ['all', 'client', 'operator', 'broker'];
+            buttons.forEach(btnId => {
+                const element = document.getElementById(`filter-${btnId}`);
+                if (btnId === stakeholder) {
+                    element.className = "w-full text-left px-3 py-2 text-xs ui-sync flex justify-between items-center bg-gray-100 border-l-2 border-fbblue text-nearblack font-semibold";
+                } else {
+                    element.className = "w-full text-left px-3 py-2 text-xs ui-sync flex justify-between items-center hover:bg-gray-50 border-l-2 border-transparent text-gray-500 hover:text-nearblack";
+                }
+            });
+
+            // Show/Hide specific content blocks
+            const blocks = document.querySelectorAll('.filter-target');
+            blocks.forEach(block => {
+                const targets = block.getAttribute('data-stakeholders').split(' ');
+                if (stakeholder === 'all' || targets.includes(stakeholder)) {
+                    block.style.display = 'block';
+                    block.classList.add('opacity-100');
+                } else {
+                    block.style.display = 'none';
+                    block.classList.remove('opacity-100');
+                }
+            });
+        }
+
+        // Initialize view on load
+        window.onload = function() {
+            renderAnchors();
+            filterContent('all');
+        }
+    </script>
+</body>
+</html>
