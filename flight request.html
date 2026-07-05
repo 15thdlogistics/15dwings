@@ -2,44 +2,69 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>15D WINGS | VIP Flight Booking v8.0.2</title>
+    <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fbblue: '#1877F2',
+                        royalpurple: '#8B5CF6',
+                        opsdark: '#11162b',
+                        slateice: '#F8FAFC',
+                        techgray: '#64748B'
+                    },
+                    fontFamily: { 
+                        monument: ['"Monument Extended"', 'Impact', 'sans-serif'], 
+                        lexend: ['Lexend', 'sans-serif'],
+                        syncopate: ['Syncopate', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         :root {
-            /* PERMANENT DARK THEME AS THE ABSOLUTE DEFAULT */
-            --bg-main: #090d16;
+            /* REFINED BACKDROP */
+            --bg-main: #11162b;
             
-            /* REDUCED OPACITY BY 20% (from 0.75 to 0.55) FOR INCREDIBLE VIDEO VISIBILITY */
-            --glass: rgba(15, 23, 42, 0.55); 
+            /* BRIGHTER TRANSPARENT GLASS FOR HIGHER LUMINESCENCE */
+            --glass: rgba(28, 40, 76, 0.62); 
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-border-bottom: rgba(255, 255, 255, 0.12);
             
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-border-bottom: rgba(255, 255, 255, 0.10);
-            
-            /* ADJUSTED INPUTS BY 20% FOR CONTINUOUS DYNAMIC PASS-THROUGH VISIBILITY */
-            --input-bg: rgba(15, 23, 42, 0.70);
-            --input-border: rgba(255, 255, 255, 0.35);
+            /* DYNAMIC INPUT COHESION */
+            --input-bg: rgba(14, 22, 46, 0.75);
+            --input-border: rgba(24, 119, 242, 0.45);
 
             --text-main: #f8fafc; /* Crisp Slate 50 */
-            --text-soft: #cbd5e1; /* Slate 300 secondary text */
-            --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.40);
+            --text-soft: #cbd5e1; /* Soft slate secondary */
             
-            /* ADJUSTED INTERNAL PANELS BY 20% FOR VISUAL COHESION */
-            --disclaimer-bg: rgba(15, 23, 42, 0.65);
+            /* ACCENTS */
+            --accent: #1877F2;
+            --accent-glow: rgba(24, 119, 242, 0.45);
+            --purple-accent: #8B5CF6;
+            
+            --disclaimer-bg: rgba(18, 27, 54, 0.78);
             --disclaimer-text: #f8fafc;
-            --modal-bg: #090d16;
+            --modal-bg: #11162b;
             
-            --glow-primary: rgba(56, 189, 248, 0.15);
-            --glow-secondary: rgba(37, 99, 235, 0.10);
+            /* INTENSIFIED ORBS FOR BRIGHTER AMBIENCE */
+            --glow-primary: rgba(24, 119, 242, 0.28);
+            --glow-secondary: rgba(139, 92, 246, 0.24);
             
-            --overlay-bg: rgba(9, 13, 22, 0.99);
+            --overlay-bg: rgba(13, 18, 36, 0.98);
         }
 
         body {
@@ -58,23 +83,35 @@
             font-weight: 400 !important;
         }
 
-        /* GUARANTEED HIGH-CONTRAST PLACEHOLDERS IN LEXEND SENTENCE CASE */
+        /* SYNCOPATE STYLING FOR BRAND UPPERCASE GUIDES - STRICTLY UPPERCASE ENFORCED */
+        .syncopate-uppercase {
+            font-family: 'Syncopate', sans-serif !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.12em;
+        }
+
+        /* LEXEND ENFORCEMENT ON GENERAL INTERFACES */
+        .lexend-text {
+            font-family: 'Lexend', sans-serif !important;
+        }
+
+        /* GUARANTEED HIGH-CONTRAST PLACEHOLDERS */
         ::-webkit-input-placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
         ::-moz-placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
         :-ms-input-placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
         ::placeholder { color: var(--text-soft) !important; font-weight: 500; opacity: 0.85 !important; }
 
-        /* FORCE NATIVE CALENDAR/DATE ICON TO BE CRISP WHITE */
+        /* CRISP WHITE DATE INDICATOR */
         input[type="datetime-local"]::-webkit-calendar-picker-indicator {
             filter: invert(1) brightness(100%);
             cursor: pointer;
-            opacity: 0.9;
+            opacity: 0.85;
         }
         input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
             opacity: 1;
         }
 
-        /* CINEMATIC VIDEO BACKGROUND - REVEALED VIVIDLY */
+        /* CINEMATIC VIDEO BACKGROUND */
         .bg-video {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -83,52 +120,53 @@
             z-index: -2;
             object-fit: cover;
             pointer-events: none;
-            opacity: 0.55;
-            filter: grayscale(30%) brightness(0.7);
+            opacity: 0.75;
+            filter: grayscale(0%) brightness(0.65) contrast(1.15);
         }
 
+        /* ORBITING DOCK GLOWS */
         .bg-swirl {
             position: fixed;
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
-            filter: blur(120px);
+            filter: blur(130px);
             will-change: transform, left, top;
         }
         
         #glow-1 { width: 50vw; height: 50vw; background: var(--glow-primary); transform: translate(-50%, -50%); }
-        #glow-2 { width: 60vw; height: 60vw; background: var(--glow-secondary); animation: orb-spin 12s infinite linear; }
+        #glow-2 { width: 55vw; height: 55vw; background: var(--glow-secondary); animation: orb-spin 16s infinite linear; }
 
         @keyframes orb-spin {
-            from { transform: translate(-50%, -50%) rotate(0deg) translateX(10%); }
-            to { transform: translate(-50%, -50%) rotate(360deg) translateX(10%); }
+            from { transform: translate(-50%, -50%) rotate(0deg) translateX(8%); }
+            to { transform: translate(-50%, -50%) rotate(360deg) translateX(8%); }
         }
 
-        /* REFRACTED GLASS PANELS WITH ROBUST CONTRAST STRUCTURE */
+        /* ULTRA-PREMIUM CRISP GLASS PANEL */
         .glass-panel {
             background: var(--glass);
-            backdrop-filter: blur(80px) saturate(180%);
-            -webkit-backdrop-filter: blur(80px) saturate(180%);
-            border-top: 2.5px solid var(--glass-border);
-            border-left: 2.5px solid var(--glass-border);
-            border-right: 1.5px solid var(--glass-border-bottom);
-            border-bottom: 1.5px solid var(--glass-border-bottom);
-            border-radius: 26px;
-            box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            backdrop-filter: blur(16px) saturate(150%);
+            -webkit-backdrop-filter: blur(16px) saturate(150%);
+            border-top: 1.5px solid var(--glass-border);
+            border-left: 1.5px solid var(--glass-border);
+            border-right: 1px solid var(--glass-border-bottom);
+            border-bottom: 1px solid var(--glass-border-bottom);
+            border-radius: 28px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.12);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* HIGH-AFFORDANCE INTERACTIVE FIELDS - SENTENCE CASE SENSITIVE */
+        /* CRISP INPUT FIELD DESIGN */
         .input-pill {
             background: var(--input-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 2px solid var(--input-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--input-border);
             border-radius: 18px;
-            padding: 16px 20px;
+            padding: 16px 22px;
             color: var(--text-main);
             width: 100%;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             font-size: 0.95rem;
             font-weight: 500;
             outline: none;
@@ -136,92 +174,112 @@
         }
         .input-pill:focus { 
             border-color: var(--accent); 
-            background: #0f172a; 
+            background: rgba(18, 27, 54, 0.95); 
             box-shadow: 0 0 0 4px var(--accent-glow), inset 0 2px 4px rgba(0,0,0,0.15); 
         }
 
-        /* THE CHOSEN PRIMARY ACCENT FOR COST */
+        /* PRIMARY CHOSEN ACCENT FOR COST */
         .price-text {
             font-size: 3.5rem;
             font-weight: 700;
-            color: var(--accent);
+            color: var(--text-main);
             letter-spacing: -0.04em;
-            text-shadow: 0 4px 15px var(--accent-glow);
+            text-shadow: 0 4px 20px rgba(24, 119, 242, 0.5);
         }
 
-        /* INTERACTION AFFORDANCES FOR SYSTEM CONTROLS */
+        /* LUXURY BUTTON DESIGN SYSTEM */
         .btn-luxury {
-            background: #ffffff;
-            color: #0f172a;
-            border-radius: 20px;
+            background: var(--accent);
+            color: #ffffff;
+            border-radius: 22px;
             padding: 20px;
-            font-family: 'Monument Extended', sans-serif;
-            font-weight: 400;
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
             font-size: 0.75rem;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 12px 30px rgba(24, 119, 242, 0.3);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%;
-            border: 2px solid #ffffff;
+            border: 1px solid var(--accent);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
         }
-        .btn-luxury:disabled { opacity: 0.3; filter: grayscale(1); cursor: not-allowed; transform: scale(0.98); }
-        .btn-luxury:hover:not(:disabled) { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); transform: translateY(-2px); }
+        .btn-luxury:disabled { opacity: 0.25; filter: grayscale(1); cursor: not-allowed; transform: scale(0.98); }
+        .btn-luxury:hover:not(:disabled) { 
+            background: #2b84f3;
+            border-color: #2b84f3;
+            box-shadow: 0 15px 35px rgba(24, 119, 242, 0.45); 
+            transform: translateY(-2px); 
+        }
 
-        #map { height: 350px; border-radius: 20px; z-index: 10; overflow: hidden; background: #e2e8f0; border: 2.5px solid var(--glass-border); }
+        /* LEAFLET LIGHT MODE BASEMAP HEIGHT */
+        #map { 
+            height: 350px; 
+            border-radius: 22px; 
+            z-index: 10; 
+            overflow: hidden; 
+            background: #f1f5f9; 
+            border: 1px solid var(--glass-border); 
+        }
 
         .log-line {
             display: flex; align-items: center; gap: 10px;
-            font-size: 0.7rem;
-            color: var(--text-soft); margin-bottom: 12px; opacity: 0.9; transition: all 0.5s ease;
+            font-size: 0.75rem;
+            color: var(--text-soft); margin-bottom: 12px; opacity: 0.9; transition: all 0.4s ease;
             font-weight: 500;
         }
         .log-line.active { color: var(--text-main); opacity: 1; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ffffff; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); transition: all 0.3s ease; }
         .log-line.active .dot { background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
 
         .suggestion-box {
             position: absolute; top: 105%; left: 0; right: 0;
-            background: var(--modal-bg); border-radius: 16px;
-            border: 2.5px solid var(--input-border); z-index: 100;
+            background: rgba(18, 27, 54, 0.98); border-radius: 18px;
+            border: 1px solid var(--input-border); z-index: 100;
             box-shadow: 0 15px 45px rgba(0,0,0,0.5); display: none;
-            max-height: 250px; overflow-y: auto; backdrop-filter: blur(40px);
+            max-height: 250px; overflow-y: auto; backdrop-filter: blur(20px);
         }
 
         .leg-row {
-            background: var(--disclaimer-bg);
+            background: rgba(255, 255, 255, 0.02);
             padding: 24px;
-            border-radius: 20px;
+            border-radius: 22px;
             position: relative;
             margin-bottom: 16px;
-            border: 2.5px solid var(--input-border);
+            border: 1px solid var(--glass-border);
         }
 
         .leg-price-badge {
-            font-size: 0.8rem; font-weight: 700; color: var(--text-main);
-            background: rgba(255, 255, 255, 0.12); padding: 8px 16px;
+            font-family: 'Syncopate', sans-serif !important;
+            font-weight: 700;
+            font-size: 0.7rem; 
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05); padding: 8px 16px;
             border-radius: 10px; display: inline-block;
-            border: 2px solid var(--input-border);
+            border: 1px solid var(--input-border);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .disclaimer-box {
-            background: var(--disclaimer-bg); border: 2.5px solid var(--glass-border);
-            color: var(--disclaimer-text); padding: 2.2rem; border-radius: 26px; line-height: 1.7;
+            background: var(--disclaimer-bg); border: 1px solid var(--glass-border);
+            color: var(--disclaimer-text); padding: 2.2rem; border-radius: 28px; line-height: 1.7;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         #processing-overlay {
             position: fixed; inset: 0; background: var(--overlay-bg); z-index: 1000;
             display: none; flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(60px);
+            backdrop-filter: blur(30px);
         }
 
         /* VALIDATION & ERROR STYLES */
         .input-error {
-            border-color: #dc2626 !important;
-            background: rgba(239, 68, 68, 0.15) !important;
-            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2) !important;
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.12) !important;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
         }
         .error-msg {
-            color: #dc2626;
+            color: #ef4444;
             font-size: 0.75rem;
             font-weight: 500;
             margin-top: 8px;
@@ -231,8 +289,8 @@
         .input-error ~ .error-msg { display: block; animation: fade-in 0.3s ease; }
 
         .btn-error {
-            background: linear-gradient(135deg, #dc2626, #991b1b) !important;
-            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4) !important;
+            background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4) !important;
             color: white !important;
             animation: shakeBtn 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
         }
@@ -248,22 +306,52 @@
         /* Success & Modal Contrast Optimization */
         #modal-success { background: var(--modal-bg); }
         #tour-overlay {
-            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.96); 
+            position: fixed; inset: 0; background: rgba(5, 7, 12, 0.96); 
             z-index: 5000; display: none; flex-direction: column; align-items: center; justify-content: center;
             padding: 2rem; text-align: center; backdrop-filter: blur(20px);
         }
         .tour-card {
-            max-width: 500px; background: rgba(15, 23, 42, 0.9); 
-            backdrop-filter: blur(40px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 500px; background: rgba(15, 22, 42, 0.9); 
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 3rem 2.5rem; border-radius: 32px; 
             box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
             color: #ffffff; position: relative; overflow: hidden;
         }
-        .step-indicator { font-size: 0.65rem; color: #38bdf8; margin-bottom: 1.5rem; display: block; letter-spacing: 0.2em;}
+        .step-indicator { font-size: 0.65rem; color: var(--accent); margin-bottom: 1.5rem; display: block; letter-spacing: 0.2em;}
+
+        /* AIRSPACE SEARCH IFRAME STYLING */
+        #search-iframe-container {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: #11162b;
+            border-top: 3px solid var(--accent);
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            box-shadow: 0 -15px 45px rgba(0,0,0,0.8);
+            z-index: 4000;
+            transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #search-iframe-container.open {
+            bottom: 0;
+        }
+        .iframe-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(28, 40, 76, 0.9);
+            border-bottom: 1px solid var(--glass-border);
+        }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-4 md:p-10 lexend-text">
 
     <!-- Infinite Looping Video Background -->
     <video id="bg-video" class="bg-video" autoplay loop muted playsinline>
@@ -274,50 +362,101 @@
     <div id="glow-1" class="bg-swirl"></div>
     <div id="glow-2" class="bg-swirl"></div>
 
+    <!-- IOS OPTIMIZED FULL-SCREEN PROCESSING OVERLAY -->
     <div id="processing-overlay">
-        <div class="text-center space-y-8 max-w-md w-full px-10">
-            <div class="price-text text-5xl mb-4 uppercase font-black tracking-wider text-slate-50 filter drop-shadow">Calculating Estimate</div>
-            <div class="h-2.5 w-full bg-slate-700 rounded-full overflow-hidden">
+        <div class="text-center space-y-6 w-full max-w-sm md:max-w-md px-6">
+            <!-- Brand Logo centered perfectly above processing status -->
+            <div class="flex justify-center mb-6">
+                <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D WINGS" class="h-16 w-auto object-contain">
+            </div>
+            <!-- Title customized to "ARCHITECTING CERTAINTY" strictly uppercase and centered for mobile screens -->
+            <div class="syncopate-uppercase text-2xl sm:text-3xl md:text-4xl leading-tight font-black text-slate-50 filter drop-shadow">
+                ARCHITECTING CERTAINTY
+            </div>
+            <div class="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden">
                 <div id="p-bar" class="h-full bg-white w-0 transition-all duration-700"></div>
             </div>
-            <p id="p-step" class="monument text-[0.7rem] text-slate-50 bg-black/95 px-5 py-3 rounded-lg backdrop-blur border-2 border-slate-800">Securing your VIP flight details...</p>
+            <p id="p-step" class="syncopate-uppercase text-[0.65rem] text-slate-50 bg-black/95 px-4 py-3 rounded-lg backdrop-blur border border-slate-800 tracking-wider">
+                SECURING YOUR VIP FLIGHT DETAILS...
+            </p>
         </div>
     </div>
 
+    <!-- MAIN PORTAL WRAPPER -->
     <main class="max-w-7xl mx-auto space-y-10 relative z-10">
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
-                <h1 class="monument text-3xl mb-1 text-slate-50">15D WINGS</h1>
-                <p class="text-[0.65rem] tracking-[0.5em] text-slate-50 font-black">EXCLUSIVE PRIVATE JET BOOKING v8.0.2</p>
+            <div class="flex items-center gap-4">
+                <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D WINGS Logo" class="h-16 md:h-20 w-auto object-contain">
+                <div>
+                    <h1 class="monument text-3xl mb-1 text-slate-50">15D WINGS</h1>
+                    <p class="text-[0.65rem] tracking-[0.5em] text-fbblue font-black syncopate-uppercase">EXCLUSIVE PRIVATE JET BOOKING V8.0.2</p>
+                </div>
             </div>
             <div class="flex flex-col items-center">
                 <div class="flex gap-4">
-                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3 text-[0.6rem] monument transition-transform active:scale-95 text-slate-50 font-black hover:scale-105">Download Estimate PDF</button>
-                    <span class="glass-panel px-6 py-3 text-[0.6rem] monument text-slate-400 font-black cursor-default selection:bg-transparent">VIP PORTAL STANDARD</span>
+                    <button id="export-btn" onclick="handleExportClick()" class="glass-panel px-6 py-3.5 text-[0.6rem] monument transition-transform active:scale-95 text-slate-50 font-black hover:scale-105 hover:border-fbblue/40">DOWNLOAD ESTIMATE PDF</button>
+                    <span class="glass-panel px-6 py-3.5 text-[0.6rem] monument text-slate-400 font-black cursor-default selection:bg-transparent">VIP PORTAL STANDARD</span>
                 </div>
                 <span id="export-error-msg" class="error-msg text-center !mt-4 font-bold" style="display:none;">Action required: Please request flight to unlock PDF</span>
             </div>
         </header>
 
+        <!-- Dynamic Onboarding Steps & Regional Clearance Highlight Row (Explicitly Emphasizes Nigeria Focus) -->
+        <div class="glass-panel p-6 md:p-8 grid grid-cols-1 md:grid-cols-4 gap-6 items-center border-l-4 border-fbblue">
+            <div class="md:col-span-1 border-r border-slate-800 pr-4">
+                <span class="syncopate-uppercase text-[10px] text-fbblue font-bold tracking-wider block mb-2">REGIONAL CLEARANCE</span>
+                <span class="text-xs font-bold text-[#fcfbfa] block leading-relaxed mb-1 syncopate-uppercase">NIGERIA FOCUS</span>
+                <p class="text-[11px] text-slate-200 font-medium leading-relaxed lexend-text">
+                    Flight routing, clearance paths, and dispatch vectors are currently optimized strictly and available for domestic operations within Nigeria for now.
+                </p>
+            </div>
+            <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-6 pl-0 md:pl-4">
+                <div class="space-y-1">
+                    <span class="syncopate-uppercase text-[9px] text-[#8B5CF6] font-bold block">STEP 01</span>
+                    <span class="text-xs font-bold text-[#fcfbfa] block syncopate-uppercase">ROUTING VECTOR</span>
+                    <p class="text-[11px] text-slate-300 font-normal leading-relaxed lexend-text">
+                        Specify details and plan your trip. Instantly preview accurate costs based on current fuel indices.
+                    </p>
+                </div>
+                <div class="space-y-1">
+                    <span class="syncopate-uppercase text-[9px] text-fbblue font-bold block">STEP 02</span>
+                    <span class="text-xs font-bold text-[#fcfbfa] block syncopate-uppercase">SECURE YOUR ID</span>
+                    <p class="text-[11px] text-slate-300 font-normal leading-relaxed lexend-text">
+                        Upon submission, an exclusive Request ID acts as your entry key to track, verify, and lock quote parameters.
+                    </p>
+                </div>
+                <div class="space-y-1">
+                    <span class="syncopate-uppercase text-[9px] text-emerald-400 font-bold block">STEP 03</span>
+                    <span class="text-xs font-bold text-[#fcfbfa] block syncopate-uppercase">DIRECT DISPATCH</span>
+                    <p class="text-[11px] text-slate-300 font-normal leading-relaxed lexend-text">
+                        Align with the Chief Concierge using your ID. When cleared, the cockpit doors open. No excuses, no delays.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-7 space-y-8">
                 <div class="glass-panel p-6 md:p-10 space-y-10">
                     <div>
-                        <span class="monument text-[0.7rem] text-slate-50 block mb-6 font-black tracking-widest">/ Executive Details</span>
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="syncopate-uppercase text-xs font-bold text-fbblue bg-fbblue/10 px-3 py-1 rounded border border-fbblue/20">01</span>
+                            <span class="monument text-[0.7rem] text-slate-50 block font-black tracking-widest">/ EXECUTIVE DETAILS</span>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="relative">
-                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2">Full name</label>
-                                <input type="text" id="name" placeholder="Executive name" class="input-pill" oninput="clearError(this)" required>
+                                <label class="block text-slate-200 font-medium tracking-wide text-xs mb-2">Full name</label>
+                                <input type="text" id="name" placeholder="Executive name" class="input-pill lexend-text" oninput="clearError(this)" required>
                                 <span class="error-msg">Add the missing details</span>
                             </div>
                             <div class="relative">
-                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2">Email address</label>
-                                <input type="email" id="email" placeholder="executive@domain.com" class="input-pill" oninput="clearError(this)" required>
+                                <label class="block text-slate-200 font-medium tracking-wide text-xs mb-2">Email address</label>
+                                <input type="email" id="email" placeholder="executive@domain.com" class="input-pill lexend-text" oninput="clearError(this)" required>
                                 <span class="error-msg">Add the missing details</span>
                             </div>
                             <div class="relative">
-                                <label class="block text-slate-100 font-bold tracking-wide text-xs mb-2">Phone number</label>
-                                <input type="tel" id="phone" placeholder="+1 (555) 000-0000" class="input-pill" oninput="clearError(this)" required>
+                                <label class="block text-slate-200 font-medium tracking-wide text-xs mb-2">Phone number</label>
+                                <input type="tel" id="phone" placeholder="+1 (555) 000-0000" class="input-pill lexend-text" oninput="clearError(this)" required>
                                 <span class="error-msg">Add the missing details</span>
                             </div>
                         </div>
@@ -325,40 +464,49 @@
 
                     <div class="pt-10 border-t border-slate-800">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
-                            <span class="monument text-[0.7rem] text-slate-50 block font-black tracking-widest">/ Your Travel Route</span>
+                            <div class="flex items-center gap-4">
+                                <span class="syncopate-uppercase text-xs font-bold text-[#8B5CF6] bg-royalpurple/10 px-3 py-1 rounded border border-royalpurple/20">02</span>
+                                <span class="monument text-[0.7rem] text-slate-50 block font-black tracking-widest">/ YOUR TRAVEL ROUTE</span>
+                            </div>
                             
                             <!-- Trip Type Selector -->
-                            <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-full border-2 border-slate-800 backdrop-blur-md">
-                                <button id="btn-oneway" onclick="setTripType('ONEWAY')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-black">✈️ ONE WAY TRIP</button>
-                                <button id="btn-round" onclick="setTripType('ROUND')" class="flex items-center gap-2 text-[0.6rem] monument text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-black">🔄 ROUND TRIP</button>
+                            <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-full border border-slate-800 backdrop-blur-md">
+                                <button id="btn-oneway" onclick="setTripType('ONEWAY')" class="flex items-center gap-2 text-[0.6rem] syncopate-uppercase text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-bold">✈️ ONE WAY TRIP</button>
+                                <button id="btn-round" onclick="setTripType('ROUND')" class="flex items-center gap-2 text-[0.6rem] syncopate-uppercase text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-bold">🔄 ROUND TRIP</button>
                             </div>
                         </div>
                         
                         <div id="legs-container" class="space-y-4"></div>
                         
                         <!-- HIGH ACCESSIBILITY CONTRAST BUTTON -->
-                        <button id="add-leg-btn" onclick="addLeg()" class="flex items-center gap-2 text-[0.65rem] monument text-slate-950 bg-white hover:opacity-90 shadow-lg px-6 py-4 rounded-full border-2 border-slate-300 transition-all font-black tracking-widest">
-                            [ + Add Another Stop ]
+                        <button id="add-leg-btn" onclick="addLeg()" class="flex items-center gap-2 text-[0.65rem] syncopate-uppercase text-slate-950 bg-white hover:opacity-90 shadow-lg px-6 py-4 rounded-full border-2 border-slate-300 transition-all font-bold tracking-widest mt-4">
+                            [ + ADD ANOTHER STOP ]
                         </button>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10 border-t border-slate-800">
                         <div>
-                            <span class="monument text-[0.7rem] text-slate-50 block mb-4 font-black tracking-widest">/ Choose Your Jet</span>
-                            <select id="ac-class" class="input-pill font-bold" onchange="syncPaxLogic()">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="syncopate-uppercase text-xs font-bold text-fbblue bg-fbblue/10 px-3 py-1 rounded border border-fbblue/20">03</span>
+                                <span class="monument text-[0.7rem] text-slate-50 block font-black tracking-widest">/ CHOOSE YOUR JET</span>
+                            </div>
+                            <select id="ac-class" class="input-pill font-bold lexend-text" onchange="syncPaxLogic()">
                                 <option value="LIGHT">Light Jet | 4-6 Seats (Short Trips)</option>
                                 <option value="MID">Midsize Jet | 7-9 Seats (Extended Range)</option>
                                 <option value="HEAVY" selected>Heavy Jet | 10-14 Seats (VIP Group)</option>
                                 <option value="ULTRA">Ultra/Regional | 15-50 Seats (Corporate)</option>
                             </select>
-                            <div id="ac-specs" class="text-xs bg-slate-950/80 border border-slate-800 p-4 rounded-xl mt-4 text-slate-100 italic font-medium backdrop-blur-md leading-relaxed">
+                            <div id="ac-specs" class="text-xs bg-slate-950/80 border border-slate-800 p-4 rounded-xl mt-4 text-slate-100 italic font-medium backdrop-blur-md leading-relaxed lexend-text">
                                 Loading fleet profile...
                             </div>
                         </div>
                         <div>
-                            <span class="monument text-[0.7rem] text-slate-50 block mb-4 font-black tracking-widest">/ Number of Passengers</span>
-                            <input type="number" id="pax" value="1" min="1" class="input-pill font-bold text-slate-50" oninput="runAnalysis()">
-                            <p id="pax-warning" class="text-xs text-red-400 mt-2 font-bold hidden">Too many passengers for this jet: please upgrade</p>
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="syncopate-uppercase text-xs font-bold text-[#8B5CF6] bg-royalpurple/10 px-3 py-1 rounded border border-royalpurple/20">04</span>
+                                <span class="monument text-[0.7rem] text-slate-50 block font-black tracking-widest">/ NUMBER OF PASSENGERS</span>
+                            </div>
+                            <input type="number" id="pax" value="1" min="1" class="input-pill font-bold text-slate-50 lexend-text" oninput="runAnalysis()">
+                            <p id="pax-warning" class="text-xs text-red-400 mt-2 font-bold hidden lexend-text">Too many passengers for this jet: please upgrade</p>
                         </div>
                     </div>
                 </div>
@@ -366,17 +514,18 @@
 
             <div class="lg:col-span-5 space-y-8">
                 <div class="glass-panel p-10 text-center relative overflow-hidden">
-                    <span class="monument text-[0.65rem] text-slate-50 mb-6 block font-black tracking-widest">Estimated Flight Cost (USD)</span>
+                    <span class="monument text-[0.65rem] text-slate-300 mb-6 block font-black tracking-widest">ESTIMATED FLIGHT COST (USD)</span>
                     <div id="price-val" class="price-text">$0</div>
-                    <div id="confidence-tag" class="text-[0.55rem] monument text-slate-50 mt-2 uppercase font-black tracking-wider">Subject to final market confirmation</div>
+                    <div id="confidence-tag" class="syncopate-uppercase text-[0.55rem] text-slate-400 mt-2 font-black tracking-wider">SUBJECT TO FINAL MARKET CONFIRMATION</div>
                 </div>
 
-                <div class="glass-panel p-6">
+                <!-- LIGHT MODE LEAFLET MAP CONTAINER -->
+                <div class="glass-panel p-2">
                     <div id="map"></div>
                 </div>
 
                 <div class="glass-panel p-10">
-                    <span class="monument text-[0.65rem] text-slate-50 mb-8 block font-black tracking-widest">Flight Logistics & Status</span>
+                    <span class="monument text-[0.65rem] text-slate-50 mb-8 block font-black tracking-widest">FLIGHT LOGISTICS & STATUS</span>
                     <div id="intel-log" class="space-y-2">
                         <div class="log-line" id="l-dist"><div class="dot"></div> Flight route confirmed</div>
                         <div class="log-line" id="l-min"><div class="dot"></div> Standard flight time applied</div>
@@ -386,14 +535,22 @@
                     </div>
                 </div>
 
-                <div class="disclaimer-box">
-                    <span class="monument text-[0.65rem] text-slate-50 mb-4 block font-black tracking-widest border-b-2 border-slate-800 pb-2">Important VIP Flight Advisory</span>
+                <!-- Dynamic Jet Adequacy and Flight Advisory System -->
+                <div class="disclaimer-box transition-all duration-300 lexend-text" id="advisory-container">
+                    <div id="unfit-warning-panel" class="hidden mb-6 bg-red-950/70 border border-red-700 p-5 rounded-2xl text-red-200">
+                        <span class="font-monument-header text-[0.65rem] tracking-widest font-black block mb-2 text-red-400">⚠️ JET CAPABILITY CONSTRAINTS</span>
+                        <p class="text-xs leading-relaxed font-semibold" id="unfit-warning-text">
+                            Flight Protocol Blocked: Selected jet is unfit for travel parameters.
+                        </p>
+                    </div>
+
+                    <span class="monument text-[0.65rem] text-slate-50 mb-4 block font-black tracking-widest border-b border-slate-800 pb-2">IMPORTANT VIP FLIGHT ADVISORY</span>
                     <p class="text-xs opacity-95 mb-4 text-slate-100 font-semibold leading-relaxed">
-                        <span class="text-slate-50 font-black uppercase block mb-1 text-[0.65rem] tracking-wider">72-Hour Advance Booking:</span>
+                        <span class="text-fbblue font-black uppercase block mb-1 text-[0.65rem] tracking-wider font-syncopate">72-HOUR ADVANCE BOOKING:</span>
                         To guarantee the highest standard of service and ensure the jet is perfectly prepared, we require at least 3 days notice. For emergency flights, please chat with our Chief Concierge immediately.
                     </p>
                     <p class="text-xs opacity-95 text-slate-100 font-semibold leading-relaxed">
-                        <span class="text-slate-50 font-black uppercase block mb-1 text-[0.65rem] tracking-wider">Pricing Notice:</span>
+                        <span class="text-[#8B5CF6] font-black uppercase block mb-1 text-[0.65rem] tracking-wider font-syncopate">PRICING NOTICE:</span>
                         The price shown above is a very close estimate. Your final cost might be slightly less or more depending on exact jet availability when you book.
                     </p>
                 </div>
@@ -401,59 +558,75 @@
         </div>
 
         <div class="max-w-2xl mx-auto mt-20 mb-10 space-y-5">
-            <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury py-5 text-[0.8rem] font-black tracking-widest uppercase">Request VIP Flight Now</button>
+            <button id="dispatch-btn" onclick="startDispatch()" class="btn-luxury py-5 text-[0.8rem] font-black tracking-widest uppercase">REQUEST VIP FLIGHT NOW</button>
             <a href="https://wa.me/+2349167621703" target="_blank" class="glass-panel w-full block text-center py-5 font-black monument text-[0.7rem] text-slate-50 hover:bg-slate-800/50 transition-colors border-2 border-transparent hover:border-slate-700">
-                Chat with Chief Concierge
+                CHAT WITH CHIEF CONCIERGE
             </a>
             
             <div class="flex flex-col items-center pt-4">
-                <button onclick="toggleSupport()" class="text-xs text-slate-50 hover:opacity-80 transition-opacity flex items-center gap-2 font-semibold">
-                    <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span> 24/7 Executive support
+                <button onclick="toggleSupport()" class="text-xs text-fbblue hover:opacity-80 transition-opacity flex items-center gap-2 font-semibold lexend-text">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> 24/7 Executive support
                 </button>
-                <div id="support-msg" class="text-xs text-slate-50 italic mt-0 opacity-0 h-0 overflow-hidden transition-all duration-500 ease-in-out text-center max-w-sm font-semibold">
+                <div id="support-msg" class="text-xs text-slate-300 italic mt-0 opacity-0 h-0 overflow-hidden transition-all duration-500 ease-in-out text-center max-w-sm font-semibold lexend-text">
                     Our luxury concierge team is working diligently to assist you. Responses are usually within 15 minutes.
                 </div>
             </div>
         </div>
 
-        <footer class="text-center pt-10 pb-16 border-t-2 border-slate-800">
+        <footer class="text-center pt-10 pb-16 border-t border-slate-800">
             <div class="max-w-2xl mx-auto space-y-4 font-bold">
-                <p class="text-[0.7rem] monument text-slate-50">15D Wings | Sky Party LTD (RC 8997727)</p>
-                <p class="text-xs text-slate-50 leading-relaxed font-semibold px-4">
+                <p class="text-[0.7rem] monument text-slate-50">15D WINGS | SKY PARTY LTD (RC 8997727)</p>
+                <p class="text-xs text-slate-400 leading-relaxed font-semibold px-4 lexend-text">
                     21 Lugard Avenue, Ikoyi Lagos, Nigeria.
                 </p>
-                <a href="mailto:ops@15dwings.com.ng" class="text-xs text-slate-50 underline opacity-90 hover:opacity-100 font-medium font-semibold">ops@15dwings.com.ng</a>
+                <a href="mailto:ops@15dwings.com.ng" class="text-xs text-slate-50 underline opacity-90 hover:opacity-100 font-medium font-semibold lexend-text">ops@15dwings.com.ng</a>
             </div>
         </footer>
     </main>
 
-    <!-- SUCCESS MODAL (OPTIMIZED WITH DOWNLOADS AT THE TOP AND MOBILE SCROLLABLE CAPABILITIES) -->
+    <!-- SLIDE-UP WORKSPACE FOR ICAO/IATA SEARCHING -->
+    <div id="search-iframe-container">
+        <div class="iframe-header">
+            <span class="syncopate-uppercase text-[11px] font-bold text-slate-100">AIRSPACE ENQUIRY PORTAL</span>
+            <button onclick="closeIframeSearch()" class="text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-bold font-lexend">
+                CLOSE [X]
+            </button>
+        </div>
+        <div class="flex-1 w-full h-full bg-slate-900">
+            <iframe id="search-iframe" src="about:blank" class="w-full h-full border-0"></iframe>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
     <div id="modal-success" class="fixed inset-0 backdrop-blur-2xl z-[2000] hidden flex-col items-center justify-start p-6 text-center overflow-y-auto">
         <div class="max-w-xl space-y-8 my-auto py-10">
-            <div class="price-text text-4xl uppercase font-black text-slate-50">Request Successfully Sent</div>
+            <div class="flex justify-center mb-2">
+                <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D WINGS" class="h-20 w-auto object-contain">
+            </div>
+            <div class="price-text text-4xl uppercase font-black text-slate-50">REQUEST SUCCESSFULLY SENT</div>
             
-            <!-- CONTROLS POSITIONED CONVENIENTLY AT THE TOP FOR SHORTER VIEWPORTS -->
+            <!-- CONTROLS POSITIONED CONVENIENTLY AT THE TOP -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center bg-slate-900/40 p-4 rounded-3xl border border-slate-800 backdrop-blur">
-                <button onclick="generatePDF()" class="monument text-[0.65rem] px-8 py-4 bg-white text-slate-950 rounded-full hover:scale-105 transition-transform shadow-lg font-black tracking-wider border-2 border-transparent">Download Cost Estimate (PDF)</button>
-                <button onclick="location.reload()" class="monument text-[0.65rem] px-8 py-4 text-slate-200 border-2 border-slate-700 rounded-full hover:bg-slate-800 transition-colors font-black tracking-wider">Book Another Flight</button>
+                <button onclick="generatePDF()" class="monument text-[0.65rem] px-8 py-4 bg-white text-slate-950 rounded-full hover:scale-105 transition-transform shadow-lg font-black tracking-wider border-2 border-transparent">DOWNLOAD COST ESTIMATE (PDF)</button>
+                <button onclick="location.reload()" class="monument text-[0.65rem] px-8 py-4 text-slate-200 border-2 border-slate-700 rounded-full hover:bg-slate-800 transition-colors font-black tracking-wider">BOOK ANOTHER FLIGHT</button>
             </div>
 
-            <p id="ref-id" class="monument text-sm text-slate-50 font-black tracking-widest">YOUR FLIGHT REQUEST IS PROCESSING</p>
-            <div class="glass-panel p-8 md:p-10 text-xs text-slate-50 leading-relaxed text-left font-semibold">
+            <p id="ref-id" class="monument text-sm text-fbblue font-black tracking-widest">YOUR FLIGHT REQUEST IS PROCESSING</p>
+            <div class="glass-panel p-8 md:p-10 text-xs text-slate-300 leading-relaxed text-left font-semibold lexend-text">
                 <b class="text-slate-50 monument text-[0.7rem] block mb-2 underline font-black tracking-widest">NEXT STEPS:</b>
-                We have safely received your details. Please check your email immediately at <span id="conf-email" class="text-slate-50 font-bold underline"></span> for your official flight estimate and next steps from our team.<br><br>
+                We have safely received your details. Please check your email immediately at <span id="conf-email" class="text-fbblue font-bold underline"></span> for your official flight estimate and next steps from our team.<br><br>
                 <div class="bg-slate-900/60 p-6 rounded-xl border-2 border-slate-800 text-center shadow-lg">
-                    <span class="block text-xs text-slate-200 mb-2 font-bold">Your dashboard password</span>
+                    <span class="block text-xs text-slate-200 mb-2 font-bold lexend-text">Your dashboard password</span>
                     
                     <div class="flex items-center justify-center gap-3">
                         <span class="font-bold text-3xl text-slate-50 tracking-widest block py-2" id="ref-id-inline"></span>
                         <button id="copy-id-btn" onclick="copyMissionId()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-600 transition-colors font-bold text-slate-300">Copy</button>
                     </div>
 
-                    <p class="text-xs mt-3 mb-5 text-slate-200 opacity-100 leading-relaxed font-semibold">Use this Request ID to log into the VIP dashboard to unlock your final quote and engineered outcomes.</p>
+                    <p class="text-xs mt-3 mb-5 text-slate-200 opacity-100 leading-relaxed font-semibold lexend-text">Use this Request ID to log into the VIP dashboard to unlock your final quote and engineered outcomes.</p>
                     
                     <!-- DIRECT INTEGRATION BUTTON FOR VIP PORTAL -->
-                    <button onclick="openVipPortal()" class="w-full py-4 bg-[#38bdf8] hover:bg-[#0284c7] text-slate-950 font-bold text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)] border-2 border-[#38bdf8]">Log into VIP portal now</button>
+                    <button onclick="openVipPortal()" class="w-full py-4 bg-fbblue hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(24,119,242,0.3)] border-2 border-fbblue">LOG INTO VIP PORTAL NOW</button>
                 </div>
             </div>
         </div>
@@ -462,12 +635,12 @@
     <!-- 3-STEP TOUR OVERLAY -->
     <div id="tour-overlay">
         <div class="tour-card animate-fade-in">
-            <span class="step-indicator monument font-black" id="tour-step-num">Step 1 of 3</span>
-            <h2 class="monument text-xl mb-4 text-white font-black" id="tour-title">Instant Pricing</h2>
-            <p class="text-sm text-white opacity-95 mb-8 leading-relaxed font-semibold" id="tour-desc">
+            <span class="step-indicator monument font-black" id="tour-step-num">STEP 1 OF 3</span>
+            <h2 class="monument text-xl mb-4 text-white font-black" id="tour-title">INSTANT PRICING</h2>
+            <p class="text-sm text-white opacity-95 mb-8 leading-relaxed font-semibold lexend-text" id="tour-desc">
                 No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.
             </p>
-            <button onclick="nextTourStep()" class="btn-luxury py-3 px-10 w-auto inline-block border border-white/20">Next Step</button>
+            <button onclick="nextTourStep()" class="btn-luxury py-3 px-10 w-auto inline-block border border-white/20">NEXT STEP</button>
         </div>
     </div>
 
@@ -488,23 +661,19 @@
         let activeLegsData = [], serverMissionID = null;
         let isRoundTrip = false;
 
-        // EDGE API ROUTING VARIABLES
         let searchTimeout = null;
         const WORKER_URL = "https://airfields.15d.name.ng";
 
-        // Force a physical locked 72-Hour ISO Minimum Limit
         function getMinDateTime() {
             const tzoffset = (new Date()).getTimezoneOffset() * 60000;
             const minTime = new Date(Date.now() + (72 * 3600000) - tzoffset);
             return minTime.toISOString().slice(0, 16);
         }
 
-        // Continually updates and enforces constraints on Date fields physically
         function enforceDatePickerLimits() {
             const minStr = getMinDateTime();
             document.querySelectorAll('.date-in').forEach(input => {
                 input.setAttribute('min', minStr);
-                // Physical control filter on entry
                 input.addEventListener('input', function() {
                     if (this.value && this.value < minStr) {
                         this.value = minStr;
@@ -518,16 +687,14 @@
             console.log("15D Wings: Migrated to Edge API Data Routing");
         }
 
+        // LEAFLET MAP RECONFIGURED TO DISPLAY IN STANDARD HIGH-BRIGHTNESS LIGHTMODE
         function initMap() {
             map = L.map('map', { zoomControl: false, attributionControl: false }).setView([9.08, 7.39], 5);
-            // Switched back to Light Mode tiles for clean dynamic contrast
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
         }
 
-        // Left empty as theme switcher is deprecated, keeping structural signature verbatim
         function toggleTheme() {}
         
-        // Fix for toggling Support message
         function toggleSupport() {
             const msg = document.getElementById('support-msg');
             if (msg.classList.contains('opacity-0')) {
@@ -547,14 +714,12 @@
         function setTripType(type) {
             isRoundTrip = (type === 'ROUND');
             
-            // Toggle Active Button Styles
-            const activeClass = "flex items-center gap-2 text-[0.6rem] monument text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-black";
-            const inactiveClass = "flex items-center gap-2 text-[0.6rem] monument text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-black";
+            const activeClass = "flex items-center gap-2 text-[0.6rem] syncopate-uppercase text-slate-50 bg-slate-800 shadow-md px-5 py-2.5 rounded-full border border-slate-700 transition-all font-bold";
+            const inactiveClass = "flex items-center gap-2 text-[0.6rem] syncopate-uppercase text-slate-300 hover:bg-slate-800/50 px-5 py-2.5 rounded-full border border-transparent transition-all font-bold";
 
             document.getElementById('btn-oneway').className = isRoundTrip ? inactiveClass : activeClass;
             document.getElementById('btn-round').className = isRoundTrip ? activeClass : inactiveClass;
 
-            // If switching to Round Trip, simplify routing to just one standard leg row (A to B)
             if (isRoundTrip) {
                 const legs = document.querySelectorAll('.leg-row');
                 for(let i = 1; i < legs.length; i++) legs[i].remove();
@@ -563,7 +728,6 @@
                 document.getElementById('add-leg-btn').style.display = 'flex';
             }
 
-            // Show/Hide the return date inputs across existing legs
             document.querySelectorAll('.return-date-block').forEach(el => {
                 el.style.display = isRoundTrip ? 'block' : 'none';
             });
@@ -578,12 +742,37 @@
                 <div class="w-full h-32 rounded-xl mb-3 overflow-hidden relative shadow-inner">
                     <img src="${spec.image}" alt="${spec.label}" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <span class="absolute bottom-3 left-4 text-white font-bold tracking-widest text-[0.6rem] uppercase drop-shadow-md">${spec.label}</span>
+                    <span class="absolute bottom-3 left-4 text-white font-bold tracking-widest text-[0.6rem] uppercase drop-shadow-md font-syncopate">${spec.label}</span>
                 </div>
-                <span class="block font-black text-slate-50 uppercase mb-1">Fleet Profile: ${spec.models}</span>
-                <span class="block text-slate-300 font-medium">Range: ~${spec.range}km | Speed: ${spec.speed}km/h | Capacity: Up to ${spec.maxPax} Seats</span>
+                <span class="block font-black text-slate-50 uppercase mb-1 font-syncopate">FLEET PROFILE: ${spec.models.toUpperCase()}</span>
+                <span class="block text-slate-300 font-medium font-lexend">Range: ~${spec.range}km | Speed: ${spec.speed}km/h | Capacity: Up to ${spec.maxPax} Seats</span>
             `;
             runAnalysis();
+        }
+
+        // TRIGGER EMBEDDED SEARCH DIALOG
+        function openIframeSearch(type, elId) {
+            const container = document.getElementById('search-iframe-container');
+            const iframe = document.getElementById('search-iframe');
+            const relatedInput = document.getElementById(elId);
+            
+            let queryText = "IATA ICAO airport codes";
+            if (relatedInput && relatedInput.value.trim().length > 0) {
+                const val = relatedInput.value.trim().split('|')[0].trim();
+                queryText = `${val} airport IATA ICAO codes`;
+            }
+
+            // High compatibility embed link for secure containerization
+            const targetUrl = `https://www.google.com/search?q=${encodeURIComponent(queryText)}&igu=1`;
+            iframe.src = targetUrl;
+            container.classList.add('open');
+        }
+
+        function closeIframeSearch() {
+            const container = document.getElementById('search-iframe-container');
+            const iframe = document.getElementById('search-iframe');
+            container.classList.remove('open');
+            iframe.src = 'about:blank';
         }
 
         function addLeg() {
@@ -594,33 +783,46 @@
             d.id = `leg-${legId}`;
             
             const isFirstLeg = c.children.length === 0;
-            const delBtnHtml = isFirstLeg ? '' : `<button onclick="removeLeg('${legId}')" class="text-[0.55rem] monument text-slate-50 hover:bg-red-500/10 px-4 py-2.5 rounded-full border-2 border-slate-50 transition-colors ml-4 uppercase font-black">Delete Stop</button>`;
+            const delBtnHtml = isFirstLeg ? '' : `<button onclick="removeLeg('${legId}')" class="text-[0.55rem] syncopate-uppercase text-slate-50 hover:bg-red-500/10 px-4 py-2.5 rounded-full border border-slate-50 transition-colors ml-4 font-bold">DELETE STOP</button>`;
 
+            // Enforced input fields are paired with search instructions using Lexend as specified
             d.innerHTML = `
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                     <div class="relative">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">From where</span>
-                        <input type="text" placeholder="Los - Murtala Muhammed Int'l" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 placeholder-slate-400 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-bold" oninput="clearError(this)" required>
+                        <span class="text-[0.6rem] uppercase monument text-slate-300 mb-2 block font-black tracking-widest">FROM WHERE</span>
+                        <input type="text" id="origin-input-${legId}" placeholder="LOS - MURTALA MUHAMMED INT'L" class="w-full bg-slate-950/70 border-2 border-slate-800 text-slate-50 placeholder-slate-400 rounded-xl p-3.5 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-syncopate font-bold" oninput="clearError(this)" required>
                         <div class="suggestion-box"></div>
-                        <span class="error-msg font-bold">Add the missing details</span>
+                        <span class="error-msg font-bold lexend-text">Add the missing details</span>
+                        <div class="text-[11px] text-slate-300 mt-2 font-medium leading-normal lexend-text">
+                            If the city name doesn't display, use the 
+                            <a href="javascript:void(0)" onclick="openIframeSearch('IATA', 'origin-input-${legId}')" class="text-fbblue underline hover:text-blue-300 font-bold">IATA</a> or 
+                            <a href="javascript:void(0)" onclick="openIframeSearch('ICAO', 'origin-input-${legId}')" class="text-fbblue underline hover:text-blue-300 font-bold">ICAO</a> 
+                            code to search for the specific airport.
+                        </div>
                     </div>
                     <div class="relative">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">To where</span>
-                        <input type="text" placeholder="Abv - Nnamdi Azikiwe Int'l" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 placeholder-slate-400 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-bold" oninput="clearError(this)" required>
+                        <span class="text-[0.6rem] uppercase monument text-slate-300 mb-2 block font-black tracking-widest">TO WHERE</span>
+                        <input type="text" id="dest-input-${legId}" placeholder="ABV - NNAMDI AZIKIWE INT'L" class="w-full bg-slate-950/70 border-2 border-slate-800 text-slate-50 placeholder-slate-400 rounded-xl p-3.5 focus:outline-none focus:border-slate-100 transition-all uppercase airport-in font-syncopate font-bold" oninput="clearError(this)" required>
                         <div class="suggestion-box"></div>
-                        <span class="error-msg font-bold">Add the missing details</span>
+                        <span class="error-msg font-bold lexend-text">Add the missing details</span>
+                        <div class="text-[11px] text-slate-300 mt-2 font-medium leading-normal lexend-text">
+                            If the city name doesn't display, use the 
+                            <a href="javascript:void(0)" onclick="openIframeSearch('IATA', 'dest-input-${legId}')" class="text-fbblue underline hover:text-blue-300 font-bold">IATA</a> or 
+                            <a href="javascript:void(0)" onclick="openIframeSearch('ICAO', 'dest-input-${legId}')" class="text-fbblue underline hover:text-blue-300 font-bold">ICAO</a> 
+                            code to search for the specific airport.
+                        </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
                     <div class="relative w-full">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">Flight Date and Time</span>
-                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all date-in forward-date font-bold" onchange="clearError(this); runAnalysis()" required>
-                        <span class="error-msg font-bold">Add the missing details</span>
+                        <span class="text-[0.6rem] uppercase monument text-slate-300 mb-2 block font-black tracking-widest">FLIGHT DATE AND TIME</span>
+                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-800 text-slate-50 rounded-xl p-3.5 focus:outline-none focus:border-slate-100 transition-all date-in forward-date font-syncopate font-bold" onchange="clearError(this); runAnalysis()" required>
+                        <span class="error-msg font-bold lexend-text">Add the missing details</span>
                     </div>
                     <div class="relative w-full return-date-block" style="display: ${isRoundTrip ? 'block' : 'none'};">
-                        <span class="text-[0.6rem] uppercase monument text-slate-50 mb-2 block font-black tracking-widest">Return Date and Time</span>
-                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-700 text-slate-50 rounded-xl p-3 focus:outline-none focus:border-slate-100 transition-all date-in return-date font-bold" onchange="clearError(this); runAnalysis()">
-                        <span class="error-msg font-bold">Add the missing details</span>
+                        <span class="text-[0.6rem] uppercase monument text-slate-300 mb-2 block font-black tracking-widest">RETURN DATE AND TIME</span>
+                        <input type="datetime-local" class="w-full bg-slate-950/70 border-2 border-slate-800 text-slate-50 rounded-xl p-3.5 focus:outline-none focus:border-slate-100 transition-all date-in return-date font-syncopate font-bold" onchange="clearError(this); runAnalysis()">
+                        <span class="error-msg font-bold lexend-text">Add the missing details</span>
                     </div>
                 </div>
                 <div class="flex justify-between items-center mt-5 ${!isFirstLeg ? 'border-t-2 border-slate-800 pt-5' : ''}">
@@ -632,7 +834,6 @@
             enforceDatePickerLimits();
         }
 
-        // Keep removeLeg standard
         function removeLeg(id) {
             if(document.querySelectorAll('.leg-row').length > 1) {
                 document.getElementById(`leg-${id}`).remove();
@@ -650,24 +851,19 @@
                 return; 
             }
 
-            // Enterprise UI/UX: Indicate loading state for the executive
-            box.innerHTML = '<div class="p-4 text-xs font-bold text-slate-400 animate-pulse">Securing airspace data...</div>';
+            box.innerHTML = '<div class="p-4 text-xs font-bold text-slate-400 animate-pulse font-syncopate">SECURING AIRSPACE DATA...</div>';
             box.style.display = 'block';
 
-            // Debounce the input to prevent spamming the edge worker while typing
             clearTimeout(searchTimeout);
             
             searchTimeout = setTimeout(async () => {
                 try {
-                    // Normalize backend route parameter paths (removes trailing slashes/wildcards)
                     const cleanWorkerUrl = WORKER_URL.replace(/\/\*$/, "").replace(/\/$/, "");
                     const response = await fetch(`${cleanWorkerUrl}/?q=${encodeURIComponent(v)}`);
                     if (!response.ok) throw new Error("API Failure");
                     
                     const results = await response.json();
                     
-                    // Critical: Cache the results into our global DB object. 
-                    // This ensures when runAnalysis() calculates the haversine distance, the lat/lon is available.
                     Object.assign(DB, results);
                     
                     box.innerHTML = '';
@@ -677,12 +873,11 @@
                         keys.forEach(k => {
                             const d = results[k];
                             const i = document.createElement('div');
-                            i.className = "p-4 hover:bg-slate-800 hover:text-blue-400 cursor-pointer text-xs border-b border-slate-800 font-semibold text-slate-100";
-                            i.innerHTML = `<b class="text-blue-400">${k}</b> — ${d.name} (${d.city}, ${d.country})`;
+                            i.className = "p-4 hover:bg-slate-800 hover:text-blue-400 cursor-pointer text-xs border-b border-slate-850 font-semibold text-slate-200 font-syncopate";
+                            i.innerHTML = `<b class="text-blue-400 font-syncopate">${k.toUpperCase()}</b> — ${d.name.toUpperCase()} (${d.city.toUpperCase()}, ${d.country.toUpperCase()})`;
                             
-                            // Interaction binding
                             i.onclick = () => { 
-                                el.value = `${k} | ${d.name}`; 
+                                el.value = `${k.toUpperCase()} | ${d.name.toUpperCase()}`; 
                                 el.dataset.code = k; 
                                 el.dataset.fullName = d.name;
                                 el.dataset.country = d.country;
@@ -692,13 +887,13 @@
                             box.appendChild(i);
                         });
                     } else {
-                        box.innerHTML = '<div class="p-4 text-xs font-bold text-red-400">No classified airfields found</div>';
+                        box.innerHTML = '<div class="p-4 text-xs font-bold text-red-400 font-syncopate">NO CLASSIFIED AIRFIELDS FOUND</div>';
                     }
                 } catch (error) {
                     console.error("Flight systems mapping error:", error);
-                    box.innerHTML = '<div class="p-4 text-xs font-bold text-red-500">Radar offline. Retrying...</div>';
+                    box.innerHTML = '<div class="p-4 text-xs font-bold text-red-500 font-syncopate">RADAR OFFLINE. RETRYING...</div>';
                 }
-            }, 300); // 300ms debounce
+            }, 300);
         }
 
         function runAnalysis() {
@@ -707,9 +902,13 @@
             const paxCount = parseInt(document.getElementById('pax').value) || 0;
             const warning = document.getElementById('pax-warning');
             const dispatchBtn = document.getElementById('dispatch-btn');
+            const unfitWarningPanel = document.getElementById('unfit-warning-panel');
+            const unfitWarningText = document.getElementById('unfit-warning-text');
             
             let total = 0, allPoints = [], intl = false, urg = false, minHrs = false;
             let isVolatile = false;
+            let isUnfitRange = false;
+            let isUnfitPax = false;
             
             if (paxCount > spec.maxPax) {
                 warning.classList.remove('hidden');
@@ -717,7 +916,7 @@
                 currentTargetPrice = 0;
                 animatePrice();
                 document.querySelectorAll('.leg-price-badge').forEach(b => b.innerText = '$0.00');
-                return;
+                isUnfitPax = true;
             } else {
                 warning.classList.add('hidden');
                 dispatchBtn.disabled = false;
@@ -741,6 +940,11 @@
                     const a = Math.sin(dLat/2)**2 + Math.cos(DB[oCode].lat*rad)*Math.cos(DB[dCode].lat*rad)*Math.sin(dLon/2)**2;
                     const dist = 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                     
+                    // RANGE ADEQUACY CHECK
+                    if (dist > spec.range) {
+                        isUnfitRange = true;
+                    }
+
                     const actualHours = dist/spec.speed;
                     const hours = Math.max(actualHours, spec.minHrs);
                     if(actualHours < spec.minHrs) minHrs = true;
@@ -754,7 +958,6 @@
 
                     let legTotal = adjustedBase + logisticsFee;
                     
-                    // Add Forward Leg
                     total += legTotal;
                     activeLegsData.push({ 
                         from: oCode, to: dCode, cost: legTotal, 
@@ -763,9 +966,8 @@
                         fromFull: inputs[0].dataset.fullName, toFull: inputs[1].dataset.fullName 
                     });
                     allPoints.push([DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]);
-                    routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#38bdf8", weight: 3, dashArray: '5, 10' }).addTo(map));
+                    routeLines.push(L.polyline([[DB[oCode].lat, DB[oCode].lon], [DB[dCode].lat, DB[dCode].lon]], { color: "#1877F2", weight: 3, dashArray: '5, 10' }).addTo(map));
 
-                    // Add Return Leg if active and valid
                     if (isRoundTrip && rDateIn && rDateIn.value) {
                         total += legTotal; 
                         activeLegsData.push({ 
@@ -775,7 +977,7 @@
                             fromFull: inputs[1].dataset.fullName, toFull: inputs[0].dataset.fullName 
                         });
                         allPoints.push([DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]);
-                        routeLines.push(L.polyline([[DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]], { color: "#0284c7", weight: 3, dashArray: '5, 10' }).addTo(map));
+                        routeLines.push(L.polyline([[DB[dCode].lat, DB[dCode].lon], [DB[oCode].lat, DB[oCode].lon]], { color: "#8B5CF6", weight: 3, dashArray: '5, 10' }).addTo(map));
                     }
                     
                     badge.innerText = `$${Math.round(isRoundTrip && rDateIn.value ? legTotal * 2 : legTotal).toLocaleString()}`;
@@ -787,6 +989,22 @@
                 }
             });
 
+            // HANDLE UNFIT STATUS WARNINGS DYNAMICALLY
+            if (isUnfitRange || isUnfitPax) {
+                dispatchBtn.disabled = true;
+                unfitWarningPanel.classList.remove('hidden');
+                
+                let messages = [];
+                if (isUnfitRange) messages.push(`Flight Range Exceeded: The requested route exceeds this ${spec.label}'s safe non-stop range of ~${spec.range}km. Please upgrade your aircraft selection.`);
+                if (isUnfitPax) messages.push(`Capacity Violated: Passenger count (${paxCount}) exceeds the structural limit of this ${spec.label} (Max ${spec.maxPax} Seats).`);
+                
+                unfitWarningText.innerHTML = messages.join("<br><br>");
+                document.getElementById('advisory-container').classList.add('border-red-500/30', 'bg-red-950/20');
+            } else {
+                unfitWarningPanel.classList.add('hidden');
+                document.getElementById('advisory-container').classList.remove('border-red-500/30', 'bg-red-950/20');
+            }
+
             currentTargetPrice = total;
             currentTargetPriceHigh = total > 0 ? total + 4566 : 0; 
             animatePrice();
@@ -796,13 +1014,25 @@
             document.querySelectorAll('.log-line').forEach(l => l.classList.remove('active'));
             if(total > 0) document.getElementById('l-dist').classList.add('active');
             if(minHrs) document.getElementById('l-min').classList.add('active');
+            
+            const logEnv = document.getElementById('l-env');
+            if (isUnfitRange) {
+                logEnv.classList.add('active');
+                logEnv.innerHTML = `<div class="dot" style="background-color:#ef4444;box-shadow:0 0 10px #ef4444"></div> Range Limit Exceeded`;
+                logEnv.style.color = '#ef4444';
+            } else if (total > 0) {
+                logEnv.classList.add('active');
+                logEnv.innerHTML = `<div class="dot"></div> Jet range is capable`;
+                logEnv.style.color = '';
+            }
+
             if(intl) document.getElementById('l-intl').classList.add('active');
             
             const logUrg = document.getElementById('l-urg');
             if(isVolatile) {
                 logUrg.classList.add('active');
                 logUrg.innerHTML = `<div class="dot"></div> Notice: Emergency flight requires concierge`;
-                logUrg.style.color = '#dc2626';
+                logUrg.style.color = '#ef4444';
             } else if (urg) {
                 logUrg.classList.add('active');
                 logUrg.innerHTML = `<div class="dot"></div> Standard 72-hour notice applied`;
@@ -831,7 +1061,7 @@
 
             const priceEl = document.getElementById('price-val');
             if (displayedPrice > 0) {
-                priceEl.innerHTML = `<span class="text-[2rem] md:text-[2.2rem] font-bold">$${Math.round(displayedPrice).toLocaleString()}</span> <span class="text-[2rem] mx-1">-</span> <span class="text-[2rem] md:text-[2.2rem] font-bold">$${Math.round(displayedPriceHigh).toLocaleString()}</span>`;
+                priceEl.innerHTML = `<span class="text-[1.8rem] md:text-[2rem] font-bold text-white">$${Math.round(displayedPrice).toLocaleString()}</span> <span class="text-[1.8rem] mx-1 text-slate-500">-</span> <span class="text-[1.8rem] md:text-[2rem] font-bold text-white">$${Math.round(displayedPriceHigh).toLocaleString()}</span>`;
             } else {
                 priceEl.innerText = '$0';
             }
@@ -918,7 +1148,7 @@
                 timestamp: new Date().toISOString()
             };
 
-            const steps = ["Validating Routing", "Preparing Executive Estimate", "Sending Details to Concierge"];
+            const steps = ["VALIDATING ROUTING PROTOCOL", "PREPARING EXECUTIVE ESTIMATE", "DISPATCHING SOVEREIGN PARAMETERS"];
             for(let i=0; i<steps.length; i++) {
                 step.innerText = steps[i]; bar.style.width = `${(i+1)*33}%`;
                 await new Promise(r => setTimeout(r, 600));
@@ -945,11 +1175,9 @@
             document.getElementById('modal-success').style.display = 'flex';
             ov.style.display = 'none';
 
-            // AUTOMATICALLY TRIGGER DOWNLOAD
             generatePDF();
         }
 
-        // I-FRAME SAFE COPY FUNCTION
         function copyMissionId() {
             if (!serverMissionID) return;
             const textArea = document.createElement("textarea");
@@ -964,11 +1192,11 @@
                 document.execCommand('copy');
                 const btn = document.getElementById('copy-id-btn');
                 const orig = btn.innerText;
-                btn.innerText = "Copied!";
-                btn.classList.add("text-green-400", "border-green-400");
+                btn.innerText = "COPIED!";
+                btn.classList.add("text-emerald-400", "border-emerald-400");
                 setTimeout(() => {
                     btn.innerText = orig;
-                    btn.classList.remove("text-green-400", "border-green-400");
+                    btn.classList.remove("text-emerald-400", "border-emerald-400");
                 }, 2000);
             } catch (err) {
                 console.error('Copy failed', err);
@@ -976,58 +1204,108 @@
             document.body.removeChild(textArea);
         }
 
-        // DIRECT VIP PORTAL INTEGRATION
         function openVipPortal() {
             if (!serverMissionID) return;
             window.open(`https://portal.15dwings.com.ng/?ref_id=${serverMissionID}`, '_blank');
         }
 
-        function generatePDF() {
-            const { jsPDF } = window.jspdf; const doc = new jsPDF();
-            const pageWidth = doc.internal.pageSize.getWidth(); const pageHeight = doc.internal.pageSize.getHeight();
-            const clientName = document.getElementById('name').value, clientEmail = document.getElementById('email').value;
-            const clientPhone = document.getElementById('phone').value, aircraftLabel = AIRCRAFT[document.getElementById('ac-class').value].label;
+        // CONVERTS IMAGE URL TO BASE64 DYNAMICALLY FOR HIGH-COMPATIBILITY PDF RENDERING
+        function getBase64ImageFromUrl(imageUrl) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.setAttribute('crossOrigin', 'anonymous');
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0);
+                    const dataURL = canvas.toDataURL("image/png");
+                    resolve(dataURL);
+                };
+                img.onerror = error => reject(error);
+                img.src = imageUrl;
+            });
+        }
+
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf; 
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.getWidth(); 
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const clientName = document.getElementById('name').value;
+            const clientEmail = document.getElementById('email').value;
+            const clientPhone = document.getElementById('phone').value;
+            const aircraftLabel = AIRCRAFT[document.getElementById('ac-class').value].label;
             const issuanceDate = new Date().toLocaleString();
 
-            doc.saveGraphicsState(); doc.setGState(new doc.GState({ opacity: 0.1 }));
-            doc.setFontSize(60); doc.setTextColor(200);
+            doc.saveGraphicsState(); 
+            doc.setGState(new doc.GState({ opacity: 0.1 }));
+            doc.setFontSize(60); 
+            doc.setTextColor(200);
             doc.text("15D WINGS", pageWidth / 2, pageHeight / 2, { align: "center", angle: 45 });
             doc.restoreGraphicsState();
 
-            doc.setFillColor(0, 0, 0); doc.rect(0, 0, pageWidth, 20, 'F');
-            doc.setTextColor(255); doc.setFontSize(10);
+            doc.setFillColor(0, 0, 0); 
+            doc.rect(0, 0, pageWidth, 20, 'F');
+            doc.setTextColor(255); 
+            doc.setFontSize(10);
             doc.text(`VIP FLIGHT ESTIMATE: ${serverMissionID}`, 15, 13);
             doc.text(`ISSUED: ${issuanceDate}`, pageWidth - 15, 13, { align: 'right' });
 
-            doc.setTextColor(0); doc.setFontSize(24); doc.text("15D WINGS", 15, 40);
-            doc.setFontSize(9); doc.text("Premium Private Jet Services", 15, 47);
+            // LOGO INTEGRATION ON THE LEFT, COMPANY HEADINGS OFFSET RIGHT
+            try {
+                const logoBase64 = await getBase64ImageFromUrl('https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png');
+                doc.addImage(logoBase64, 'PNG', 15, 28, 24, 24);
+            } catch (e) {
+                console.log("Fallback graphic logic deployed");
+            }
+
+            doc.setTextColor(0); 
+            doc.setFontSize(24); 
+            doc.text("15D WINGS", 44, 40);
+            doc.setFontSize(9); 
+            doc.text("Premium Private Jet Services", 44, 47);
             
-            doc.setFontSize(10); doc.text(`EXECUTIVE: ${clientName.toUpperCase()}`, 15, 60);
-            doc.setFontSize(8); doc.setTextColor(100);
-            doc.text(`EMAIL: ${clientEmail}`, 15, 65); doc.text(`PHONE: ${clientPhone}`, 15, 70);
-            doc.setTextColor(0, 0, 0); doc.setFont(undefined, 'bold');
-            doc.text(`AIRCRAFT: ${aircraftLabel.toUpperCase()}`, 15, 75);
-            doc.setFont(undefined, 'normal'); doc.setTextColor(100);
-            doc.text("21 Lugard Avenue, Ikoyi Lagos, Nigeria", 15, 80);
+            doc.setFontSize(10); 
+            doc.text(`EXECUTIVE: ${clientName.toUpperCase()}`, 15, 62);
+            doc.setFontSize(8); 
+            doc.setTextColor(100);
+            doc.text(`EMAIL: ${clientEmail}`, 15, 67); 
+            doc.text(`PHONE: ${clientPhone}`, 15, 72);
+            doc.setTextColor(0, 0, 0); 
+            doc.setFont(undefined, 'bold');
+            doc.text(`AIRCRAFT: ${aircraftLabel.toUpperCase()}`, 15, 77);
+            doc.setFont(undefined, 'normal'); 
+            doc.setTextColor(100);
+            doc.text("21 Lugard Avenue, Ikoyi Lagos, Nigeria", 15, 82);
 
             doc.autoTable({
                 startY: 90,
                 head: [['Flight Route', 'Date', 'Time', 'Estimated Cost (USD)']],
-                body: activeLegsData.map(l => [`${l.from} > ${l.to}`, l.date, l.time, `$${Math.round(l.cost).toLocaleString()}`]),
-                headStyles: { fillColor: [0, 0, 0] }, theme: 'striped'
+                body: activeLegsData.map(l => [`${l.from.toUpperCase()} > ${l.to.toUpperCase()}`, l.date, l.time, `$${Math.round(l.cost).toLocaleString()}`]),
+                headStyles: { fillColor: [0, 0, 0] }, 
+                theme: 'striped'
             });
 
             const finalY = doc.lastAutoTable.finalY;
-            doc.setFontSize(14); doc.setTextColor(24, 119, 242);
+            doc.setFontSize(14); 
+            doc.setTextColor(24, 119, 242);
             doc.text(`ESTIMATED RANGE: $${Math.round(currentTargetPrice).toLocaleString()} - $${Math.round(currentTargetPriceHigh).toLocaleString()}`, 15, finalY + 15);
 
-            doc.setFontSize(9); doc.setTextColor(0); doc.setFont(undefined, 'bold');
+            doc.setFontSize(9); 
+            doc.setTextColor(0); 
+            doc.setFont(undefined, 'bold');
             doc.text('"Architects of Certainty in Private Aviation"', pageWidth / 2, finalY + 32, { align: 'center' });
             
-            doc.setFont(undefined, 'italic'); doc.setFontSize(8); doc.setTextColor(80);
+            doc.setFont(undefined, 'italic'); 
+            doc.setFontSize(8); 
+            doc.setTextColor(80);
             doc.text('"Certainty is not Hope, it is Engineered Readiness"', pageWidth / 2, finalY + 40, { align: 'center' });
             
-            doc.setFont(undefined, 'normal'); doc.setFontSize(8); doc.setTextColor(100);
+            doc.setFont(undefined, 'normal'); 
+            doc.setFontSize(8); 
+            doc.setTextColor(100);
             const encouragement = [
                 "This document provides a highly accurate market estimate for your requested route.",
                 "Please use your Request ID to log into the VIP portal at portal.15dwings.com.ng",
@@ -1036,7 +1314,8 @@
             ];
             doc.text(encouragement, 15, finalY + 52);
 
-            doc.setFontSize(7); doc.setTextColor(150);
+            doc.setFontSize(7); 
+            doc.setTextColor(150);
             doc.text("24/7 SUPPORT: ops@15dwings.com.ng", 15, pageHeight - 15);
             doc.text("15dwings.com.ng | 15D Wings | Sky Party LTD (RC 8997727)", pageWidth - 15, pageHeight - 15, { align: 'right' });
             doc.text("TIN: 33695910-0001", pageWidth - 15, pageHeight - 11, { align: 'right' });
@@ -1044,13 +1323,16 @@
             doc.save(`15D-WINGS-EXECUTIVE-ESTIMATE-${serverMissionID}.pdf`);
         }
 
-        function handleExportClick() { if(serverMissionID) generatePDF(); else document.getElementById('export-error-msg').style.display = 'block'; }
+        function handleExportClick() { 
+            if(serverMissionID) generatePDF(); 
+            else document.getElementById('export-error-msg').style.display = 'block'; 
+        }
 
         let tourStep = 0;
         const tourData = [
-            { title: "Instant VIP Estimates", desc: "No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.", target: "price-val" },
-            { title: "Jet Selection & Protocol", desc: "Your price updates automatically based on the jet selected. Please note we strictly require a 72-hour notice to perfectly prepare your jet for departure.", target: "ac-class" },
-            { title: "Dashboard Passcode", desc: "Upon submitting, your Flight Request ID (e.g., 15D-XXXXX) serves as your password key to log into portal.15dwings.com.ng. There, you can directly select premium Experiential Flights.", target: "dispatch-btn" }
+            { title: "INSTANT VIP ESTIMATES", desc: "No waiting for brokers. See your estimated flight cost instantly across Nigeria and the world. Please note that the final cost includes a 5% certainty cost for guaranteeing certainty.", target: "price-val" },
+            { title: "JET SELECTION & PROTOCOL", desc: "Your price updates automatically based on the jet selected. Please note we strictly require a 72-hour notice to perfectly prepare your jet for departure.", target: "ac-class" },
+            { title: "DASHBOARD PASSCODE", desc: "Upon submitting, your Flight Request ID (e.g., 15D-XXXXX) serves as your password key to log into portal.15dwings.com.ng. There, you can directly select premium Experiential Flights.", target: "dispatch-btn" }
         ];
 
         function checkFirstVisit() {
@@ -1061,7 +1343,7 @@
         }
 
         updateTourUI = function() {
-            document.getElementById('tour-step-num').innerText = `Step ${tourStep + 1} of ${tourData.length}`;
+            document.getElementById('tour-step-num').innerText = `STEP ${tourStep + 1} OF ${tourData.length}`;
             document.getElementById('tour-title').innerText = tourData[tourStep].title;
             document.getElementById('tour-desc').innerText = tourData[tourStep].desc;
         }
@@ -1081,3 +1363,5 @@
     </script>
 </body>
 </html>
+
+
