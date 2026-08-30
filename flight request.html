@@ -392,7 +392,7 @@
                 <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" alt="15D WINGS Logo" class="h-16 md:h-20 w-auto object-contain">
                 <div>
                     <h1 class="monument text-3xl mb-1 text-slate-50">15D WINGS</h1>
-                    <p class="text-[0.65rem] tracking-[0.5em] text-fbblue font-black syncopate-uppercase">AVINODE-ENGINEERED DISPATCH V9.4.0</p>
+                    <p class="text-[0.65rem] tracking-[0.5em] text-fbblue font-black syncopate-uppercase">VIP PRIVATE JET BOOKING PORTAL V9.4.0</p>
                 </div>
             </div>
             <div class="flex flex-col items-center">
@@ -410,15 +410,15 @@
                 <span class="syncopate-uppercase text-[10px] text-fbblue font-bold tracking-wider block mb-2">REGIONAL CLEARANCE</span>
                 <span class="text-xs font-bold text-[#fcfbfa] block leading-relaxed mb-1 syncopate-uppercase">NIGERIA & GLOBAL DISPATCH</span>
                 <p class="text-[11px] text-slate-200 font-medium leading-relaxed lexend-text">
-                    Flight routing, clearance paths, dynamic tech-stops, and dispatch vectors powered by open-source GIS radar & Haversine metrics.
+                    Flight routing, clearance paths, dynamic tech-stops, and dispatch vectors powered by proprietary GIS radar metrics.
                 </p>
             </div>
             <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-6 pl-0 md:pl-4">
                 <div class="space-y-1">
                     <span class="syncopate-uppercase text-[9px] text-[#8B5CF6] font-bold block">STEP 01</span>
-                    <span class="text-xs font-bold text-[#fcfbfa] block syncopate-uppercase">HAVERSINE ROUTING</span>
+                    <span class="text-xs font-bold text-[#fcfbfa] block syncopate-uppercase">FLIGHT ROUTING</span>
                     <p class="text-[11px] text-slate-300 font-normal leading-relaxed lexend-text">
-                        Specify origins and destinations. Instant Great-Circle distance estimation with automatic tech-stop calculations.
+                        Specify origins and destinations. Instant geographical distance estimation with automatic tech-stop calculations.
                     </p>
                 </div>
                 <div class="space-y-1">
@@ -619,7 +619,7 @@
                 <div class="glass-panel p-10 text-center relative overflow-hidden">
                     <span class="monument text-[0.65rem] text-slate-300 mb-6 block font-black tracking-widest">ESTIMATED FLIGHT COST (USD)</span>
                     <div id="price-val" class="price-text">$0</div>
-                    <div id="confidence-tag" class="syncopate-uppercase text-[0.55rem] text-slate-400 mt-2 font-black tracking-wider">HAVERSINE DISPATCH INDEX CONFIRMED</div>
+                    <div id="confidence-tag" class="syncopate-uppercase text-[0.55rem] text-slate-400 mt-2 font-black tracking-wider">FINAL QUOTE IS SUBJECT TO CURRENT MARKET CONDITIONS (Repositioning Fees, Cabin Customizations)</div>
                 </div>
 
                 <!-- OPEN MAP CONTAINER -->
@@ -755,7 +755,7 @@
             <span class="step-indicator monument font-black" id="tour-step-num">STEP 1 OF 3</span>
             <h2 class="monument text-xl mb-4 text-white font-black" id="tour-title">INSTANT PRICING</h2>
             <p class="text-sm text-white opacity-95 mb-8 leading-relaxed font-semibold lexend-text" id="tour-desc">
-                No waiting for brokers. See your estimated flight cost instantly calculated using Haversine geodesic vectors across Nigeria and worldwide.
+                No waiting for brokers. See your estimated flight cost instantly across Nigeria and worldwide.
             </p>
             <button onclick="nextTourStep()" class="btn-luxury py-3 px-10 w-auto inline-block border border-white/20">NEXT STEP</button>
         </div>
@@ -1501,9 +1501,9 @@
 
         let tourStep = 0;
         const tourData = [
-            { title: "INSTANT VIP ESTIMATES", desc: "No waiting for brokers. See your estimated flight cost instantly calculated using Haversine geodesic vectors." },
-            { title: "JET SELECTION & TECH STOPS", desc: "If your route exceeds optimum range, tech refueling stops are calculated automatically with exact landing surcharge fees." },
-            { title: "MANIFEST & BOARDING", desc: "Specify adults, children, infants, pets, hazmat, and catering options for direct transmission to flight operations." }
+            { title: "INSTANT VIP ESTIMATES", desc: "No waiting for brokers. See your estimated flight cost instantly calculated across Nigeria and worldwide." },
+            { title: "JET SELECTION & TECH STOPS", desc: "If your route exceeds optimum range, tech refueling stops are calculated automatically with exact landing surcharge fees, also flights below 72 hours should be directed manually to the desk of the Chief Concierge." },
+            { title: "VIP ACCESS CODE", desc: "After successfully booking, the system generates a 15D-xxx Code that you will use with your email to login to the VIP Portal (vip.15dwings.com.ng) to select curated experiences, finalize the flight details and  make payment" }
         ];
 
         function checkFirstVisit() {
