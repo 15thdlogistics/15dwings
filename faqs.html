@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>15D WINGS | OPERATIONAL PROTOCOL</title>
+    <title>15D WINGS | MISSION ACTIVATION & OPERATIONAL POLICY</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
@@ -52,19 +52,21 @@
             100% { top: 105%; }
         }
 
-        .title-monument { font-family: 'Monument Extended', sans-serif; font-weight: 900; line-height: 1.1; text-transform: uppercase; color: #030507; letter-spacing: -0.02em; }
+        /* TYPOGRAPHY RULES FOR THE NEW POLICY */
+        .title-sync { font-family: 'Syncopate', sans-serif; font-weight: 400; line-height: 1.25; text-transform: uppercase; color: #030507; letter-spacing: 0.1em; }
+        .accent-monument { font-family: 'Monument Extended', sans-serif; font-weight: 900; text-transform: uppercase; color: #030507; letter-spacing: -0.01em; }
         .ui-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase !important; letter-spacing: 0.2em; font-weight: 700; }
         .body-lexend { font-family: 'Lexend', sans-serif; color: #374151; font-weight: 400; line-height: 1.7; }
         
         .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal-active { opacity: 1; transform: translateY(0); }
         
-        .section-tag { font-family: 'Syncopate', sans-serif; font-size: 9px; color: #1877F2; margin-bottom: 2rem; display: block; border-left: 2px solid #1877F2; padding-left: 10px; }
+        .section-tag { font-family: 'Syncopate', sans-serif; font-size: 9px; color: #1877F2; margin-bottom: 2rem; display: block; border-left: 2px solid #1877F2; padding-left: 10px; text-transform: uppercase; letter-spacing: 0.15em; }
         
         .protocol-card { background: white; border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; }
         
         @media (max-width: 768px) {
-            .title-monument { font-size: 2.25rem !important; line-height: 1.2; }
+            .title-sync { font-size: 1.75rem !important; line-height: 1.3; }
             .tech-grid { background-size: 20px 20px; }
             .nav-links { display: none; }
         }
@@ -75,11 +77,12 @@
     <div class="radar-line"></div>
 
     <nav class="fixed top-0 w-full z-[100] py-5 px-6 md:px-10 flex justify-between items-center bg-white/80 backdrop-blur-2xl border-b border-gray-100">
-        <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-5 md:h-6">
+        <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-5 md:h-6" alt="15D Wings">
         <div class="nav-links ui-sync text-[8px] space-x-6 hidden lg:flex">
             <a href="#admission" class="hover:text-fbblue transition">Admission</a>
             <a href="#confirmation" class="hover:text-fbblue transition">Confirmation</a>
             <a href="#continuity" class="hover:text-fbblue transition">Continuity</a>
+            <a href="#policy" class="hover:text-fbblue transition">Policy</a>
             <a href="/concierge" class="hover:text-fbblue transition">Concierge</a>
             <a href="/about" class="hover:text-fbblue transition">Legacy</a>
         </div>
@@ -91,7 +94,7 @@
             
             <header class="mb-24 md:mb-64 reveal">
                 <p class="ui-sync text-fbblue mb-6 text-[9px] md:text-[10px]">15D WINGS</p>
-                <h1 class="title-monument text-3xl md:text-8xl">CLIENT EXPERIENCE <br>& OPERATIONS</h1>
+                <h1 class="title-sync text-3xl md:text-7xl">CLIENT EXPERIENCE <br>& OPERATIONS <span class="accent-monument text-fbblue text-2xl md:text-6xl block mt-2">PROTOCOL</span></h1>
             </header>
 
             <section id="admission" class="mb-32 md:mb-64 reveal">
@@ -100,7 +103,7 @@
                 <div class="space-y-24 md:space-y-48">
                     <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
                         <div class="lg:col-span-5">
-                            <h2 class="title-monument text-xl md:text-5xl">How Does The <br class="hidden md:block">Process Begin?</h2>
+                            <h2 class="title-sync text-xl md:text-4xl">HOW DOES THE <br class="hidden md:block">PROCESS BEGIN?</h2>
                         </div>
                         <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-6 md:space-y-8">
                             <p>Every journey begins inside our planning system. Once we receive your request, our decision engines evaluate routing, aircraft suitability, timing sensitivity, regulatory requirements, and overall feasibility.</p>
@@ -111,7 +114,7 @@
 
                     <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
                         <div class="lg:col-span-5">
-                            <h2 class="title-monument text-xl md:text-5xl">Why Might A <br class="hidden md:block">Request Be Declined?</h2>
+                            <h2 class="title-sync text-xl md:text-4xl">WHY MIGHT A <br class="hidden md:block">REQUEST BE DECLINED?</h2>
                         </div>
                         <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-6 md:space-y-8">
                             <p>Occasionally, regulatory restrictions, aircraft positioning realities, or compressed timelines fall outside our execution standards.</p>
@@ -127,7 +130,7 @@
                 <div class="space-y-24 md:space-y-48">
                     <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
                         <div class="lg:col-span-5">
-                            <h2 class="title-monument text-xl md:text-5xl">The 48-Hour <br class="hidden md:block">Commitment</h2>
+                            <h2 class="title-sync text-xl md:text-4xl">THE 48-HOUR <br class="hidden md:block">COMMITMENT</h2>
                         </div>
                         <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-8 md:space-y-12">
                             <p>Around 48 hours prior to departure, your mission shifts from planning mode to commitment mode. This is the "Lock" phase.</p>
@@ -149,7 +152,7 @@
                 <div class="space-y-24 md:space-y-48">
                     <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
                         <div class="lg:col-span-5">
-                            <h2 class="title-monument text-xl md:text-5xl">The Continuity <br class="hidden md:block">Structure</h2>
+                            <h2 class="title-sync text-xl md:text-4xl">THE CONTINUITY <br class="hidden md:block">STRUCTURE</h2>
                         </div>
                         <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-8 md:space-y-12">
                             <p>If you choose to cancel or adjust your mission, funds are typically preserved as a <strong>Flight Credit</strong>. This keeps your access active within our operator network.</p>
@@ -173,8 +176,115 @@
                 </div>
             </section>
 
+            <section id="policy" class="mb-32 md:mb-64 reveal">
+                <span class="section-tag">IV. MISSION ACTIVATION, PLATFORM FEE & REFUND POLICY</span>
+                
+                <div class="space-y-16 md:space-y-24">
+                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
+                        <div class="lg:col-span-5">
+                            <h2 class="title-sync text-xl md:text-4xl">POLICY SPECIFICATIONS <br class="hidden md:block"><span class="accent-monument text-fbblue text-lg md:text-2xl">& TERMS</span></h2>
+                            <p class="body-lexend text-sm text-gray-500 mt-4">Company: Sky Party Ltd.<br>Product: 15D Wings™</p>
+                        </div>
+                        <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-12">
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">1. ABOUT THE SERVICE</h3>
+                                <p>15D Wings provides a digital platform and mission coordination service that connects clients with suitable private aviation supply.</p>
+                                <p class="mt-3">When a client submits a mission request, 15D Wings assesses the requirements, coordinates aircraft sourcing and obtains operator quotations for the proposed flight.</p>
+                                <p class="mt-3">Submitting a mission request does not guarantee aircraft availability or confirm a charter booking.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">2. PLATFORM FEE</h3>
+                                <p>15D Wings charges a Platform Fee calculated as 10% of the midpoint of the initial mission estimate.</p>
+                                <p class="mt-3">The estimate midpoint is generated by the 15D Wings pricing engine using the applicable pricing methodology and mission requirements.</p>
+                                <p class="mt-3">The Platform Fee is separate from the aircraft operator's charter quotation. The Platform Fee and its calculation will be disclosed to the client before payment.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">3. SOURCING ACTIVATION PAYMENT</h3>
+                                <p>To activate mission sourcing, the client pays an amount equivalent to 10% of the calculated Platform Fee. This payment is called the Sourcing Activation Payment.</p>
+                                <p class="mt-3">The Sourcing Activation Payment is part of the Platform Fee, not an additional charge.</p>
+                                <p class="mt-3">Where the client accepts the final operator quotation and proceeds with the mission, the activation payment is credited toward the total Platform Fee. The remaining Platform Fee is payable according to the mission payment instructions.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">4. WHAT THE ACTIVATION PAYMENT COVERS</h3>
+                                <p>The Sourcing Activation Payment activates the agreed mission sourcing and quotation coordination process. This includes:</p>
+                                <ul class="list-disc pl-5 mt-3 space-y-2">
+                                    <li>Review and validation of the mission request.</li>
+                                    <li>Assessment of aircraft requirements.</li>
+                                    <li>Identification of suitable supply options.</li>
+                                    <li>Coordination with relevant operators or authorised supply channels.</li>
+                                    <li>Collection and assessment of operator quotations.</li>
+                                    <li>Presentation of a recommended quotation and a suitable alternative where useful.</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">5. IF THE CLIENT DECLINES THE FINAL QUOTATION</h3>
+                                <p>If 15D Wings successfully obtains and presents a valid operator quotation that meets the disclosed mission requirements and the client decides not to proceed, the Sourcing Activation Payment becomes the earned sourcing fee.</p>
+                                <p class="mt-3">The activation payment is retained as consideration for the sourcing and quotation coordination service delivered. The client is not required to pay the remaining Platform Fee if the mission does not proceed.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">6. IF 15D WINGS CANNOT SOURCE A SUITABLE AIRCRAFT</h3>
+                                <p>If 15D Wings cannot obtain a suitable operator quotation for the requested mission, the Sourcing Activation Payment will be refunded. Any deduction for third-party expenses must be separately authorised by the client, documented and genuinely non-refundable.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">7. IF THE CLIENT WITHDRAWS BEFORE RECEIVING A QUOTATION</h3>
+                                <p>If the client withdraws before 15D Wings delivers a valid operator quotation, the Sourcing Activation Payment will be refunded, subject to separately authorised, documented non-refundable third-party expenses.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">8. MATERIAL CHANGES TO THE MISSION</h3>
+                                <p>Changes to the route, date, passenger requirements, aircraft category or other material mission specifications may affect the estimate and Platform Fee.</p>
+                                <p class="mt-3">Where a change materially affects the original mission scope, 15D Wings will provide a revised estimate and fee calculation for client approval before proceeding under the revised terms.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">9. FINAL OPERATOR QUOTATION</h3>
+                                <p>The initial mission estimate is indicative and is not a final charter price. The final operator quotation may vary due to aircraft availability, positioning, fuel, handling, taxes, permits, flight duration and other mission-specific requirements.</p>
+                                <p class="mt-3">15D Wings will communicate material pricing or operational variations before requesting the client's acceptance. The client may accept or decline the final quotation.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">10. MISSION CONFIRMATION</h3>
+                                <p>A mission is confirmed only after the applicable final quotation has been accepted, required payments have been completed and the relevant operator has confirmed the aircraft and mission arrangements.</p>
+                                <p class="mt-3">Payment of the Sourcing Activation Payment alone does not confirm an aircraft booking.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">11. OPERATOR AND OPERATIONAL RESPONSIBILITY</h3>
+                                <p>15D Wings coordinates digital mission processing and access to its supply network. The relevant aircraft operator remains responsible for aircraft operation, flight safety, flight planning, weather assessment, NOTAM assessment, alternate planning, regulatory compliance and other operational responsibilities within its remit.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">12. REFUNDS</h3>
+                                <p>Approved refunds will be processed through the original payment channel where reasonably possible. 15D Wings will communicate the approved amount and expected processing timeline.</p>
+                                <p class="mt-3">Any applicable payment-provider charges, exchange-rate differences or transfer costs that affect the refund will be explained.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">13. CLIENT ACKNOWLEDGEMENT</h3>
+                                <p>Before making payment, the client acknowledges that:</p>
+                                <ul class="list-disc pl-5 mt-3 space-y-2">
+                                    <li>The initial estimate is indicative.</li>
+                                    <li>The Platform Fee is calculated at 10% of the estimate midpoint.</li>
+                                    <li>The Sourcing Activation Payment is 10% of the Platform Fee.</li>
+                                    <li>The activation payment is credited toward the Platform Fee if the client proceeds.</li>
+                                    <li>The activation payment becomes the earned sourcing fee if a valid quotation is delivered and the client declines to proceed.</li>
+                                    <li>The activation payment is refundable if 15D Wings cannot source a suitable aircraft, subject to authorised and documented non-refundable expenses.</li>
+                                    <li>Final aircraft availability and charter pricing are subject to operator confirmation.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <footer class="mt-32 md:mt-64 pt-16 md:pt-32 border-t-2 border-nearblack reveal">
-                <h2 class="title-monument text-2xl md:text-7xl mb-12 md:mb-16">Steady. <br>Composed. <br>Predictable.</h2>
+                <h2 class="title-sync text-2xl md:text-6xl mb-12 md:mb-16">STEADY. <br>COMPOSED. <br><span class="accent-monument text-fbblue">PREDICTABLE.</span></h2>
                 <div class="grid lg:grid-cols-2 gap-12 md:gap-24">
                     <div class="body-lexend text-xl">
                         <p>We combine structured aviation decision systems with experienced human oversight.</p>
@@ -182,7 +292,7 @@
                         <p class="text-nearblack font-bold break-all text-base md:text-xl">concierge@15dwings.com.ng</p>
                     </div>
                     <div class="flex flex-col justify-end items-start lg:items-end space-y-6 md:space-y-8">
-                        <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-8 md:h-10">
+                        <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-8 md:h-10" alt="15D Wings">
                         <div class="text-left lg:text-right">
                             <p class="ui-sync text-[8px] md:text-[9px] text-nearblack mb-2 leading-loose">15D Wings is a trading name of <br class="md:hidden">Sky Party LTD RC 8997727</p>
                             <p class="ui-sync text-gray-400 text-[7px] md:text-[8px]">Architects of Certainty — © 2026</p>
