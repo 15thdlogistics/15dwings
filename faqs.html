@@ -1,19 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>15D WINGS™ | OPERATIONAL PROTOCOL & POLICY DIRECTORY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <title>15D WINGS™ | HOW WE WORK & REFUND POLICY</title>
     
+    <!-- Typography: Syncopate, Monument Extended, and Lexend -->
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { fbblue: '#1877F2', nearblack: '#030507', luxurygray: '#F9FAFB' },
+                    colors: { 
+                        fbblue: '#1877F2', 
+                        nearblack: '#030507', 
+                        luxurygray: '#F9FAFB' 
+                    },
                     fontFamily: { 
                         sync: ['Syncopate', 'sans-serif'], 
                         monument: ['Monument Extended', 'sans-serif'], 
@@ -25,8 +35,30 @@
     </script>
 
     <style>
-        body, html { margin: 0; padding: 0; background: #F9FAFB; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; overflow-x: hidden; }
+        /* Strict Zero Horizontal Overflow for iOS & Mobile */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            background: #F9FAFB;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        a, button {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
         
+        /* Tech Grid & Hardware-Accelerated Radar Line */
         .tech-grid {
             background-image: linear-gradient(rgba(24, 119, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 119, 242, 0.05) 1px, transparent 1px);
             background-size: 30px 30px;
@@ -44,29 +76,86 @@
             z-index: 1000;
             pointer-events: none;
             animation: radar-sweep 6s linear infinite;
+            will-change: transform;
         }
 
         @keyframes radar-sweep {
-            0% { top: -5%; }
-            100% { top: 105%; }
+            0% { transform: translate3d(0, -5vh, 0); }
+            100% { transform: translate3d(0, 105vh, 0); }
         }
 
-        .title-sync { font-family: 'Syncopate', sans-serif; font-weight: 400; line-height: 1.25; text-transform: uppercase; color: #030507; letter-spacing: 0.1em; }
-        .accent-monument { font-family: 'Monument Extended', sans-serif; font-weight: 900; text-transform: uppercase; color: #030507; letter-spacing: -0.01em; }
-        .ui-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase !important; letter-spacing: 0.2em; font-weight: 700; }
-        .body-lexend { font-family: 'Lexend', sans-serif; color: #374151; font-weight: 400; line-height: 1.7; }
+        /* Policy Typography Rules: Syncopate Regular All Caps, Monument Minimal Accent, Lexend Sentence Case Body */
+        .title-sync { 
+            font-family: 'Syncopate', sans-serif; 
+            font-weight: 400; 
+            line-height: 1.3; 
+            text-transform: uppercase; 
+            color: #030507; 
+            letter-spacing: 0.08em; 
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
         
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal-active { opacity: 1; transform: translateY(0); }
+        .accent-monument { 
+            font-family: 'Monument Extended', sans-serif; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            color: #030507; 
+            letter-spacing: -0.01em; 
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
         
-        .section-tag { font-family: 'Syncopate', sans-serif; font-size: 9px; color: #1877F2; margin-bottom: 2rem; display: block; border-left: 2px solid #1877F2; padding-left: 10px; text-transform: uppercase; letter-spacing: 0.15em; }
+        .ui-sync { 
+            font-family: 'Syncopate', sans-serif; 
+            text-transform: uppercase !important; 
+            letter-spacing: 0.16em; 
+            font-weight: 700; 
+        }
         
-        .protocol-card { background: white; border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; }
+        .body-lexend { 
+            font-family: 'Lexend', sans-serif; 
+            color: #1F2937; 
+            font-weight: 400; 
+            line-height: 1.75; 
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
         
+        /* Reveal Animations */
+        .reveal { 
+            opacity: 0; 
+            transform: translate3d(0, 20px, 0); 
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .reveal-active { 
+            opacity: 1; 
+            transform: translate3d(0, 0, 0); 
+        }
+        
+        .section-tag { 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 9px; 
+            color: #1877F2; 
+            margin-bottom: 1.5rem; 
+            display: block; 
+            border-left: 2px solid #1877F2; 
+            padding-left: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.15em; 
+        }
+        
+        .protocol-card { 
+            background: white; 
+            border: 1px solid rgba(0,0,0,0.06); 
+            padding: 1.25rem; 
+        }
+
+        /* Wrapping Mobile Quick-Jump Menu (No Left-to-Right Horizontal Slider) */
         @media (max-width: 768px) {
-            .title-sync { font-size: 1.75rem !important; line-height: 1.3; }
+            .title-sync { font-size: 1.35rem !important; line-height: 1.35; letter-spacing: 0.05em; }
+            .accent-monument { font-size: 1.25rem !important; line-height: 1.25; }
             .tech-grid { background-size: 20px 20px; }
-            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -74,293 +163,266 @@
 
     <div class="radar-line"></div>
 
-    <nav class="fixed top-0 w-full z-[100] py-5 px-6 md:px-10 flex justify-between items-center bg-white/80 backdrop-blur-2xl border-b border-gray-100">
-        <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-5 md:h-6" alt="15D Wings™">
-        <div class="nav-links ui-sync text-[8px] space-x-6 hidden lg:flex">
-            <a href="#admission" class="hover:text-fbblue transition">Admission</a>
-            <a href="#confirmation" class="hover:text-fbblue transition">Confirmation</a>
-            <a href="#continuity" class="hover:text-fbblue transition">Continuity</a>
-            <a href="#policy" class="hover:text-fbblue transition">Policy</a>
-            <a href="#assurance" class="hover:text-fbblue transition">Assurance</a>
-            <a href="/concierge" class="hover:text-fbblue transition">Concierge</a>
+    <!-- Fixed Navigation with iOS Safe Area Insets & Stacked Mobile Menu (No Horizontal Slider) -->
+    <nav class="fixed top-0 w-full z-[100] bg-white/95 backdrop-blur-2xl border-b border-gray-100" style="padding-top: env(safe-area-inset-top);">
+        <div class="py-3.5 px-4 md:px-10 flex justify-between items-center" style="padding-left: calc(1rem + env(safe-area-inset-left)); padding-right: calc(1rem + env(safe-area-inset-right));">
+            <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-5 md:h-6 shrink-0" alt="15D Wings™">
+            
+            <!-- Desktop Links -->
+            <div class="ui-sync text-[8px] space-x-5 hidden lg:flex">
+                <a href="#how-it-works" class="hover:text-fbblue transition">How It Works</a>
+                <a href="#fees-and-booking" class="hover:text-fbblue transition">Fees & Booking</a>
+                <a href="#sub-72-hour" class="hover:text-fbblue transition">Sub-72 Hour Policy</a>
+                <a href="#backup-and-force-majeure" class="hover:text-fbblue transition">Backup & Force Majeure</a>
+                <a href="#refunds-and-payouts" class="hover:text-fbblue transition">Refund Rules</a>
+            </div>
+
+            <a href="https://wings.15d.name.ng/flight-request" class="ui-sync text-[7px] md:text-[8px] bg-fbblue text-white px-4 md:px-6 py-2.5 md:py-3 rounded-none hover:bg-nearblack transition duration-300 shrink-0">Flight Request</a>
         </div>
-        <a href="https://wings.15d.name.ng/flight-request" class="ui-sync text-[7px] md:text-[8px] bg-fbblue text-white px-4 md:px-6 py-2.5 md:py-3 rounded-none hover:bg-nearblack transition duration-500">Flight Request</a>
+        
+        <!-- Mobile Section Quick-Jump Grid (Wraps cleanly on iPhone, zero horizontal scrolling) -->
+        <div class="lg:hidden border-t border-gray-100 bg-gray-50/95 px-4 py-2 flex flex-wrap gap-x-4 gap-y-1.5 ui-sync text-[7px] text-gray-600" style="padding-left: calc(1rem + env(safe-area-inset-left)); padding-right: calc(1rem + env(safe-area-inset-right));">
+            <a href="#how-it-works" class="hover:text-fbblue">1. How It Works</a>
+            <a href="#fees-and-booking" class="hover:text-fbblue">2. Fees & Refunds</a>
+            <a href="#sub-72-hour" class="hover:text-fbblue">3. Sub-72 Hour Policy</a>
+            <a href="#backup-and-force-majeure" class="hover:text-fbblue">4. Backup & Force Majeure</a>
+            <a href="#refunds-and-payouts" class="hover:text-fbblue">5. Payout Rules</a>
+        </div>
     </nav>
 
-    <main class="tech-grid pt-32 md:pt-64 pb-24 md:pb-48 px-6 md:px-8">
-        <div class="max-w-7xl mx-auto">
+    <!-- Main Content Container -->
+    <main class="tech-grid pt-40 md:pt-56 pb-20 md:pb-40 px-4 md:px-8" style="padding-left: calc(1rem + env(safe-area-inset-left)); padding-right: calc(1rem + env(safe-area-inset-right)); padding-bottom: calc(5rem + env(safe-area-inset-bottom));">
+        <div class="max-w-6xl mx-auto">
             
-            <header class="mb-24 md:mb-64 reveal">
-                <p class="ui-sync text-fbblue mb-6 text-[9px] md:text-[10px]">15D WINGS™</p>
-                <h1 class="title-sync text-3xl md:text-7xl">CLIENT EXPERIENCE <br>& OPERATIONS <span class="accent-monument text-fbblue text-2xl md:text-6xl block mt-2">PROTOCOL</span></h1>
+            <!-- Header -->
+            <header class="mb-20 md:mb-44 reveal">
+                <p class="ui-sync text-fbblue mb-4 text-[9px] md:text-[10px]">15D WINGS™</p>
+                <h1 class="title-sync text-2xl md:text-6xl">HOW WE WORK, <br>BOOKING RULES & <span class="accent-monument text-fbblue text-xl md:text-5xl block mt-2">REFUND POLICY</span></h1>
+                <p class="body-lexend text-base md:text-lg text-gray-600 mt-6 max-w-2xl">
+                    Clear, honest rules for booking a private flight with 15D Wings™. No hidden clauses, no confusing legal words—just straightforward facts on how we source your aircraft, protect your trip, and refund your money.
+                </p>
             </header>
 
-            <section id="admission" class="mb-32 md:mb-64 reveal">
-                <span class="section-tag">I. MISSION ADMISSION & FEASIBILITY</span>
+            <!-- ===================================================================== -->
+            <!-- SECTION 1: HOW IT WORKS (PLAIN ENGLISH)                               -->
+            <!-- ===================================================================== -->
+            <section id="how-it-works" class="mb-24 md:mb-44 reveal">
+                <span class="section-tag">SECTION 1 — HOW BOOKING WITH US WORKS</span>
                 
-                <div class="space-y-24 md:space-y-48">
-                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
-                        <div class="lg:col-span-5">
-                            <h2 class="title-sync text-xl md:text-4xl">HOW DOES THE <br class="hidden md:block">PROCESS BEGIN?</h2>
-                        </div>
-                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-6 md:space-y-8">
-                            <p>Every journey begins inside our planning system. Once we receive your request, our decision engines evaluate routing, aircraft suitability, timing sensitivity, regulatory requirements, and overall feasibility.</p>
-                            <p>This allows us to confirm — <strong>before anything is committed</strong> — that your mission can be executed smoothly. If something introduces avoidable risk, we’ll let you know early and suggest adjustments.</p>
-                            <p class="ui-sync text-fbblue font-bold text-[9px] md:text-[11px] pt-2">Our goal: If we accept it, we can deliver it.</p>
-                        </div>
+                <div class="grid lg:grid-cols-12 gap-8 md:gap-12">
+                    <div class="lg:col-span-5">
+                        <h2 class="title-sync text-xl md:text-3xl">1. OUR ROLE & <br class="hidden md:block">HOW WE SOURCE YOUR JET</h2>
                     </div>
+                    <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-6">
+                        <p><strong>What 15D Wings™ Does:</strong> 15D Wings™ (a trading name of Sky Party Ltd.) is a private flight coordination and booking platform. We do not own aircraft directly; instead, we connect you with licensed, government-approved private jet operators and manage every step of your trip from start to finish.</p>
+                        
+                        <p><strong>How We Check Your Trip First:</strong> Before you commit to a full flight payment, our system checks flight routes, airport rules, landing permits, aircraft availability, and timing. If a request is unsafe or impossible to operate on time, we tell you upfront so you never waste time or money.</p>
 
-                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
-                        <div class="lg:col-span-5">
-                            <h2 class="title-sync text-xl md:text-4xl">WHY MIGHT A <br class="hidden md:block">REQUEST BE DECLINED?</h2>
-                        </div>
-                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-6 md:space-y-8">
-                            <p>Occasionally, regulatory restrictions, aircraft positioning realities, or compressed timelines fall outside our execution standards.</p>
-                            <p>When that happens, we will either recommend an alternative or respectfully decline. We only move forward when we’re confident in the outcome.</p>
+                        <p><strong>What Happens If One Operator Says No:</strong> If the first aircraft operator declines your flight or cannot meet your schedule, you do not need to panic. Our system automatically switches to the next qualified aircraft operator in our network to secure your flight.</p>
+
+                        <div class="protocol-card border-l-4 border-l-fbblue">
+                            <p class="ui-sync text-fbblue text-[9px] mb-2">THE 48-HOUR LOCK</p>
+                            <p class="text-sm md:text-base text-gray-700">Once you accept a final price and pay in full—especially within 48 hours of departure—your aircraft, flight crew, fuel, and airport landing permits are permanently locked in for your trip.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="confirmation" class="mb-32 md:mb-64 reveal">
-                <span class="section-tag">II. 48-HOUR CONFIRMATION</span>
+            <!-- ===================================================================== -->
+            <!-- SECTION 2: FEES, ACTIVATION & FULL REFUND PROMISE                     -->
+            <!-- ===================================================================== -->
+            <section id="fees-and-booking" class="mb-24 md:mb-44 reveal">
+                <span class="section-tag">SECTION 2 — FEES & FULL REFUND GUARANTEE</span>
                 
-                <div class="space-y-24 md:space-y-48">
-                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
-                        <div class="lg:col-span-5">
-                            <h2 class="title-sync text-xl md:text-4xl">THE 48-HOUR <br class="hidden md:block">COMMITMENT</h2>
-                        </div>
-                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-8 md:space-y-12">
-                            <p>Around 48 hours prior to departure, your mission shifts from planning mode to commitment mode. This is the "Lock" phase.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Aircraft are Secured</div>
-                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Crew Finalized</div>
-                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Fueling & Handling</div>
-                                <div class="protocol-card ui-sync text-[8px] md:text-[9px] text-nearblack"><span class="text-fbblue mr-2">/</span> Permits Activated</div>
-                            </div>
-                            <p>Cleared funds allow our system to lock these elements in place and protect your departure window.</p>
-                        </div>
+                <div class="grid lg:grid-cols-12 gap-8 md:gap-12">
+                    <div class="lg:col-span-5">
+                        <h2 class="title-sync text-xl md:text-3xl">2. FEES, COMMITMENTS <br class="hidden md:block">& WHEN YOU GET YOUR MONEY BACK</h2>
                     </div>
-                </div>
-            </section>
-
-            <section id="continuity" class="mb-32 md:mb-64 reveal">
-                <span class="section-tag">III. CREDITS, CANCELLATIONS & CONTINUITY</span>
-                
-                <div class="space-y-24 md:space-y-48">
-                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
-                        <div class="lg:col-span-5">
-                            <h2 class="title-sync text-xl md:text-4xl">THE CONTINUITY <br class="hidden md:block">STRUCTURE</h2>
-                        </div>
-                        <div class="lg:col-span-7 body-lexend text-lg md:text-xl space-y-8 md:space-y-12">
-                            <p>If you choose to cancel or adjust your mission, funds are typically preserved as a <strong>Flight Credit</strong>. This keeps your access active within our operator network.</p>
+                    <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-8">
+                        
+                        <div class="space-y-4">
+                            <p><strong>1. Platform Fee (10%):</strong> When you ask for a flight, we give you an estimated price range. Our Platform Fee is 10% of the middle point of that estimate. This fee is separate from the aircraft owner's charter price and is shown to you clearly before you pay.</p>
                             
-                            <div class="space-y-8 md:space-y-12 border-l-2 border-fbblue/20 pl-6 md:pl-12">
-                                <div>
-                                    <p class="ui-sync text-fbblue text-[8px] md:text-[9px] mb-3">Voluntary Changes</p>
-                                    <p class="text-base md:text-lg">Funds remain as flight credit. Cash reimbursement is not standard in these cases.</p>
-                                </div>
-                                <div>
-                                    <p class="ui-sync text-fbblue text-[8px] md:text-[9px] mb-3">Execution Failure</p>
-                                    <p class="text-base md:text-lg">If we are unable to execute and no viable alternative exists: operator fees are returned. <strong>Platform planning and oversight fees remain earned</strong> once operational coordination has begun.</p>
-                                </div>
-                                <div>
-                                    <p class="ui-sync text-fbblue text-[8px] md:text-[9px] mb-3">Unused Credits</p>
-                                    <p class="text-base md:text-lg">After a defined window, partial reimbursement may be requested. Administrative adjustments apply.</p>
-                                </div>
+                            <p><strong>2. Sourcing Activation Payment (Commitment Fee):</strong> To start searching for your aircraft and locking in real quotes from operators, you pay 10% of our Platform Fee upfront. This is not an extra charge—if you go ahead with the flight, this deposit is deducted from your total Platform Fee.</p>
+
+                            <p><strong>3. Mission Contingency Reserve:</strong> Every confirmed flight includes a small safety reserve fund used only if an emergency backup plane or last-minute ground support is needed during your trip. If your flight goes smoothly and we do not touch this reserve fund, <strong>we refund 100% of the unused reserve money back to you</strong> within 1 to 5 business days after your flight lands.</p>
+                        </div>
+
+                        <!-- Mobile-Friendly Stacked Cards (No Horizontal Slider Needed!) -->
+                        <div class="space-y-4 pt-2">
+                            <p class="ui-sync text-[9px] text-nearblack">CLEAR REFUND RULES FOR STANDARD BOOKINGS (OVER 72 HOURS BEFORE FLIGHT)</p>
+                            
+                            <div class="protocol-card border-l-4 border-l-green-600">
+                                <p class="font-semibold text-nearblack text-base">We cannot find a suitable aircraft for your flight</p>
+                                <p class="text-sm text-gray-700 mt-1"><strong>100% Full Refund:</strong> Every kobo/dollar of your commitment and activation payment is refunded to you immediately.</p>
+                            </div>
+
+                            <div class="protocol-card border-l-4 border-l-green-600">
+                                <p class="font-semibold text-nearblack text-base">The price we bring back is higher than your stated budget and you reject it</p>
+                                <p class="text-sm text-gray-700 mt-1"><strong>100% Full Refund:</strong> You get 100% of your commitment payment back with zero deductions from us.</p>
+                            </div>
+
+                            <div class="protocol-card border-l-4 border-l-green-600">
+                                <p class="font-semibold text-nearblack text-base">We find a jet within your budget, and you reject it</p>
+                                <p class="text-sm text-gray-700 mt-1"><strong>No Penalty:</strong> Your activation payment is either refunded to you or held toward your next trip—your choice.</p>
+                            </div>
+
+                            <div class="protocol-card border-l-4 border-l-amber-500">
+                                <p class="font-semibold text-nearblack text-base">You cancel before we bring you any aircraft quote</p>
+                                <p class="text-sm text-gray-700 mt-1"><strong>Full Refund:</strong> Your activation payment is refunded, minus only third-party expenses you already approved in writing.</p>
+                            </div>
+
+                            <div class="protocol-card border-l-4 border-l-red-600">
+                                <p class="font-semibold text-nearblack text-base">You accept our sourcing terms, we get the jet, and you simply change your mind</p>
+                                <p class="text-sm text-gray-700 mt-1"><strong>Sourcing Fee Kept:</strong> Because we did the work to secure the aircraft, the initial sourcing activation fee is kept, and any remaining balance you paid is refunded.</p>
+                            </div>
+
+                            <div class="protocol-card border-l-4 border-l-nearblack">
+                                <p class="font-semibold text-nearblack text-base">You accept the final quote, pay in full, and cancel after the plane is booked</p>
+                                <p class="text-sm text-gray-700 mt-1"><strong>Operator Rules Apply:</strong> Once the aircraft owner has reserved the jet and crew for you, the aircraft operator's cancellation terms apply.</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
 
-            <section id="policy" class="mb-32 md:mb-64 reveal">
-                <span class="section-tag">IV. MISSION ACTIVATION, PLATFORM FEE & REFUND POLICY</span>
+            <!-- ===================================================================== -->
+            <!-- SECTION 3: STANDALONE SUB-72 HOUR POLICY                              -->
+            <!-- ===================================================================== -->
+            <section id="sub-72-hour" class="mb-24 md:mb-44 reveal">
+                <span class="section-tag">SECTION 3 — SUB-72 HOUR POLICY (URGENT & LAST-MINUTE FLIGHTS)</span>
                 
-                <div class="space-y-16 md:space-y-24">
-                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
-                        <div class="lg:col-span-5">
-                            <h2 class="title-sync text-xl md:text-4xl">POLICY SPECIFICATIONS <br class="hidden md:block"><span class="accent-monument text-fbblue text-lg md:text-2xl">& TERMS</span></h2>
-                            <p class="body-lexend text-sm text-gray-500 mt-4">Company: Sky Party Ltd.<br>Product: 15D Wings™</p>
+                <div class="grid lg:grid-cols-12 gap-8 md:gap-12">
+                    <div class="lg:col-span-5">
+                        <h2 class="title-sync text-xl md:text-3xl">3. SUB-72 HOUR <br class="hidden md:block">URGENT BOOKING <span class="accent-monument text-fbblue text-lg md:text-2xl block mt-2">POLICY</span></h2>
+                        <p class="body-lexend text-sm text-gray-500 mt-4">Applies to all flight requests made less than 72 hours (3 days) before takeoff.</p>
+                    </div>
+                    <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-10">
+                        
+                        <p>When you book a private flight with less than 72 hours' notice, our team has to move immediately to check live aircraft positions, crew duty hours, fuel availability, and airport permits. Because urgent flights work differently from advance bookings, they are divided into two clear lanes:</p>
+
+                        <!-- LANE A -->
+                        <div class="protocol-card border-t-4 border-t-fbblue space-y-4">
+                            <p class="ui-sync text-fbblue text-[9px] md:text-[10px]">LANE A: 24 TO 72 HOURS BEFORE DEPARTURE</p>
+                            
+                            <p><strong>1. Quick Decision Window (2 Hours):</strong> Because aircraft availability changes every minute on short notice, once we send you a valid aircraft quote within your budget, you have <strong>2 hours</strong> to accept or reject it. If you reject the quote within 2 hours, your activation commitment is refunded (minus bank/FX charges).</p>
+                            
+                            <p><strong>2. Full Commitment Protection:</strong> If we cannot source a suitable aircraft for your 24–72 hour trip, 100% of your commitment payment is refunded.</p>
+
+                            <p><strong>3. Last-Minute Operator Cancellation Protection (24–48 Hour Window):</strong> Once you accept a 24–48 hour quote and confirm the flight, our 180-Minute Backup Guarantee is active. If the aircraft owner cancels last minute or the plane develops a technical fault before takeoff, we will deploy an equivalent replacement aircraft within 180 minutes (3 hours). If we cannot get a replacement plane within 180 minutes, you receive a <strong>100% cash refund</strong> of your Mission Contingency Fund and all unused charter money.</p>
                         </div>
-                        <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-12">
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">1. ABOUT THE SERVICE</h3>
-                                <p>15D Wings™ provides a digital platform and mission coordination service that connects clients with suitable private aviation supply.</p>
-                                <p class="mt-3">When a client submits a mission request, 15D Wings™ assesses the requirements, coordinates aircraft sourcing and obtains operator quotations for the proposed flight.</p>
-                                <p class="mt-3">Submitting a mission request does not guarantee aircraft availability or confirm a charter booking.</p>
-                            </div>
 
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">2. PLATFORM FEE</h3>
-                                <p>15D Wings™ charges a Platform Fee calculated as 10% of the midpoint of the initial mission estimate.</p>
-                                <p class="mt-3">The estimate midpoint is generated by the 15D Wings™ pricing engine using the applicable pricing methodology and mission requirements.</p>
-                                <p class="mt-3">The Platform Fee is separate from the aircraft operator's charter quotation. The Platform Fee and its calculation will be disclosed to the client before payment.</p>
-                            </div>
+                        <!-- LANE B -->
+                        <div class="protocol-card border-t-4 border-t-nearblack space-y-4">
+                            <p class="ui-sync text-nearblack text-[9px] md:text-[10px]">LANE B: SAME-DAY FLIGHTS (UNDER 24 HOURS BEFORE DEPARTURE)</p>
+                            
+                            <p>Same-day flights have zero room for delay and require immediate emergency work from our dispatch team.</p>
 
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">3. SOURCING ACTIVATION PAYMENT</h3>
-                                <p>To activate mission sourcing, the client pays an amount equivalent to 10% of the calculated Platform Fee. This payment is called the Sourcing Activation Payment.</p>
-                                <p class="mt-3">The Sourcing Activation Payment is part of the Platform Fee, not an additional charge.</p>
-                                <p class="mt-3">Where the client accepts the final operator quotation and proceeds with the mission, the activation payment is credited toward the total Platform Fee. The remaining Platform Fee is payable according to the mission payment instructions.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">4. WHAT THE ACTIVATION PAYMENT COVERS</h3>
-                                <p>The Sourcing Activation Payment activates the agreed mission sourcing and quotation coordination process. This includes:</p>
-                                <ul class="list-disc pl-5 mt-3 space-y-2">
-                                    <li>Review and validation of the mission request.</li>
-                                    <li>Assessment of aircraft requirements.</li>
-                                    <li>Identification of suitable supply options.</li>
-                                    <li>Coordination with relevant operators or authorised supply channels.</li>
-                                    <li>Collection and assessment of operator quotations.</li>
-                                    <li>Presentation of a recommended quotation and a suitable alternative where useful.</li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">5. IF THE CLIENT DECLINES THE FINAL QUOTATION</h3>
-                                <p>If 15D Wings™ successfully obtains and presents a valid operator quotation that meets the disclosed mission requirements and the client decides not to proceed, the Sourcing Activation Payment becomes the earned sourcing fee.</p>
-                                <p class="mt-3">The activation payment is retained as consideration for the sourcing and quotation coordination service delivered. The client is not required to pay the remaining Platform Fee if the mission does not proceed.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">6. IF 15D WINGS CANNOT SOURCE A SUITABLE AIRCRAFT</h3>
-                                <p>If 15D Wings™ cannot obtain a suitable operator quotation for the requested mission, the Sourcing Activation Payment will be refunded. Any deduction for third-party expenses must be separately authorised by the client, documented and genuinely non-refundable.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">7. IF THE CLIENT WITHDRAWS BEFORE RECEIVING A QUOTATION</h3>
-                                <p>If the client withdraws before 15D Wings™ delivers a valid operator quotation, the Sourcing Activation Payment will be refunded, subject to separately authorised, documented non-refundable third-party expenses.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">8. MATERIAL CHANGES TO THE MISSION</h3>
-                                <p>Changes to the route, date, passenger requirements, aircraft category or other material mission specifications may affect the estimate and Platform Fee.</p>
-                                <p class="mt-3">Where a change materially affects the original mission scope, 15D Wings™ will provide a revised estimate and fee calculation for client approval before proceeding under the revised terms.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">9. FINAL OPERATOR QUOTATION</h3>
-                                <p>The initial mission estimate is indicative and is not a final charter price. The final operator quotation may vary due to aircraft availability, positioning, fuel, handling, taxes, permits, flight duration and other mission-specific requirements.</p>
-                                <p class="mt-3">15D Wings™ will communicate material pricing or operational variations before requesting the client's acceptance. The client may accept or decline the final quotation.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">10. MISSION CONFIRMATION</h3>
-                                <p>A mission is confirmed only after the applicable final quotation has been accepted, required payments have been completed and the relevant operator has confirmed the aircraft and mission arrangements.</p>
-                                <p class="mt-3">Payment of the Sourcing Activation Payment alone does not confirm an aircraft booking.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">11. OPERATOR AND OPERATIONAL RESPONSIBILITY</h3>
-                                <p>15D Wings™ coordinates digital mission processing and access to its supply network. The relevant aircraft operator remains responsible for aircraft operation, flight safety, flight planning, weather assessment, NOTAM assessment, alternate planning, regulatory compliance and other operational responsibilities within its remit.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">12. REFUNDS</h3>
-                                <p>Approved refunds will be processed through the original payment channel where reasonably possible. 15D Wings™ will communicate the approved amount and expected processing timeline.</p>
-                                <p class="mt-3">Any applicable payment-provider charges, exchange-rate differences or transfer costs that affect the refund will be explained.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">13. CLIENT ACKNOWLEDGEMENT</h3>
-                                <p>Before making payment, the client acknowledges that:</p>
-                                <ul class="list-disc pl-5 mt-3 space-y-2">
-                                    <li>The initial estimate is indicative.</li>
-                                    <li>The Platform Fee is calculated at 10% of the estimate midpoint.</li>
-                                    <li>The Sourcing Activation Payment is 10% of the Platform Fee.</li>
-                                    <li>The activation payment is credited toward the Platform Fee if the client proceeds.</li>
-                                    <li>The activation payment becomes the earned sourcing fee if a valid quotation is delivered and the client declines to proceed.</li>
-                                    <li>The activation payment is refundable if 15D Wings™ cannot source a suitable aircraft, subject to authorised and documented non-refundable expenses.</li>
-                                    <li>Final aircraft availability and charter pricing are subject to operator confirmation.</li>
-                                </ul>
-                            </div>
+                            <ul class="list-disc pl-5 space-y-3 text-sm md:text-base">
+                                <li><strong>Compulsory $160 Flat Same-Day Sourcing Fee:</strong> Every same-day flight request requires an upfront flat fee of <strong>$160</strong> (or the exact Naira equivalent at the current market rate) before we begin calling operators.</li>
+                                <li><strong>Strictly Non-Refundable:</strong> This $160 fee is earned immediately the moment we start working on your request. It is <strong>non-refundable</strong> whether we find an available plane or not. It pays for emergency operator calls, live crew checks, airport night-curfew checks, and airspace clearance verification.</li>
+                                <li><strong>Honest Written Report If No Jet Is Available:</strong> Even if every aircraft is booked or an airport is closed, we will never leave you guessing. You will receive a written operational report showing the exact reason (for example, airport runway closure, destination sunset curfew, or zero crew availability).</li>
+                                <li><strong>Moving to Your Actual Flight:</strong> This $160 fee is separate from your aircraft charter price. Once we find your plane and you pay for the flight, all our normal backup and refund protections apply.</li>
+                            </ul>
                         </div>
+
                     </div>
                 </div>
             </section>
 
-            <section id="assurance" class="mb-32 md:mb-64 reveal">
-                <span class="section-tag">V. MISSION ASSURANCE & CONTINGENCY FUND POLICY</span>
+            <!-- ===================================================================== -->
+            <!-- SECTION 4: BACKUP GUARANTEE & FORCE MAJEURE DEFINITIONS               -->
+            <!-- ===================================================================== -->
+            <section id="backup-and-force-majeure" class="mb-24 md:mb-44 reveal">
+                <span class="section-tag">SECTION 4 — BACKUP AIRCRAFT GUARANTEE & FORCE MAJEURE</span>
                 
-                <div class="space-y-16 md:space-y-24">
-                    <div class="grid lg:grid-cols-12 gap-8 md:gap-16">
-                        <div class="lg:col-span-5">
-                            <h2 class="title-sync text-xl md:text-4xl">MISSION ASSURANCE <br class="hidden md:block"><span class="accent-monument text-fbblue text-lg md:text-2xl">& CONTINGENCY</span></h2>
-                            <p class="body-lexend text-sm text-gray-500 mt-4">15D WINGS™ — ARCHITECTING CERTAINTY</p>
+                <div class="grid lg:grid-cols-12 gap-8 md:gap-12">
+                    <div class="lg:col-span-5">
+                        <h2 class="title-sync text-xl md:text-3xl">4. BACKUP JETS & <br class="hidden md:block">FORCE MAJEURE <span class="accent-monument text-fbblue text-lg md:text-2xl block mt-2">EXCEPTIONS</span></h2>
+                    </div>
+                    <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-8">
+                        
+                        <div>
+                            <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">OUR 180-MINUTE BACKUP GUARANTEE</h3>
+                            <p>If your assigned aircraft develops a mechanical problem (Aircraft On Ground / AOG) or the operator cancels after your flight is confirmed, 15D Wings™ automatically triggers our emergency backup plan to provide a similar replacement aircraft within <strong>180 minutes (3 hours)</strong>.</p>
+                            <p class="mt-3"><strong>If We Fail to Provide a Backup Plane:</strong> If a technical breakdown happens and we cannot deploy a replacement aircraft within 180 minutes, we refund <strong>100% of your Mission Contingency Reserve</strong> plus all unutilized flight funds straight back to your account.</p>
                         </div>
-                        <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-12">
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">1. PURPOSE & ASSURANCE OBLIGATION</h3>
-                                <p>Every flight mission booked through 15D Wings™ is subject to a Mission Assurance obligation.</p>
-                                <p class="mt-3">The Mission Contingency Fund supports this obligation by providing for the coordination, readiness assurance, and operational continuity measures required to sustain the mission from activation through execution.</p>
-                                <p class="mt-3">It is an integral component of the 15D Wings™ service, providing dedicated risk buffering, real-time oversight, and financial assurance across all operational flight pathways.</p>
-                            </div>
 
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">2. ONBOARDING & PASSENGER MANIFEST VERIFICATION</h3>
-                                <p>During client onboarding inside the VIP app and dashboard platform, detailed passenger information is captured to ensure full compliance and security protocols.</p>
-                                <p class="mt-3">Clients specify whether they are booking directly for themselves or authorizing a third-party passenger:</p>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                    <div class="protocol-card border-l-4 border-l-fbblue">
-                                        <p class="ui-sync text-fbblue text-[8px] md:text-[9px] mb-2">Self Booking</p>
-                                        <p class="body-lexend text-xs text-gray-700">Passenger manifest details must tally exactly with the verified client account details.</p>
-                                    </div>
-                                    <div class="protocol-card border-l-4 border-l-nearblack">
-                                        <p class="ui-sync text-nearblack text-[8px] md:text-[9px] mb-2">Third-Party Booking</p>
-                                        <p class="body-lexend text-xs text-gray-700">Triggered extra verification layer to validate passenger authorization and data provenance.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">3. FUND APPLICATION & MOBILIZATION</h3>
-                                <p>The fund supports authorized mission-related contingency and continuity requirements. These measures ensure mission readiness under all operating conditions:</p>
-                                <ul class="list-disc pl-5 mt-3 space-y-2">
-                                    <li>Operator mobilization and positioning.</li>
-                                    <li>Replacement recovery arrangements.</li>
-                                    <li>Continuity operations to maintain execution pathways.</li>
-                                </ul>
-                                <p class="mt-3">All applications are managed against the specific mission and remain strictly subject to formal authorization and financial controls.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">4. DISRUPTION AND CONTINUITY</h3>
-                                <p>Where the originally assigned operator remains ready and the mission proceeds as planned, the Mission Assurance obligation has still been actively performed.</p>
-                                <p class="mt-3">Where a disruption affects the original execution arrangement, 15D Wings™ applies its continuity procedures to assess and coordinate an appropriate alternative where available.</p>
-                                <p class="mt-3">The occurrence of a disruption is therefore not a sole condition for service value; the assurance wrapper active during flight timing provides continuous coverage.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">5. FUND EARNING, REFUNDS & AUDIT RECONCILIATION</h3>
-                                <p>The Mission Contingency Fund operates as a transparent, auditable mechanism. The fund is refundable to the degree that it is used, backed by complete audits, records, and financial reporting.</p>
-                                <p class="mt-3">Once the applicable assurance service has been activated, the agreed fund is earned in consideration of that obligation, and post-mission reconciliation determines exact refund allocations for unutilized contingency balances.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="title-sync text-sm md:text-base text-nearblack mb-3">6. MISSION-SPECIFIC ADMINISTRATION</h3>
-                                <p>The fund is allocated and administered exclusively in connection with the relevant flight mission. Its application is strictly subject to agreed mission terms and governance frameworks.</p>
-                                <p class="mt-3">15D Wings™ maintains complete, immutable records of all authorized applications, receipts, and mission-related financial activity within the client dashboard.</p>
-                            </div>
+                        <div class="protocol-card border-l-4 border-l-red-600 space-y-4">
+                            <p class="ui-sync text-red-600 text-[9px] md:text-[10px]">FORCE MAJEURE (EVENTS BEYOND HUMAN CONTROL THAT GROUND ALL AIRCRAFT)</p>
+                            <p class="text-sm md:text-base">Our 180-minute replacement guarantee applies to operator and aircraft issues. However, 15D Wings™ cannot be held responsible for delays or cancellations caused by <strong>Force Majeure</strong>—extreme events outside our control that legally or physically ground all planes. Force Majeure includes:</p>
+                            <ul class="list-disc pl-5 space-y-2 text-sm md:text-base text-gray-700">
+                                <li><strong>Severe Weather & Natural Disasters:</strong> Harmattan dust storms with zero visibility, heavy thunderstorms, flooding, hurricanes, volcanic ash, or earthquakes that make flying unsafe.</li>
+                                <li><strong>Government & Aviation Authority Shutdowns:</strong> Sudden airspace closures, runway shutdowns, or flight bans ordered by NCAA, NAMA, FAAN, or foreign aviation authorities.</li>
+                                <li><strong>War, Civil Unrest & Security Emergencies:</strong> Armed conflict, terrorism, riots, curfews, strikes, or sudden VIP/presidential airspace lockdowns that halt airport operations.</li>
+                                <li><strong>Airport Infrastructure & National Fuel Crises:</strong> Sudden airport power outages, air traffic control radar failures, or nationwide aviation fuel (Jet A-1) shortages affecting all operators at an airport.</li>
+                                <li><strong>Public Health Emergencies:</strong> Sudden pandemics, quarantine orders, or government border closures.</li>
+                            </ul>
+                            <p class="text-sm text-gray-600 pt-2">When a Force Majeure event grounds all aircraft, we will work with the operator to reschedule your flight as soon as the skies reopen, or process a refund of unutilized funds in line with operator and regulatory rules.</p>
                         </div>
+
                     </div>
                 </div>
             </section>
 
-            <footer class="mt-32 md:mt-64 pt-16 md:pt-32 border-t-2 border-nearblack reveal">
-                <h2 class="title-sync text-2xl md:text-6xl mb-12 md:mb-16">STEADY. <br>COMPOSED. <br><span class="accent-monument text-fbblue">PREDICTABLE.</span></h2>
-                <div class="grid lg:grid-cols-2 gap-12 md:gap-24">
-                    <div class="body-lexend text-xl">
-                        <p>We combine structured aviation decision systems with experienced human oversight.</p>
-                        <p class="mt-8 text-[9px] ui-sync text-fbblue">Contact</p>
+            <!-- ===================================================================== -->
+            <!-- SECTION 5: HOW & WHEN YOU GET PAID BACK (MULTI-ASSET & TIMELINES)     -->
+            <!-- ===================================================================== -->
+            <section id="refunds-and-payouts" class="mb-24 md:mb-44 reveal">
+                <span class="section-tag">SECTION 5 — REFUND TIMELINES, CURRENCIES & BANK ACCOUNTS</span>
+                
+                <div class="grid lg:grid-cols-12 gap-8 md:gap-12">
+                    <div class="lg:col-span-5">
+                        <h2 class="title-sync text-xl md:text-3xl">5. HOW FAST WE <br class="hidden md:block">REFUND YOUR MONEY</h2>
+                    </div>
+                    <div class="lg:col-span-7 body-lexend text-base md:text-lg space-y-8">
+                        
+                        <p>Whenever you are owed a refund—whether because we could not find an aircraft, you declined a quote within your allowed time, or your flight finished without using the contingency reserve—here is exactly how your money is returned:</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="protocol-card border-l-4 border-l-fbblue">
+                                <p class="ui-sync text-fbblue text-[9px] mb-2">SAME-DAY (WITHIN 24 HOURS)</p>
+                                <p class="text-sm text-gray-700">Refunds paid in <strong>Stablecoins (USDT or USDC)</strong> are sent to your verified crypto wallet within 24 hours of approval.</p>
+                            </div>
+                            <div class="protocol-card border-l-4 border-l-nearblack">
+                                <p class="ui-sync text-nearblack text-[9px] mb-2">1 TO 5 BUSINESS DAYS</p>
+                                <p class="text-sm text-gray-700">Refunds paid via bank transfer—<strong>Naira (NGN)</strong>, <strong>US Dollars (USD) wire</strong>, or <strong>ACH</strong>—arrive within 1 to 5 business days.</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 text-sm md:text-base">
+                            <p><strong>Currencies Available (Direct Clients):</strong> If you booked directly for yourself or your company, you can receive your refund in <strong>Naira (NGN)</strong> (converted at the live market exchange rate on the day of payout), <strong>US Dollars (USD)</strong> via bank wire/ACH, or <strong>USDT/USDC</strong>.</p>
+                            
+                            <p><strong>Bank & Exchange Charges:</strong> In all refund payouts, standard third-party bank transfer fees, payment gateway fees, and foreign exchange (FX) conversion charges are deducted from the refunded amount.</p>
+
+                            <p><strong>Where Your Refund Goes:</strong> During sign-up (onboarding), the person or company booking the flight must provide a verified bank account or wallet address. All refunds are paid strictly back into that exact registered account.</p>
+
+                            <p><strong>Legal & Banking Compliance:</strong> All Naira, USD, and stablecoin payouts follow Nigerian and international banking laws, including rules set by the Central Bank of Nigeria (CBN), NFIU, SEC, and Anti-Money Laundering (AML) regulations.</p>
+
+                            <p><strong>Need Help With a Refund?</strong> If any approved refund takes longer than 5 business days, email our operations team immediately at <a href="mailto:ops@15dwings.com.ng" class="text-fbblue font-semibold underline break-all">ops@15dwings.com.ng</a> so we can resolve it right away.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================================== -->
+            <!-- FOOTER                                                                -->
+            <!-- ===================================================================== -->
+            <footer class="mt-24 md:mt-44 pt-12 md:pt-24 border-t-2 border-nearblack reveal">
+                <h2 class="title-sync text-2xl md:text-5xl mb-10 md:mb-14">15D WINGS™ <br><span class="accent-monument text-fbblue">ARCHITECTING CERTAINTY.</span></h2>
+                <div class="grid lg:grid-cols-2 gap-10 md:gap-20">
+                    <div class="body-lexend text-base md:text-lg">
+                        <p>Private aviation backed by clear rules, honest pricing, and dependable flight operations.</p>
+                        <p class="mt-6 text-[9px] ui-sync text-fbblue">Operations & Refund Desk</p>
                         <p class="text-nearblack font-bold break-all text-base md:text-xl">ops@15dwings.com.ng</p>
                     </div>
-                    <div class="flex flex-col justify-end items-start lg:items-end space-y-6 md:space-y-8">
+                    <div class="flex flex-col justify-end items-start lg:items-end space-y-6">
                         <img src="https://uploads.onecompiler.io/43z22g7dk/44b5wdtpn/1000301979.png" class="h-8 md:h-10" alt="15D Wings™">
                         <div class="text-left lg:text-right">
                             <p class="ui-sync text-[8px] md:text-[9px] text-nearblack mb-2 leading-loose">15D Wings™ is a trading name of <br class="md:hidden">Sky Party LTD RC 8997727</p>
-                            <p class="ui-sync text-gray-400 text-[7px] md:text-[8px]">Architects of Certainty — © 2026</p>
+                            <p class="ui-sync text-gray-400 text-[7px] md:text-[8px]">Architecting Certainty — © 2026</p>
                         </div>
                     </div>
                 </div>
@@ -369,14 +431,29 @@
         </div>
     </main>
 
+    <!-- iOS-Optimized Reveal Observer -->
     <script>
         function initReveal() {
+            if (!('IntersectionObserver' in window)) {
+                document.querySelectorAll('.reveal').forEach(el => el.classList.add('reveal-active'));
+                return;
+            }
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('reveal-active'); });
-            }, { threshold: 0.05 });
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.02, rootMargin: '0px 0px -20px 0px' });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
-        window.onload = initReveal;
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initReveal);
+        } else {
+            initReveal();
+        }
     </script>
 </body>
 </html>
